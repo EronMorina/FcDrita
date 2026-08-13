@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Paneli i klubit — FC Drita</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0a1733;--navy2:#0c1d40;--card:#11244e;--card2:#0e1f44;--line:rgba(255,255,255,.10);
+    --white:#fff;--bone:#dde5f4;--mute:#90a2c6;--blue:#2f6bff;--blue2:#5688ff;--blue-soft:rgba(47,107,255,.16);
+    --gold:#efb13c;--live:#ff5470;--ok:#37d399;--maxw:1240px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--navy);color:var(--bone);font-family:"Inter",system-ui,sans-serif;line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+/* ---------- ADMIN SHELL ---------- */
+  .ashell{max-width:980px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+  .atop{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;border-bottom:1px solid var(--line)}
+  .atop b{font-family:"Anton";color:#fff;font-size:1.3rem;text-transform:uppercase}
+  .atop .flag{font-family:"Oswald";font-size:.72rem;color:var(--ok);margin-left:8px}
+  .atop .x{background:none;border:1px solid var(--line);border-radius:8px;color:#fff;cursor:pointer;padding:6px 12px}
+  .atabs{display:flex;gap:8px;flex-wrap:wrap;padding:14px 22px;border-bottom:1px solid var(--line)}
+  .atab{font-family:"Oswald";text-transform:uppercase;letter-spacing:.08em;font-size:.72rem;padding:8px 13px;border:1px solid var(--line);border-radius:999px;background:none;color:var(--mute);cursor:pointer;transition:.2s}
+  .atab.on{background:#fff;color:#000}
+  .apane{display:none;padding:22px}
+  .apane.on{display:block}
+  .apane>p.hint{color:var(--mute);font-size:.86rem;margin-bottom:14px}
+  .alist .arow{display:flex;justify-content:space-between;gap:12px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:11px 13px;margin-bottom:9px}
+  .arow .l{display:flex;align-items:center;gap:11px;min-width:0}
+  .arow .l>div{min-width:0}
+  .arow b{font-family:"Oswald";text-transform:uppercase;font-size:.9rem;color:#fff;overflow-wrap:anywhere}
+  .arow small{color:var(--mute);font-size:.76rem;display:block;overflow-wrap:anywhere}
+  .arow-thumb{width:38px;height:38px;border-radius:8px;object-fit:cover;flex:0 0 auto;border:1px solid var(--line);background:var(--navy2)}
+  .aact{display:flex;gap:7px;flex:0 0 auto}
+  .aform{display:grid;gap:11px;border:1px dashed var(--line);border-radius:10px;padding:15px;margin-top:13px}
+  .aform.hide{display:none}
+  .aform label{font-family:"Oswald";text-transform:uppercase;letter-spacing:.06em;font-size:.64rem;color:var(--mute);display:block;margin-bottom:4px}
+  .aform input,.aform textarea,.aform select{width:100%;background:var(--navy2);border:1px solid var(--line);border-radius:8px;color:#fff;padding:9px 11px;font-family:"Inter";font-size:.9rem}
+  .aform textarea{min-height:64px;resize:vertical}
+  .aform input:focus,.aform textarea:focus,.aform select:focus{outline:none;border-color:var(--blue)}
+  .g2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+  .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
+  .g6{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+  .abtn{font-family:"Oswald";text-transform:uppercase;letter-spacing:.08em;font-size:.72rem;font-weight:600;padding:9px 15px;border-radius:8px;border:1px solid var(--line);background:none;color:#fff;cursor:pointer;transition:.2s}
+  .abtn:hover{border-color:#fff}
+  .abtn.go{background:var(--blue);color:#fff;border-color:var(--blue)}
+  .abtn.del{color:var(--live);border-color:rgba(255,84,112,.4)}
+  .facts{display:flex;gap:9px;margin-top:3px}
+  .photo-row{display:flex;gap:13px;align-items:flex-end}
+  .photo-row .pf{flex:1}
+  .img-prev{width:96px;height:74px;border-radius:9px;border:1px solid var(--line);background:var(--navy2) center/cover no-repeat;display:flex;align-items:center;justify-content:center;color:var(--mute);font-size:.62rem;text-align:center;font-family:"Oswald";text-transform:uppercase;overflow:hidden}
+  .pubbox{border:1px solid var(--blue);border-radius:10px;padding:18px;background:var(--blue-soft)}
+  .pubbox h4{font-family:"Oswald";color:#fff;text-transform:uppercase;margin-bottom:8px}
+  .pubbox p{color:var(--bone);font-size:.88rem;margin-bottom:13px}
+  .pubact{display:flex;gap:10px;flex-wrap:wrap}
+
+  body{min-height:100vh}
+  #admin{display:none;max-width:1000px;margin:0 auto;padding:40px 20px 70px}
+  #admin.open{display:block}
+  #gate{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+  #gate.hidden{display:none}
+  .gate-card{width:100%;max-width:360px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:32px 28px;text-align:center}
+  .gate-card svg{height:52px;width:auto;margin:0 auto 14px;display:block}
+  .gate-card h1{font-family:"Oswald";text-transform:uppercase;color:#fff;font-size:1.3rem;letter-spacing:.04em;margin-bottom:4px}
+  .gate-card p{color:var(--mute);font-size:.85rem;margin-bottom:22px}
+  .gate-card input{width:100%;background:var(--navy2);border:1px solid var(--line);border-radius:9px;color:#fff;padding:12px 14px;font-family:"Inter";font-size:.95rem;margin-bottom:14px;text-align:center}
+  .gate-card input:focus{outline:none;border-color:var(--blue)}
+  .gate-back{display:block;margin-top:18px;color:var(--mute);font-family:"Oswald";text-transform:uppercase;letter-spacing:.08em;font-size:.72rem}
+  .gate-back:hover{color:var(--blue2)}
+  @media(max-width:700px){
+    .g2,.g3,.g6{grid-template-columns:1fr 1fr}
+    .atop{flex-wrap:wrap;gap:10px}
+  }
+  @media(max-width:480px){
+    .g2,.g3,.g6{grid-template-columns:1fr}
+    .atabs{gap:6px;padding:12px 16px}
+    .atab{font-size:.66rem;padding:7px 10px}
+    #admin{padding:24px 12px 50px}
+    .atop{padding:14px 16px}
+    .atop b{font-size:1.1rem}
+    .apane{padding:16px}
+    .arow{flex-wrap:wrap}
+    .arow .aact{margin-left:auto}
+    .photo-row{flex-wrap:wrap;align-items:flex-start}
+    .photo-row .pf{flex:1 1 100%}
+    .facts{flex-wrap:wrap}
+    .gate-card{padding:26px 20px}
+  }
+
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div class="gate-card">
+    <svg viewBox="0 0 40 46" fill="none" aria-hidden="true"><path d="M20 1 L38 8 V24 C38 35 30 42 20 45 C10 42 2 35 2 24 V8 Z" stroke="#fff" stroke-width="2"/><path d="M20 11 L23 18 L30.5 18 L24.5 22.5 L27 30 L20 25.5 L13 30 L15.5 22.5 L9.5 18 L17 18 Z" fill="#2f6bff"/></svg>
+    <h1>Paneli i klubit</h1>
+    <p>FC Drita — CMS Admin</p>
+    <input type="password" id="gate-pass" placeholder="Fjalëkalimi / Passcode" autocomplete="current-password">
+    <button class="abtn go" id="gate-btn" style="width:100%;justify-content:center;padding:12px">Hyr / Enter</button>
+    <div id="gate-err" style="display:none;color:var(--live);font-family:'Oswald';font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;margin-top:12px">Fjalëkalim i gabuar / Wrong passcode</div>
+    <a href="index.html" class="gate-back">← Kthehu te faqja / Back to site</a>
+  </div>
+</div>
+
+<div id="admin" role="dialog" aria-modal="true">
+  <div class="ashell">
+    <div class="atop"><b>CMS — FC Drita <span class="flag" id="flag"></span></b><div style="display:flex;gap:8px"><a class="x" href="index.html" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px">↗ Faqja</a><button class="x" onclick="location.reload()">🔒 Kyç</button></div></div>
+    <div class="atabs">
+      <button class="atab on" data-pane="pa-club">Klubi / Club</button>
+      <button class="atab" data-pane="pa-news">Lajme / News</button>
+      <button class="atab" data-pane="pa-league">Tabela / League</button>
+      <button class="atab" data-pane="pa-teams">Ekipet / Team logos</button>
+      <button class="atab" data-pane="pa-fix">Ndeshjet / Matches</button>
+      <button class="atab" data-pane="pa-players">Lojtarët / Players</button>
+      <button class="atab" data-pane="pa-troph">Trofetë / Trophies</button>
+      <button class="atab" data-pane="pa-photo">Foto / Photos</button>
+      <button class="atab" data-pane="pa-video">Video / Videos</button>
+      <button class="atab" data-pane="pa-spons">Sponsorë / Sponsors</button>
+      <button class="atab" data-pane="pa-footer">Fundfaqja / Footer</button>
+      <button class="atab" data-pane="pa-pub">Publiko / Publish</button>
+    </div>
+
+    <!-- CLUB -->
+    <div class="apane on" id="pa-club">
+      <p class="hint">Stema, titulli i hero-s dhe fotoja e sfondit. / Logo, hero title and background image.</p>
+      <div class="aform" style="margin-top:0">
+        <div class="photo-row">
+          <div class="img-prev" id="logo-prev">Logo</div>
+          <div class="pf"><label>Stema / Logo (PNG)</label><input type="file" id="logo-file" accept="image/*" onchange="handleLogo(this.files[0])"><button class="abtn" style="margin-top:7px" onclick="removeLogo()">Hiq / Remove</button></div>
+        </div>
+        <div class="g2">
+          <div><label>Titulli hero (SQ) — rresht i ri me /</label><input id="c-hero-sq" placeholder="Krenaria/e Gjilanit"></div>
+          <div><label>Hero title (EN)</label><input id="c-hero-en"></div>
+        </div>
+        <div class="g2">
+          <div><label>Nëntitulli (SQ)</label><input id="c-sub-sq"></div>
+          <div><label>Subtitle (EN)</label><input id="c-sub-en"></div>
+        </div>
+        <div class="photo-row">
+          <div class="img-prev" id="hero-prev">Sfondi</div>
+          <div class="pf"><label>Foto e sfondit / Hero background</label><input type="file" id="hero-file" accept="image/*" onchange="handleHero(this.files[0])"><button class="abtn" style="margin-top:7px" onclick="removeHero()">Hiq / Remove</button></div>
+        </div>
+        <div class="facts"><button class="abtn go" onclick="saveClub()">Ruaj / Save</button></div>
+      </div>
+    </div>
+
+    <!-- NEWS -->
+    <div class="apane" id="pa-news">
+      <p class="hint">Lajme me foto. EN opsionale. / News with photo. EN optional.</p>
+      <div class="alist" id="news-list"></div>
+      <button class="abtn" onclick="newsForm()">+ Lajm / New</button>
+      <div class="aform hide" id="news-form">
+        <input type="hidden" id="n-idx">
+        <div class="photo-row"><div class="img-prev" id="n-prev">Foto</div><div class="pf"><label>Foto / Photo</label><input type="file" id="n-file" accept="image/*" onchange="handleImg('news',this.files[0])"><button class="abtn" style="margin-top:7px" onclick="clrImg('news')">Hiq / Remove</button></div></div>
+        <div class="g2">
+          <div><label>Kategoria / Tag</label><input id="n-tag" placeholder="Superliga"></div>
+          <div><label>Data / Date</label><input id="n-date" placeholder="p.sh. 2 orë më parë"></div>
+        </div>
+        <div><label>Titulli (SQ)</label><input id="n-title-sq"></div>
+        <div><label>Teksti (SQ)</label><textarea id="n-text-sq"></textarea></div>
+        <div class="g2"><div><label>Title (EN)</label><input id="n-title-en"></div><div><label>Text (EN)</label><input id="n-text-en"></div></div>
+        <div class="facts"><button class="abtn go" onclick="saveNews()">Ruaj / Save</button><button class="abtn" onclick="hideForm('news-form')">Anulo</button></div>
+      </div>
+    </div>
+
+    <!-- LEAGUE -->
+    <div class="apane" id="pa-league">
+      <p class="hint">Krijoni tabela të veçanta — p.sh. Superliga dhe Conference League/UCL sipas kualifikimit. Drita theksohet automatikisht. / Create separate tables — e.g. domestic league and Conference League/UCL depending on qualification. Drita is highlighted automatically.</p>
+      <div class="g2" style="margin-bottom:12px">
+        <div><label>Tabela aktive / Editing table</label><select id="lg-select" onchange="lgSwitch(this.value)"></select></div>
+        <div><label>Emri i tabelës / Table name</label><input id="lg-name" onchange="saveLgName()"></div>
+      </div>
+      <div class="facts" style="margin-bottom:14px">
+        <button class="abtn" onclick="lgNewTable()">+ Tabelë e re / New table</button>
+        <button class="abtn del" onclick="lgDeleteTable()">🗑 Fshi tabelën / Delete table</button>
+      </div>
+      <div class="alist" id="lg-list"></div>
+      <button class="abtn" onclick="lgForm()">+ Ekip / Team</button>
+      <div class="aform hide" id="lg-form">
+        <input type="hidden" id="lg-idx">
+        <div><label>Ekipi / Team</label><input id="lg-team"></div>
+        <div class="g6">
+          <div><label>P</label><input id="lg-p" type="number"></div>
+          <div><label>W</label><input id="lg-w" type="number"></div>
+          <div><label>D</label><input id="lg-d" type="number"></div>
+          <div><label>L</label><input id="lg-l" type="number"></div>
+          <div><label>GS</label><input id="lg-gs" type="number"></div>
+          <div><label>Pts</label><input id="lg-pts" type="number"></div>
+        </div>
+        <div class="facts"><button class="abtn go" onclick="saveLg()">Ruaj / Save</button><button class="abtn" onclick="hideForm('lg-form')">Anulo</button></div>
+      </div>
+    </div>
+
+    <!-- TEAM LOGOS -->
+    <div class="apane" id="pa-teams">
+      <p class="hint">Logot e kundërshtarëve. Emri duhet të përputhet me atë të përdorur te Tabela dhe Ndeshjet (p.sh. "Ballkani"). Drita përdor logon e klubit automatikisht. / Opponent crests. Name should match what you use in the League table and Matches (e.g. "Ballkani"). Drita uses the club logo automatically.</p>
+      <div class="alist" id="teams-list"></div>
+      <button class="abtn" onclick="teamForm()">+ Ekip / Team</button>
+      <div class="aform hide" id="teams-form">
+        <input type="hidden" id="tm-idx">
+        <div class="photo-row"><div class="img-prev" id="tm-prev">Logo</div><div class="pf"><label>Logo</label><input type="file" id="tm-file" accept="image/*" onchange="handleImg('team',this.files[0])"><button class="abtn" style="margin-top:7px" onclick="clrImg('team')">Hiq / Remove</button></div></div>
+        <div><label>Emri i ekipit / Team name</label><input id="tm-name" placeholder="Ballkani"></div>
+        <div class="facts"><button class="abtn go" onclick="saveTeam()">Ruaj / Save</button><button class="abtn" onclick="hideForm('teams-form')">Anulo</button></div>
+      </div>
+    </div>
+
+    <!-- FIXTURES -->
+    <div class="apane" id="pa-fix">
+      <p class="hint">Ndeshjet shfaqen te lista DHE te kartelat. Bosh rezultati = e ardhshme. / Matches feed both the list and the cards.</p>
+      <div class="alist" id="fix-list-a"></div>
+      <button class="abtn" onclick="fixForm()">+ Ndeshje / Match</button>
+      <div class="aform hide" id="fix-form">
+        <input type="hidden" id="f-idx">
+        <div class="g2"><div><label>Vendasi / Home</label><input id="f-home"></div><div><label>Mysafiri / Away</label><input id="f-away"></div></div>
+        <div class="g3"><div><label>Data / Date</label><input id="f-date" placeholder="08.10.2026"></div><div><label>Ora / Time</label><input id="f-time" placeholder="19:00"></div><div><label>Gara / Comp</label><input id="f-comp" placeholder="Superliga"></div></div>
+        <div><label>Rezultati / Score (bosh = e ardhshme / empty = upcoming)</label><input id="f-score" placeholder="2–1"></div>
+        <p class="hint" style="margin:4px 0 0">Detajet më poshtë janë opsionale dhe shfaqen në popup-in e ndeshjes. / Details below are optional and show in the match popup.</p>
+        <div class="g2">
+          <div><label>Golashënuesit — vendasi (një për rresht: Emri 45')</label><textarea id="f-hsc" placeholder="Krasniqi 23'&#10;Broja 71'"></textarea></div>
+          <div><label>Goalscorers — away (one per line)</label><textarea id="f-asc"></textarea></div>
+        </div>
+        <div class="g2">
+          <div><label>Kartonë verdhë — vendasi (Emri 45')</label><textarea id="f-hyel" placeholder="Ovouka 61'"></textarea></div>
+          <div><label>Yellow cards — away</label><textarea id="f-ayel"></textarea></div>
+        </div>
+        <div class="g2">
+          <div><label>Kartonë të kuq — vendasi</label><textarea id="f-hred"></textarea></div>
+          <div><label>Red cards — away</label><textarea id="f-ared"></textarea></div>
+        </div>
+        <div class="g2">
+          <div><label>Zëvendësime — vendasi (Del ↔ Hyn 70')</label><textarea id="f-hsub" placeholder="Zulfiu ↔ Abazaj 70'"></textarea></div>
+          <div><label>Substitutions — away</label><textarea id="f-asub"></textarea></div>
+        </div>
+        <div class="g2">
+          <div><label>Formacioni — vendasi / Home formation</label><input id="f-hform" placeholder="4-3-3"></div>
+          <div><label>Formacioni — mysafiri / Away formation</label><input id="f-aform" placeholder="4-2-3-1"></div>
+        </div>
+        <div class="g2">
+          <div><label>Formacioni vendasi — lojtarët (një për rresht)</label><textarea id="f-hline"></textarea></div>
+          <div><label>Away lineup (one per line)</label><textarea id="f-aline"></textarea></div>
+        </div>
+        <div><label>Statistikat (një për rresht: Etiketa | vendasi | mysafiri) / Stats (Label | home | away)</label><textarea id="f-stats" placeholder="Posedimi | 55 | 45&#10;Gjuajtje | 12 | 7&#10;Këndore | 6 | 3"></textarea></div>
+        <div class="g3"><div><label>Stadiumi / Venue</label><input id="f-venue"></div><div><label>Gjyqtari / Referee</label><input id="f-ref"></div><div><label>Spektatorë / Attendance</label><input id="f-att"></div></div>
+        <div class="facts"><button class="abtn go" onclick="saveFix()">Ruaj / Save</button><button class="abtn" onclick="hideForm('fix-form')">Anulo</button></div>
+      </div>
+    </div>
+
+    <!-- PLAYERS -->
+    <div class="apane" id="pa-players">
+      <p class="hint">Skuadra sipas pozicioneve — portierë, mbrojtës, mesfushorë, sulmues — me statistika: ndeshje, gola, asiste dhe portë e pastër (për portierët). / The squad by position — goalkeepers, defenders, midfielders, attackers — with stats: games, goals, assists and clean sheets (for goalkeepers).</p>
+      <div class="alist" id="players-list"></div>
+      <button class="abtn" onclick="playerForm()">+ Lojtar / Player</button>
+      <div class="aform hide" id="player-form">
+        <input type="hidden" id="pl-idx">
+        <div class="photo-row"><div class="img-prev" id="pl-prev">Foto</div><div class="pf"><label>Foto / Photo</label><input type="file" id="pl-file" accept="image/*" onchange="handleImg('player',this.files[0])"><button class="abtn" style="margin-top:7px" onclick="clrImg('player')">Hiq / Remove</button></div></div>
+        <div class="g3">
+          <div><label>Emri / Name</label><input id="pl-name" placeholder="A. Manaj"></div>
+          <div><label>Numri / Number</label><input id="pl-num" type="number" placeholder="9"></div>
+          <div><label>Pozicioni / Position</label><select id="pl-pos">
+            <option value="gk">Portier / Goalkeeper</option>
+            <option value="df">Mbrojtës / Defender</option>
+            <option value="mf">Mesfushor / Midfielder</option>
+            <option value="fw">Sulmues / Attacker</option>
+          </select></div>
+        </div>
+        <div class="g2">
+          <div><label>Ndeshje / Games played</label><input id="pl-p" type="number"></div>
+          <div><label>Gola / Goals</label><input id="pl-g" type="number"></div>
+        </div>
+        <div class="g2">
+          <div><label>Asiste / Assists</label><input id="pl-a" type="number"></div>
+          <div><label>Portë e pastër / Clean sheets (portierët)</label><input id="pl-cs" type="number"></div>
+        </div>
+        <div class="facts"><button class="abtn go" onclick="savePlayer()">Ruaj / Save</button><button class="abtn" onclick="hideForm('player-form')">Anulo</button></div>
+      </div>
+    </div>
+
+    <!-- TROPHIES -->
+    <div class="apane" id="pa-troph">
+      <p class="hint">Vitrinat e trofeve. / Trophy showcase cards.</p>
+      <div class="alist" id="troph-list"></div>
+      <button class="abtn" onclick="trophForm()">+ Trofe / Trophy</button>
+      <div class="aform hide" id="troph-form">
+        <input type="hidden" id="t-idx">
+        <div class="photo-row"><div class="img-prev" id="t-prev">Foto</div><div class="pf"><label>Foto e trofeut / Trophy photo</label><input type="file" id="t-file" accept="image/*" onchange="handleImg('troph',this.files[0])"><button class="abtn" style="margin-top:7px" onclick="clrImg('troph')">Hiq / Remove</button></div></div>
+        <div class="g3"><div><label>Numri / Count</label><input id="t-count" placeholder="3"></div><div><label>Ikona (rezervë) / Icon (fallback)</label><input id="t-icon" placeholder="🏆"></div><div></div></div>
+        <div class="g2"><div><label>Titulli (SQ)</label><input id="t-title-sq"></div><div><label>Title (EN)</label><input id="t-title-en"></div></div>
+        <div class="facts"><button class="abtn go" onclick="saveTroph()">Ruaj / Save</button><button class="abtn" onclick="hideForm('troph-form')">Anulo</button></div>
+      </div>
+    </div>
+
+    <!-- PHOTOS -->
+    <div class="apane" id="pa-photo">
+      <p class="hint">Galeria e fotove. / Photo gallery.</p>
+      <div class="alist" id="photo-list"></div>
+      <button class="abtn" onclick="photoForm()">+ Foto / Photo</button>
+      <div class="aform hide" id="photo-form">
+        <input type="hidden" id="ph-idx">
+        <div class="photo-row"><div class="img-prev" id="ph-prev">Foto</div><div class="pf"><label>Foto / Photo</label><input type="file" id="ph-file" accept="image/*" onchange="handleImg('photo',this.files[0])"><button class="abtn" style="margin-top:7px" onclick="clrImg('photo')">Hiq</button></div></div>
+        <div class="g2"><div><label>Përshkrimi (SQ)</label><input id="ph-cap-sq"></div><div><label>Caption (EN)</label><input id="ph-cap-en"></div></div>
+        <div class="facts"><button class="abtn go" onclick="savePhoto()">Ruaj / Save</button><button class="abtn" onclick="hideForm('photo-form')">Anulo</button></div>
+      </div>
+    </div>
+
+    <!-- VIDEOS -->
+    <div class="apane" id="pa-video">
+      <p class="hint">Ngjitni lidhjen e videos — nga YouTube, TikTok, Instagram apo Facebook — dhe (opsionale) ngarkoni miniaturën tuaj. Videot e YouTube luhen drejtpërdrejt në faqe; për platformat e tjera, butoni "Shiko tani" e çon tifozin te posti origjinal. / Paste the video link — from YouTube, TikTok, Instagram, or Facebook — and optionally upload your own thumbnail. YouTube videos play right on the page; for other platforms, the "Watch now" button takes fans to the original post.</p>
+      <div class="alist" id="video-list"></div>
+      <button class="abtn" onclick="videoForm()">+ Video / Video</button>
+      <div class="aform hide" id="video-form">
+        <input type="hidden" id="v-idx">
+        <div><label>Lidhja e videos / Video link — YouTube, TikTok, Instagram, Facebook</label><input id="v-url" placeholder="https://..."></div>
+        <div class="photo-row"><div class="img-prev" id="v-prev">Miniatura</div><div class="pf"><label>Miniatura / Thumbnail (opsionale)</label><input type="file" id="v-file" accept="image/*" onchange="handleImg('video',this.files[0])"><button class="abtn" style="margin-top:7px" onclick="clrImg('video')">Hiq / Remove</button></div></div>
+        <div class="g2"><div><label>Titulli (SQ)</label><input id="v-title-sq"></div><div><label>Title (EN)</label><input id="v-title-en"></div></div>
+        <div class="facts"><button class="abtn go" onclick="saveVideo()">Ruaj / Save</button><button class="abtn" onclick="hideForm('video-form')">Anulo</button></div>
+      </div>
+    </div>
+
+    <!-- SPONSORS -->
+    <div class="apane" id="pa-spons">
+      <p class="hint">Sponsorët. Logo PNG ose vetëm emri. / Sponsors. PNG logo or just the name.</p>
+      <div class="alist" id="spons-list"></div>
+      <button class="abtn" onclick="sponsForm()">+ Sponsor / Sponsor</button>
+      <div class="aform hide" id="spons-form">
+        <input type="hidden" id="sp-idx">
+        <div class="photo-row"><div class="img-prev" id="sp-prev">Logo</div><div class="pf"><label>Logo</label><input type="file" id="sp-file" accept="image/*" onchange="handleImg('spons',this.files[0])"><button class="abtn" style="margin-top:7px" onclick="clrImg('spons')">Hiq</button></div></div>
+        <div class="g2"><div><label>Emri / Name</label><input id="sp-name"></div><div><label>Lidhja / URL</label><input id="sp-url" placeholder="https://"></div></div>
+        <div class="facts"><button class="abtn go" onclick="saveSpons()">Ruaj / Save</button><button class="abtn" onclick="hideForm('spons-form')">Anulo</button></div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="apane" id="pa-footer">
+      <p class="hint">Përmbajtja e fundfaqes: përshkrimi, rrjetet sociale dhe kontakti. Lëreni bosh fushën për ta fshehur atë rresht. / Footer content: about text, social links, and contact. Leave a field empty to hide that line.</p>
+      <div class="aform" style="margin-top:0">
+        <div class="g2"><div><label>Rreth klubit (SQ)</label><textarea id="ft-about-sq"></textarea></div><div><label>About (EN)</label><textarea id="ft-about-en"></textarea></div></div>
+        <div class="g2"><div><label>Facebook URL</label><input id="ft-fb" placeholder="https://facebook.com/..."></div><div><label>Instagram URL</label><input id="ft-ig" placeholder="https://instagram.com/..."></div></div>
+        <div class="g2"><div><label>Email</label><input id="ft-email" placeholder="info@fcdrita.com"></div><div><label>Telefoni / Phone</label><input id="ft-phone" placeholder="+383 ..."></div></div>
+        <div class="g2"><div><label>Adresa / Address</label><input id="ft-address" placeholder="Gjilan, Kosovë"></div><div><label>Website</label><input id="ft-website" placeholder="www.fcdrita.com"></div></div>
+        <div class="facts"><button class="abtn go" onclick="saveFooter()">Ruaj / Save</button></div>
+      </div>
+    </div>
+
+    <!-- PUBLISH -->
+    <div class="apane" id="pa-pub">
+      <div class="pubbox">
+        <h4>Publiko / Publish</h4>
+        <p>Shkarko <b>data.json</b> dhe ngarkoje pranë <b>index.html</b> në host. Çdo tifoz e sheh përmbajtjen e re.<br><br>Download <b>data.json</b> and upload it next to <b>index.html</b> on your host.</p>
+        <div class="pubact">
+          <button class="abtn go" onclick="publish()">⬇ data.json</button>
+          <button class="abtn" onclick="document.getElementById('imp').click()">⬆ Importo / Import</button>
+          <input type="file" id="imp" accept="application/json" style="display:none" onchange="importData(this.files[0])">
+          <button class="abtn del" onclick="resetAll()">↺ Reset</button>
+        </div>
+      </div>
+      <p class="hint" style="margin-top:14px">Ndryshimet ruhen automatikisht në këtë shfletues. / Edits autosave in this browser.</p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* ===== default content ===== */
+const DEFAULT_DATA={
+ club:{logo:"",heroImg:"",heroSq:"Krenaria/e Gjilanit",heroEn:"The Pride/of Gjilan",subSq:"Krenaria e Gjilanit, Kosovë",subEn:"The Pride of Gjilan, Kosovo"},
+ footer:{aboutSq:"Klubi Futbollistik Drita — Gjilan, Kosovë. Krenaria e Gjilanit që nga 1947.",aboutEn:"Football Club Drita — Gjilan, Kosovo. The Pride of Gjilan since 1947.",
+  fb:"https://www.facebook.com/dritafcofficial/",ig:"https://www.instagram.com/fc_dritaofficial/",
+  email:"info@fcdrita.com",phone:"+383 (0) 290 000 000",address:"Gjilan, Kosovë",website:"www.fcdrita.com"},
+ news:[
+  {img:"",tag:"Superliga",date:"2 orë më parë",titleSq:"Drita kampione e Kosovës!",titleEn:"Drita, champions of Kosovo!",textSq:"Krenaria e Gjilanit ngre përsëri trofeun e Superligës para tifozëve të vet.",textEn:"The Pride of Gjilan lifts the Superleague trophy again in front of its fans."},
+  {img:"",tag:"Europa",date:"1 ditë më parë",titleSq:"Rrugëtimi europian vazhdon",titleEn:"The European journey continues",textSq:"Drita përgatitet për fazën e ligës së Conference League.",textEn:"Drita prepares for the Conference League phase."},
+  {img:"",tag:"Klubi",date:"2 ditë më parë",titleSq:"Investime te akademia",titleEn:"Investing in the academy",textSq:"Talenti vendor në qendër të projektit.",textEn:"Local talent at the centre of the project."},
+  {img:"",tag:"Ndeshja",date:"3 ditë më parë",titleSq:"Fitore në derbin e Anamoravës",titleEn:"Win in the Anamorava derby",textSq:"Tri pikë të mëdha kundër rivalit.",textEn:"Three big points against the rivals."}
+ ],
+ leagues:[
+  {id:"superleague",name:"Kosovo Superleague",rows:[
+  {team:"FC Drita",p:13,w:9,d:3,l:1,gs:25,pts:30},
+  {team:"FC Ballkani",p:13,w:8,d:2,l:3,gs:22,pts:26},
+  {team:"FC Prishtina",p:13,w:7,d:3,l:3,gs:19,pts:24},
+  {team:"KF Llapi",p:13,w:6,d:4,l:3,gs:17,pts:22},
+  {team:"SC Gjilani",p:13,w:5,d:4,l:4,gs:15,pts:19},
+  {team:"FC Malisheva",p:13,w:4,d:3,l:6,gs:13,pts:15},
+  {team:"FC Dukagjini",p:13,w:3,d:4,l:6,gs:12,pts:13},
+  {team:"KF Dardania",p:13,w:2,d:3,l:8,gs:9,pts:9}
+ ]}
+ ],
+ teams:[],
+ players:[
+  {img:"",name:"F. Maloku",num:"1",pos:"gk",p:13,g:0,a:0,cs:7},
+  {img:"",name:"A. Seji",num:"4",pos:"df",p:12,g:1,a:0,cs:0},
+  {img:"",name:"B. Krasniqi",num:"5",pos:"df",p:13,g:2,a:1,cs:0},
+  {img:"",name:"E. Broja",num:"8",pos:"mf",p:13,g:3,a:5,cs:0},
+  {img:"",name:"L. Limaj",num:"10",pos:"mf",p:11,g:2,a:4,cs:0},
+  {img:"",name:"A. Manaj",num:"9",pos:"fw",p:13,g:8,a:2,cs:0},
+  {img:"",name:"B. Balaj",num:"11",pos:"fw",p:12,g:6,a:3,cs:0}
+ ],
+ fixtures:[
+  {date:"09.10.2026",time:"19:00",home:"Drita",away:"Ballkani",comp:"Superliga",score:""},
+  {date:"16.10.2026",time:"17:00",home:"SC Gjilani",away:"Drita",comp:"Superliga",score:""},
+  {date:"23.10.2026",time:"19:00",home:"Drita",away:"Prishtina",comp:"Superliga",score:""},
+  {date:"02.10.2026",time:"—",home:"Drita",away:"Dukagjini",comp:"Superliga",score:"3–0",hsc:"Krasniqi 23'\nManaj 54'\nBalaj 88'",asc:"",hyel:"Ovouka 61'",hred:"",ayel:"",ared:"",hsub:"Zulfiu ↔ Abazaj 70'",asub:"",hform:"4-3-3",aform:"4-4-2",hline:"Maloku\nSeji\nB. Krasniqi\nAjzeraj\nOvouka\nBroja\nLimaj\nBalaj\nManaj\nZulfiu\nAbazaj",aline:"",stats:"Posedimi | 58 | 42\nGjuajtje | 14 | 6\nNë portë | 7 | 2\nKëndore | 8 | 3\nFaull | 9 | 12",venue:"Stadiumi i Qytetit, Gjilan",ref:"A. Kabashi",att:"6,400"},
+  {date:"25.09.2026",time:"—",home:"Prishtina",away:"Drita",comp:"Superliga",score:"0–0"}
+ ],
+ trophies:[
+  {icon:"🏆",titleSq:"Tituj kampioni",titleEn:"League titles",count:"3"},
+  {icon:"🥇",titleSq:"Kupa e Kosovës",titleEn:"Kosovo Cup",count:"1"},
+  {icon:"⭐",titleSq:"Pjesëmarrje në Europë",titleEn:"European campaigns",count:"5"}
+ ],
+ photos:[
+  {img:"",capSq:"Ditët e ndeshjeve",capEn:"Matchdays"},
+  {img:"",capSq:"Stërvitje",capEn:"Training"},
+  {img:"",capSq:"Tifozët",capEn:"The fans"}
+ ],
+ videos:[
+  {url:"",thumb:"",titleSq:"Momentet më të mira",titleEn:"Best moments"},
+  {url:"",thumb:"",titleSq:"Golat e javës",titleEn:"Goals of the week"}
+ ],
+ sponsors:[
+  {name:"Sponsori kryesor",url:"",logo:""},
+  {name:"Partner zyrtar",url:"",logo:""},
+  {name:"Partner zyrtar",url:"",logo:""},
+  {name:"Partner zyrtar",url:"",logo:""}
+ ]
+};
+
+const PASSCODE="drita2025";  // <-- ndryshoni / change this
+const LS="drita_data_v2";
+
+let DATA=JSON.parse(JSON.stringify(DEFAULT_DATA));
+
+const $=s=>document.querySelector(s);
+
+const esc=s=>(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
+
+function saveLocal(){try{localStorage.setItem(LS,JSON.stringify(DATA))}catch(e){}}
+function flag(){const f=$("#flag");if(f){f.textContent="✓ ruajtur";setTimeout(()=>f.textContent="",1300)}}
+
+function migrate(d){
+  if(d&&d.league&&!d.leagues){d.leagues=[{id:"table1",name:d.league.name||"Tabela",rows:d.league.rows||[]}];delete d.league;}
+  if(d&&!d.leagues)d.leagues=[{id:"table1",name:"Tabela",rows:[]}];
+  if(d&&!d.teams)d.teams=[];
+  if(d&&!d.players)d.players=[];
+  if(d&&!d.footer)d.footer={aboutSq:"",aboutEn:"",fb:"",ig:"",email:"",phone:"",address:"",website:""};
+  return d;
+}
+
+/* ===== image resize (shared) ===== */
+function resizeImage(file,max,mime,q,cb){if(!file)return;const r=new FileReader();r.onload=()=>{const img=new Image();img.onload=()=>{let w=img.width,h=img.height;if(w>max||h>max){if(w>=h){h=Math.round(h*max/w);w=max}else{w=Math.round(w*max/h);h=max}}const c=document.createElement("canvas");c.width=w;c.height=h;c.getContext("2d").drawImage(img,0,0,w,h);let o;try{o=c.toDataURL(mime,q)}catch(e){o=r.result}cb(o)};img.onerror=()=>alert("S'u lexua dot imazhi / Could not read image");img.src=r.result};r.readAsDataURL(file)}
+
+/* ===== club ===== */
+function fillClub(){const c=DATA.club||{};$("#c-hero-sq").value=c.heroSq||"";$("#c-hero-en").value=c.heroEn||"";$("#c-sub-sq").value=c.subSq||"";$("#c-sub-en").value=c.subEn||"";prev("logo-prev",c.logo);prev("hero-prev",c.heroImg);$("#logo-file").value="";$("#hero-file").value="";}
+function prev(id,src){const el=$("#"+id);if(src){el.style.backgroundImage=`url(${src})`;el.textContent="";}else{el.style.backgroundImage="none";el.textContent=el.id==="logo-prev"?"Logo":(el.id==="hero-prev"?"Sfondi":"Foto");}}
+function handleLogo(f){resizeImage(f,320,"image/png",1,d=>{DATA.club=DATA.club||{};DATA.club.logo=d;saveLocal();prev("logo-prev",d);flag()})}
+function removeLogo(){DATA.club.logo="";$("#logo-file").value="";saveLocal();prev("logo-prev","");flag()}
+function handleHero(f){resizeImage(f,1600,"image/jpeg",.82,d=>{DATA.club=DATA.club||{};DATA.club.heroImg=d;saveLocal();prev("hero-prev",d);flag()})}
+function removeHero(){DATA.club.heroImg="";$("#hero-file").value="";saveLocal();prev("hero-prev","");flag()}
+function saveClub(){DATA.club=DATA.club||{};DATA.club.heroSq=$("#c-hero-sq").value;DATA.club.heroEn=$("#c-hero-en").value;DATA.club.subSq=$("#c-sub-sq").value;DATA.club.subEn=$("#c-sub-en").value;saveLocal();flag()}
+
+/* ===== footer ===== */
+function fillFooter(){const f=DATA.footer||{};$("#ft-about-sq").value=f.aboutSq||"";$("#ft-about-en").value=f.aboutEn||"";$("#ft-fb").value=f.fb||"";$("#ft-ig").value=f.ig||"";$("#ft-email").value=f.email||"";$("#ft-phone").value=f.phone||"";$("#ft-address").value=f.address||"";$("#ft-website").value=f.website||"";}
+function saveFooter(){DATA.footer=DATA.footer||{};const f=DATA.footer;f.aboutSq=$("#ft-about-sq").value;f.aboutEn=$("#ft-about-en").value;f.fb=$("#ft-fb").value;f.ig=$("#ft-ig").value;f.email=$("#ft-email").value;f.phone=$("#ft-phone").value;f.address=$("#ft-address").value;f.website=$("#ft-website").value;saveLocal();flag()}
+
+/* ===== generic image-into-form (news/photo/spons) ===== */
+let formImg={news:"",photo:"",spons:"",troph:"",team:"",video:"",player:""};
+function handleImg(kind,f){const png=(kind==="spons"||kind==="troph"||kind==="team");const max=kind==="spons"?320:(kind==="troph"?480:(kind==="team"?240:(kind==="player"?700:900)));resizeImage(f,max,png?"image/png":"image/jpeg",.85,d=>{formImg[kind]=d;prev(({news:"n-prev",photo:"ph-prev",spons:"sp-prev",troph:"t-prev",team:"tm-prev",video:"v-prev",player:"pl-prev"})[kind],d)})}
+function clrImg(kind){formImg[kind]="";const id=({news:"n-prev",photo:"ph-prev",spons:"sp-prev",troph:"t-prev",team:"tm-prev",video:"v-prev",player:"pl-prev"})[kind];prev(id,"");const fl=({news:"n-file",photo:"ph-file",spons:"sp-file",troph:"t-file",team:"tm-file",video:"v-file",player:"pl-file"})[kind];if($("#"+fl))$("#"+fl).value="";}
+
+function hideForm(id){$("#"+id).classList.add("hide")}
+
+function delItem(coll,i){if(!confirm("Të fshihet? / Delete?"))return;DATA[coll].splice(i,1);saveLocal();renderAllLists();flag()}
+
+/* ===== lists ===== */
+function row(thumb,title,sub,editFn,coll,i){return `<div class="arow"><div class="l">${thumb?`<img class="arow-thumb" src="${thumb}" alt="">`:""}<div><b>${esc(title)}</b><small>${esc(sub)}</small></div></div><div class="aact"><button class="abtn" onclick="${editFn}(${i})">✎</button><button class="abtn del" onclick="delItem('${coll}',${i})">🗑</button></div></div>`}
+function renderAllLists(){
+  $("#news-list").innerHTML=DATA.news.map((n,i)=>row(n.img,n.titleSq||"—",n.tag||"",'newsForm','news',i)).join("")||emptyRow();
+  renderLgAdmin();
+  $("#teams-list").innerHTML=(DATA.teams||[]).map((t,i)=>row(t.logo,t.name,"",'teamForm','teams',i)).join("")||emptyRow();
+  $("#fix-list-a").innerHTML=DATA.fixtures.map((f,i)=>row("",`${f.home} ${f.score?"–":"vs"} ${f.away}`,`${f.date||""} ${f.time||""} • ${f.comp||""}`,'fixForm','fixtures',i)).join("")||emptyRow();
+  $("#players-list").innerHTML=(DATA.players||[]).map((p,i)=>row(p.img,`${p.num?"#"+p.num+" ":""}${p.name||"—"}`,`${POS_LABEL[p.pos]||""} • ${p.p||0} ndeshje • ${p.g||0} gola • ${p.a||0} asiste${p.pos==="gk"?` • ${p.cs||0} portë e pastër`:""}`,'playerForm','players',i)).join("")||emptyRow();
+  $("#troph-list").innerHTML=DATA.trophies.map((t,i)=>row(t.photo,`${t.photo?"":(t.icon||"")} ${t.titleSq||""}`,`× ${t.count||""}`,'trophForm','trophies',i)).join("")||emptyRow();
+  $("#photo-list").innerHTML=DATA.photos.map((p,i)=>row(p.img,p.capSq||"—","",'photoForm','photos',i)).join("")||emptyRow();
+  $("#video-list").innerHTML=DATA.videos.map((v,i)=>row(v.thumb,v.titleSq||"—",v.url||"—",'videoForm','videos',i)).join("")||emptyRow();
+  $("#spons-list").innerHTML=DATA.sponsors.map((s,i)=>row(s.logo,s.name,s.url||"—",'sponsForm','sponsors',i)).join("")||emptyRow();
+}
+function emptyRow(){return `<div class="arow"><small>Bosh / Empty</small></div>`}
+
+/* ===== news ===== */
+function newsForm(i){const f=$("#news-form");f.classList.remove("hide");$("#n-file").value="";
+  if(i===undefined){$("#n-idx").value="";["n-tag","n-date","n-title-sq","n-text-sq","n-title-en","n-text-en"].forEach(id=>$("#"+id).value="");formImg.news="";}
+  else{const n=DATA.news[i];$("#n-idx").value=i;$("#n-tag").value=n.tag||"";$("#n-date").value=n.date||"";$("#n-title-sq").value=n.titleSq||"";$("#n-text-sq").value=n.textSq||"";$("#n-title-en").value=n.titleEn||"";$("#n-text-en").value=n.textEn||"";formImg.news=n.img||"";}
+  prev("n-prev",formImg.news);f.scrollIntoView({behavior:"smooth",block:"nearest"})}
+function saveNews(){if(!$("#n-title-sq").value.trim()){alert("Titulli (SQ)?");return}const it={img:formImg.news,tag:$("#n-tag").value,date:$("#n-date").value,titleSq:$("#n-title-sq").value,textSq:$("#n-text-sq").value,titleEn:$("#n-title-en").value,textEn:$("#n-text-en").value};const x=$("#n-idx").value;if(x===""){DATA.news.unshift(it)}else DATA.news[+x]=it;saveLocal();renderAllLists();hideForm("news-form");flag()}
+
+/* ===== league (multi-table) ===== */
+let adminLgIdx=0;
+function renderLgAdmin(){
+  const arr=DATA.leagues||[];
+  if(!arr.length)arr.push({id:"table1",name:"Tabela",rows:[]});
+  if(adminLgIdx>=arr.length)adminLgIdx=0;
+  const sel=$("#lg-select");
+  sel.innerHTML=arr.map((l,i)=>`<option value="${i}">${esc(l.name||("Tabela "+(i+1)))}</option>`).join("");
+  sel.value=adminLgIdx;
+  const lg=arr[adminLgIdx];
+  $("#lg-name").value=lg.name||"";
+  $("#lg-list").innerHTML=(lg.rows||[]).map((r,i)=>`<div class="arow"><div class="l"><div><b>${esc(r.team)}</b><small>${r.pts||0} pikë • ${r.p||0} ndeshje</small></div></div><div class="aact"><button class="abtn" onclick="lgForm(${i})">✎</button><button class="abtn del" onclick="delLgRow(${i})">🗑</button></div></div>`).join("")||emptyRow();
+}
+function lgSwitch(v){adminLgIdx=+v||0;renderLgAdmin();}
+function lgNewTable(){
+  const name=prompt("Emri i tabelës së re (p.sh. UEFA Conference League) / New table name:","");
+  if(!name||!name.trim())return;
+  DATA.leagues=DATA.leagues||[];
+  DATA.leagues.push({id:"t"+Date.now(),name:name.trim(),rows:[]});
+  adminLgIdx=DATA.leagues.length-1;
+  saveLocal();renderAllLists();flag();
+}
+function lgDeleteTable(){
+  const arr=DATA.leagues||[];
+  if(arr.length<=1){alert("Duhet të mbetet të paktën një tabelë. / At least one table must remain.");return;}
+  if(!confirm("Të fshihet gjithë kjo tabelë? / Delete this whole table?"))return;
+  arr.splice(adminLgIdx,1);adminLgIdx=0;
+  saveLocal();renderAllLists();flag();
+}
+function saveLgName(){const lg=(DATA.leagues||[])[adminLgIdx];if(!lg)return;lg.name=$("#lg-name").value;saveLocal();flag()}
+function delLgRow(i){const lg=(DATA.leagues||[])[adminLgIdx];if(!lg)return;if(!confirm("Të fshihet? / Delete?"))return;lg.rows.splice(i,1);saveLocal();renderAllLists();flag()}
+function lgForm(i){const f=$("#lg-form");f.classList.remove("hide");
+  if(i===undefined){$("#lg-idx").value="";["lg-team","lg-p","lg-w","lg-d","lg-l","lg-gs","lg-pts"].forEach(id=>$("#"+id).value="")}
+  else{const lg=(DATA.leagues||[])[adminLgIdx];const r=lg.rows[i];$("#lg-idx").value=i;$("#lg-team").value=r.team;$("#lg-p").value=r.p;$("#lg-w").value=r.w;$("#lg-d").value=r.d;$("#lg-l").value=r.l;$("#lg-gs").value=r.gs;$("#lg-pts").value=r.pts;}
+  f.scrollIntoView({behavior:"smooth",block:"nearest"})}
+function saveLg(){if(!$("#lg-team").value.trim()){alert("Ekipi?");return}
+  const lg=(DATA.leagues||[])[adminLgIdx];if(!lg)return;
+  const n=id=>+($("#"+id).value||0);
+  const it={team:$("#lg-team").value,p:n("lg-p"),w:n("lg-w"),d:n("lg-d"),l:n("lg-l"),gs:n("lg-gs"),pts:n("lg-pts")};
+  const x=$("#lg-idx").value;if(x===""){lg.rows.push(it)}else lg.rows[+x]=it;
+  lg.rows.sort((a,b)=>b.pts-a.pts);
+  saveLocal();renderAllLists();hideForm("lg-form");flag()}
+
+
+/* ===== team logos (opponents) ===== */
+function teamForm(i){const f=$("#teams-form");f.classList.remove("hide");if($("#tm-file"))$("#tm-file").value="";
+  if(i===undefined){$("#tm-idx").value="";$("#tm-name").value="";formImg.team="";}
+  else{const t=DATA.teams[i];$("#tm-idx").value=i;$("#tm-name").value=t.name||"";formImg.team=t.logo||"";}
+  prev("tm-prev",formImg.team);f.scrollIntoView({behavior:"smooth",block:"nearest"})}
+function saveTeam(){if(!$("#tm-name").value.trim()){alert("Emri?");return}
+  DATA.teams=DATA.teams||[];
+  const it={name:$("#tm-name").value,logo:formImg.team};
+  const x=$("#tm-idx").value;if(x===""){DATA.teams.push(it)}else DATA.teams[+x]=it;
+  saveLocal();renderAllLists();hideForm("teams-form");flag()}
+
+
+/* ===== fixtures ===== */
+function fixForm(i){const f=$("#fix-form");f.classList.remove("hide");
+  const ids=["f-home","f-away","f-date","f-time","f-score","f-hsc","f-asc","f-hyel","f-ayel","f-hred","f-ared","f-hsub","f-asub","f-hform","f-aform","f-hline","f-aline","f-stats","f-venue","f-ref","f-att"];
+  if(i===undefined){$("#f-idx").value="";ids.forEach(id=>$("#"+id).value="");$("#f-comp").value="Superliga"}
+  else{const x=DATA.fixtures[i];$("#f-idx").value=i;ids.forEach(id=>{const k=id.slice(2);$("#"+id).value=x[k]||""});}
+  f.scrollIntoView({behavior:"smooth",block:"nearest"})}
+function saveFix(){if(!$("#f-home").value.trim()||!$("#f-away").value.trim()){alert("Ekipet?");return}
+  const v=id=>$("#"+id).value;
+  const it={home:v("f-home"),away:v("f-away"),date:v("f-date"),time:v("f-time"),comp:v("f-comp"),score:v("f-score"),hsc:v("f-hsc"),asc:v("f-asc"),hyel:v("f-hyel"),ayel:v("f-ayel"),hred:v("f-hred"),ared:v("f-ared"),hsub:v("f-hsub"),asub:v("f-asub"),hform:v("f-hform"),aform:v("f-aform"),hline:v("f-hline"),aline:v("f-aline"),stats:v("f-stats"),venue:v("f-venue"),ref:v("f-ref"),att:v("f-att")};
+  const x=$("#f-idx").value;if(x===""){DATA.fixtures.push(it)}else DATA.fixtures[+x]=it;saveLocal();renderAllLists();hideForm("fix-form");flag()}
+
+
+/* ===== players ===== */
+const POS_LABEL={gk:"Portier",df:"Mbrojtës",mf:"Mesfushor",fw:"Sulmues"};
+const POS_ORD={gk:0,df:1,mf:2,fw:3};
+function playerForm(i){const f=$("#player-form");f.classList.remove("hide");if($("#pl-file"))$("#pl-file").value="";
+  if(i===undefined){$("#pl-idx").value="";$("#pl-name").value="";$("#pl-num").value="";$("#pl-pos").value="gk";["pl-p","pl-g","pl-a","pl-cs"].forEach(id=>$("#"+id).value="");formImg.player="";}
+  else{const p=DATA.players[i];$("#pl-idx").value=i;$("#pl-name").value=p.name||"";$("#pl-num").value=p.num||"";$("#pl-pos").value=p.pos||"mf";$("#pl-p").value=p.p??"";$("#pl-g").value=p.g??"";$("#pl-a").value=p.a??"";$("#pl-cs").value=p.cs??"";formImg.player=p.img||"";}
+  prev("pl-prev",formImg.player);f.scrollIntoView({behavior:"smooth",block:"nearest"})}
+function savePlayer(){if(!$("#pl-name").value.trim()){alert("Emri?");return}
+  DATA.players=DATA.players||[];
+  const n=id=>+($("#"+id).value||0);
+  const it={img:formImg.player,name:$("#pl-name").value,num:$("#pl-num").value,pos:$("#pl-pos").value,p:n("pl-p"),g:n("pl-g"),a:n("pl-a"),cs:n("pl-cs")};
+  const x=$("#pl-idx").value;if(x===""){DATA.players.push(it)}else DATA.players[+x]=it;
+  DATA.players.sort((a,b)=>(POS_ORD[a.pos]??9)-(POS_ORD[b.pos]??9)||(+a.num||99)-(+b.num||99));
+  saveLocal();renderAllLists();hideForm("player-form");flag()}
+
+
+/* ===== trophies ===== */
+function trophForm(i){const f=$("#troph-form");f.classList.remove("hide");if($("#t-file"))$("#t-file").value="";
+  if(i===undefined){$("#t-idx").value="";$("#t-icon").value="🏆";$("#t-count").value="";$("#t-title-sq").value="";$("#t-title-en").value="";formImg.troph="";}
+  else{const t=DATA.trophies[i];$("#t-idx").value=i;$("#t-icon").value=t.icon||"";$("#t-count").value=t.count||"";$("#t-title-sq").value=t.titleSq||"";$("#t-title-en").value=t.titleEn||"";formImg.troph=t.photo||"";}
+  prev("t-prev",formImg.troph);f.scrollIntoView({behavior:"smooth",block:"nearest"})}
+function saveTroph(){if(!$("#t-title-sq").value.trim()){alert("Titulli?");return}const it={photo:formImg.troph,icon:$("#t-icon").value||"🏆",count:$("#t-count").value,titleSq:$("#t-title-sq").value,titleEn:$("#t-title-en").value};const x=$("#t-idx").value;if(x===""){DATA.trophies.push(it)}else DATA.trophies[+x]=it;saveLocal();renderAllLists();hideForm("troph-form");flag()}
+
+
+/* ===== photos ===== */
+function photoForm(i){const f=$("#photo-form");f.classList.remove("hide");$("#ph-file").value="";
+  if(i===undefined){$("#ph-idx").value="";$("#ph-cap-sq").value="";$("#ph-cap-en").value="";formImg.photo="";}
+  else{const p=DATA.photos[i];$("#ph-idx").value=i;$("#ph-cap-sq").value=p.capSq||"";$("#ph-cap-en").value=p.capEn||"";formImg.photo=p.img||"";}
+  prev("ph-prev",formImg.photo);f.scrollIntoView({behavior:"smooth",block:"nearest"})}
+function savePhoto(){const it={img:formImg.photo,capSq:$("#ph-cap-sq").value,capEn:$("#ph-cap-en").value};const x=$("#ph-idx").value;if(x===""){DATA.photos.push(it)}else DATA.photos[+x]=it;saveLocal();renderAllLists();hideForm("photo-form");flag()}
+
+
+/* ===== videos ===== */
+function videoForm(i){const f=$("#video-form");f.classList.remove("hide");if($("#v-file"))$("#v-file").value="";
+  if(i===undefined){$("#v-idx").value="";$("#v-url").value="";$("#v-title-sq").value="";$("#v-title-en").value="";formImg.video="";}
+  else{const v=DATA.videos[i];$("#v-idx").value=i;$("#v-url").value=v.url||"";$("#v-title-sq").value=v.titleSq||"";$("#v-title-en").value=v.titleEn||"";formImg.video=v.thumb||"";}
+  prev("v-prev",formImg.video);
+  f.scrollIntoView({behavior:"smooth",block:"nearest"})}
+function saveVideo(){const it={url:$("#v-url").value,thumb:formImg.video,titleSq:$("#v-title-sq").value,titleEn:$("#v-title-en").value};const x=$("#v-idx").value;if(x===""){DATA.videos.push(it)}else DATA.videos[+x]=it;saveLocal();renderAllLists();hideForm("video-form");flag()}
+
+
+/* ===== sponsors ===== */
+function sponsForm(i){const f=$("#spons-form");f.classList.remove("hide");$("#sp-file").value="";
+  if(i===undefined){$("#sp-idx").value="";$("#sp-name").value="";$("#sp-url").value="";formImg.spons="";}
+  else{const s=DATA.sponsors[i];$("#sp-idx").value=i;$("#sp-name").value=s.name||"";$("#sp-url").value=s.url||"";formImg.spons=s.logo||"";}
+  prev("sp-prev",formImg.spons);f.scrollIntoView({behavior:"smooth",block:"nearest"})}
+function saveSpons(){if(!$("#sp-name").value.trim()){alert("Emri?");return}const it={name:$("#sp-name").value,url:$("#sp-url").value,logo:formImg.spons};const x=$("#sp-idx").value;if(x===""){DATA.sponsors.push(it)}else DATA.sponsors[+x]=it;saveLocal();renderAllLists();hideForm("spons-form");flag()}
+
+
+document.querySelectorAll(".atab").forEach(t=>t.addEventListener("click",()=>{document.querySelectorAll(".atab").forEach(x=>x.classList.remove("on"));document.querySelectorAll(".apane").forEach(x=>x.classList.remove("on"));t.classList.add("on");$("#"+t.dataset.pane).classList.add("on")}));
+
+function publish(){const b=new Blob([JSON.stringify(DATA,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="data.json";a.click();saveLocal();setTimeout(()=>alert("U shkarkua data.json — ngarkojeni pranë index.html.\nDownloaded data.json — upload it next to index.html."),200)}
+function importData(f){if(!f)return;const r=new FileReader();r.onload=()=>{try{DATA=migrate(JSON.parse(r.result));saveLocal();fillClub();fillFooter();renderAllLists();flag();alert("U importua / Imported")}catch(e){alert("Skedar i pavlefshëm / Invalid file")}};r.readAsText(f)}
+function resetAll(){if(!confirm("Reset everything?"))return;DATA=JSON.parse(JSON.stringify(DEFAULT_DATA));saveLocal();fillClub();fillFooter();renderAllLists();flag()}
+
+/* ===== gate / unlock ===== */
+function unlockAdmin(){
+  $("#gate").classList.add("hidden");
+  fillClub();fillFooter();renderAllLists();
+  $("#admin").classList.add("open");
+}
+function tryUnlock(){
+  const v=$("#gate-pass").value;
+  if(v===PASSCODE){$("#gate-err").style.display="none";unlockAdmin();}
+  else{$("#gate-err").style.display="block";$("#gate-pass").value="";$("#gate-pass").focus();}
+}
+$("#gate-btn").addEventListener("click",tryUnlock);
+$("#gate-pass").addEventListener("keydown",e=>{if(e.key==="Enter")tryUnlock();});
+
+
+/* ===== init ===== */
+(async function(){
+  try{const res=await fetch("data.json",{cache:"no-store"});if(res.ok)DATA=migrate(await res.json())}catch(e){}
+  try{const ls=localStorage.getItem(LS);if(ls)DATA=migrate(JSON.parse(ls))}catch(e){}
+  $("#gate-pass").focus();
+})();
+
+</script>
+</body>
+</html>
