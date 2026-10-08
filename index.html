@@ -212,7 +212,6 @@
   .spons-inner{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:28px}
   .spons-h{font:600 .75rem/1.3 var(--f-head);letter-spacing:.16em;color:var(--mute);max-width:10ch}
   .spon-marquee{position:relative;overflow:hidden;padding:4px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
-  .spon-marquee.manual{overflow-x:auto;scrollbar-width:none;scroll-snap-type:x proximity}
   .spon-track{display:flex;gap:12px;width:max-content;will-change:transform}
   .spon{flex:0 0 168px;height:68px;display:flex;align-items:center;justify-content:center;padding:12px 16px;border-radius:var(--r-sm);background:var(--spon-bg);border:1px solid var(--line);scroll-snap-align:start;transition:transform .25s var(--ease-out),box-shadow .25s}
   .spon img{max-height:44px;max-width:100%;object-fit:contain}
@@ -294,6 +293,14 @@
   .list-more .ic{transition:transform .25s var(--ease-out)}
   .list-more [aria-expanded="true"] .ic{transform:rotate(180deg)}
 
+  .src-note{margin-top:10px;text-align:right;font:500 .6875rem/1.4 var(--f-head);letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+  .src-note a{color:var(--bone);text-decoration:underline;text-decoration-color:var(--line-2);text-underline-offset:3px}
+  .chip .dot{width:6px;height:6px;margin-right:6px;border-radius:50%;background:currentColor;animation:pulse 1.6s ease-in-out infinite}
+  @keyframes pulse{50%{opacity:.3}}
+  .mm-ht{font:500 .72rem/1 var(--f-head);letter-spacing:.08em;text-transform:uppercase;color:var(--mute);white-space:nowrap}
+  .mm-meta a{color:var(--bone);text-decoration:underline;text-decoration-color:var(--line-2);text-underline-offset:3px}
+  .mm-loading .sk-line{margin:16px 0}
+
   /* =========================================================
      TROPHIES
      ========================================================= */
@@ -342,6 +349,14 @@
   .vid .vcap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px}
   .vid .vtitle{min-width:0;font:500 .875rem/1.25 var(--f-head);letter-spacing:.03em;text-transform:uppercase;color:var(--ink);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
 
+  .vid .vcap.stack{flex-direction:column;align-items:flex-start;gap:6px}
+  .vid .vcap.stack .meta{display:flex;align-items:center;gap:8px}
+  .yt-all{grid-column:1/-1;max-width:880px}
+  .yt-more{display:flex;justify-content:center;margin-top:14px}
+  .yt-more button{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 16px;border-radius:var(--r-pill);border:1px solid var(--line);font:600 .75rem/1 var(--f-head);letter-spacing:.1em;text-transform:uppercase;color:var(--blue2);transition:background-color .16s,border-color .16s}
+  .yt-more .ic{transition:transform .25s var(--ease-out)}
+  .yt-more [aria-expanded="true"] .ic{transform:rotate(180deg)}
+
   /* =========================================================
      OVERLAYS (match sheet + lightbox)
      ========================================================= */
@@ -352,12 +367,18 @@
   .sheet{position:relative;display:flex;flex-direction:column;width:100%;max-width:680px;max-height:calc(100dvh - 48px);border-radius:var(--r-lg);background:var(--card);border:1px solid var(--line);box-shadow:var(--sh-pop);overflow:hidden;opacity:0;transform:translateY(14px) scale(.98);transition:transform .32s var(--ease-out),opacity .22s ease}
   .overlay.show .sheet{opacity:1;transform:none}
   .overlay.closing .sheet{transition-duration:.18s}
-  .sheet-scroll{overflow-y:auto;overscroll-behavior:contain}
-  .ov-x{position:absolute;top:12px;right:12px;z-index:3;background:var(--card);color:var(--ink)}
+  .sheet-scroll{overflow-y:auto;overscroll-behavior:contain;scrollbar-color:auto}
+  /* slim scrollbar that stays clear of the sheet's rounded corners and the close button */
+  .sheet-scroll::-webkit-scrollbar{width:14px}
+  .sheet-scroll::-webkit-scrollbar-track{background:transparent;margin:24px 0}
+  .sheet-scroll::-webkit-scrollbar-thumb{background:var(--line-2);border:5px solid transparent;border-radius:8px;background-clip:padding-box}
+  .sheet-scroll::-webkit-scrollbar-thumb:hover{background-color:var(--mute)}
+  @supports not selector(::-webkit-scrollbar){.sheet-scroll{scrollbar-width:thin;scrollbar-color:var(--line-2) transparent}}
+  .ov-x{position:absolute;top:16px;right:22px;z-index:3;background:var(--card);color:var(--ink)}
   .sheet-grip{display:none}
 
   .mm-head{padding:28px 24px 22px;background:linear-gradient(160deg,var(--surf-a),var(--surf-b));text-align:center}
-  .mm-head .meta{padding:0 44px}
+  .mm-head .meta{padding:0 56px}
   .mm-score{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:start;gap:12px;margin-top:20px}
   .mm-team{display:flex;flex-direction:column;align-items:center;gap:10px;min-width:0}
   .mm-team b{font:600 .95rem/1.15 var(--f-head);text-transform:uppercase;letter-spacing:.03em;color:var(--ink);overflow-wrap:anywhere}
@@ -601,6 +622,7 @@
   <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10Z"/></symbol>
   <symbol id="i-facebook" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3Z"/></symbol>
   <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></symbol>
+  <symbol id="i-youtube" viewBox="0 0 24 24"><path d="M2.5 17a24 24 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.6 49.6 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24 24 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.6 49.6 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3Z"/></symbol>
   <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
   <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></symbol>
   <symbol id="i-ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="m12 7.5 4 2.9-1.5 4.7h-5L8 10.4Z"/><path d="M12 7.5V2.6M16 10.4l4.6-1.5M14.5 15.1l2.9 3.9M9.5 15.1l-2.9 3.9M8 10.4 3.4 8.9"/></symbol>
@@ -647,7 +669,7 @@
     <div class="hero-inner">
       <div class="hero-copy">
         <svg class="crestbig enter" id="heroCrestSvg" viewBox="0 0 40 46" aria-hidden="true" style="--i:0"><use href="#i-crest"/></svg>
-        <h1 id="hero-title" class="enter" style="--i:1">Krenaria<br>e Gjilanit</h1>
+        <h1 id="hero-title" class="enter" style="--i:1">Krenaria<br>e qytetit</h1>
         <p class="sub enter" id="hero-sub" style="--i:2">Krenaria e Gjilanit, Kosovë</p>
       </div>
       <aside class="nm card enter" id="nm" style="--i:3" aria-live="polite"><div class="sk" style="height:220px;margin:-20px;border-radius:inherit"></div></aside>
@@ -673,7 +695,7 @@
       <div>
         <div class="sec-head" id="table"><h2 data-i18n="table_h">Tabela</h2></div>
         <div class="card ltable">
-          <div class="lt-top"><span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-trophy"/></svg></span><div style="min-width:0"><b id="lt-name">Kosovo Superleague</b><span class="meta" data-i18n="table_season">Sezoni 2025–26</span></div></div>
+          <div class="lt-top"><span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-trophy"/></svg></span><div style="min-width:0"><b id="lt-name">Superliga e Kosovës</b><span class="meta" data-i18n="table_season">Sezoni 2025–26</span></div></div>
           <div class="lt-tabs" id="lt-tabs" role="tablist" hidden></div>
           <div class="lt-scroll">
             <table class="lt">
@@ -699,6 +721,7 @@
           </div>
           <div id="fix-list" role="tabpanel"><span class="sk sk-line"></span><span class="sk sk-line"></span><span class="sk sk-line"></span></div>
         </div>
+        <p class="src-note" id="src-note" hidden><a href="https://sportscore.com/" target="_blank" rel="noopener">Powered by SportScore</a></p>
       </div>
       <div id="trophCol">
         <div class="sec-head" id="trophies"><h2 data-i18n="troph_h">Trofetë</h2></div>
@@ -728,13 +751,15 @@
     </div>
   </section>
 
-  <!-- VIDEO GALLERY -->
-  <section class="section" id="videos">
+  <!-- YOUTUBE CHANNEL (youtube.json is refreshed hourly by .github/workflows/youtube.yml) -->
+  <section class="section" id="youtube">
     <div class="wrap">
-      <div class="sec-head"><h2 data-i18n="vid_h">Galeria e videove</h2></div>
-      <div class="vid-grid" id="vid-grid"></div>
+      <div class="sec-head"><h2 data-i18n="yt_h">Nga YouTube</h2><div class="actions"><a class="link-more" id="yt-channel" href="https://www.youtube.com/@FcDritaofficial" target="_blank" rel="noopener"><span data-i18n="yt_channel">Kanali</span><svg class="ic" aria-hidden="true"><use href="#i-external"/></svg></a></div></div>
+      <div class="vid-grid" id="yt-grid"><span class="sk" style="aspect-ratio:16/12"></span><span class="sk" style="aspect-ratio:16/12"></span><span class="sk" style="aspect-ratio:16/12"></span></div>
+      <div class="yt-more" id="yt-more-wrap" hidden><button type="button" id="yt-more" aria-expanded="false"></button></div>
     </div>
   </section>
+
   <div style="height:clamp(24px,4vw,40px)"></div>
 </div><!-- /#home -->
 
@@ -829,8 +854,10 @@ const I18N={
   show_all:"Shfaq të gjitha",show_less:"Shfaq më pak",
   empty_up:"Nuk ka ndeshje të planifikuara.",empty_res:"Ende pa rezultate.",empty_fix:"Ende pa ndeshje.",empty_news:"Ende pa lajme.",empty_table:"Tabela publikohet së shpejti.",empty_players:"Skuadra publikohet së shpejti.",
   res_w:"F",res_d:"B",res_l:"H",res_w_t:"Fitore",res_d_t:"Barazim",res_l_t:"Humbje",
-  venue:"Stadiumi",referee:"Gjyqtari",att:"Spektatorë",play:"Luaj videon",menu:"Menyja",close:"Mbyll",prev:"E mëparshmja",next:"Tjetra",
+  venue:"Stadiumi",play:"Luaj videon",menu:"Menyja",close:"Mbyll",prev:"E mëparshmja",next:"Tjetra",
   skip:"Kalo te përmbajtja",back_top:"Kthehu lart",
+  live:"Live",live_now:"Po luhet tani",postponed:"E shtyrë",ht:"Pjesa e parë",on_ss:"Më shumë në SportScore",source:"Burimi",
+  yt_h:"Nga YouTube",yt_channel:"Kanali",show_more:"Shfaq më shumë",
   admin_title:"Paneli i klubit",admin_hint:"Vetëm për stafin e klubit.",admin_pass:"Fjalëkalimi",admin_enter:"Hyr",admin_wrong:"Fjalëkalim i gabuar."},
  en:{nav_home:"Home",nav_news:"News",nav_table:"Table",nav_fixtures:"Fixtures",nav_players:"Players",nav_trophies:"Trophies",nav_gallery:"Gallery",nav_contact:"Contact",
   players_h:"The squad",pos_gk:"Goalkeepers",pos_df:"Defenders",pos_mf:"Midfielders",pos_fw:"Attackers",st_p:"Games",st_g:"Goals",st_a:"Assists",st_cs:"Clean sheets",
@@ -845,17 +872,19 @@ const I18N={
   show_all:"Show all",show_less:"Show less",
   empty_up:"No upcoming matches scheduled.",empty_res:"No results yet.",empty_fix:"No matches yet.",empty_news:"No news yet.",empty_table:"The table will be published soon.",empty_players:"The squad will be published soon.",
   res_w:"W",res_d:"D",res_l:"L",res_w_t:"Win",res_d_t:"Draw",res_l_t:"Loss",
-  venue:"Venue",referee:"Referee",att:"Attendance",play:"Play video",menu:"Menu",close:"Close",prev:"Previous",next:"Next",
+  venue:"Venue",play:"Play video",menu:"Menu",close:"Close",prev:"Previous",next:"Next",
   skip:"Skip to content",back_top:"Back to top",
+  live:"Live",live_now:"Live now",postponed:"Postponed",ht:"Half-time",on_ss:"More on SportScore",source:"Source",
+  yt_h:"From YouTube",yt_channel:"Channel",show_more:"Show more",
   admin_title:"Club panel",admin_hint:"Club staff only.",admin_pass:"Password",admin_enter:"Enter",admin_wrong:"Wrong password."}
 };
 
 /* ===== default content ===== */
 const DEFAULT_DATA={
- club:{logo:"",heroImg:"",heroSq:"Krenaria/e Gjilanit",heroEn:"The Pride/of Gjilan",subSq:"Krenaria e Gjilanit, Kosovë",subEn:"The Pride of Gjilan, Kosovo"},
+ club:{logo:"",heroImg:"",stadium:"Stadiumi me bari sintetik",heroSq:"Krenaria/e qytetit",heroEn:"The Pride/of the City",subSq:"Krenaria e Gjilanit, Kosovë",subEn:"The Pride of Gjilan, Kosovo"},
  footer:{aboutSq:"Klubi Futbollistik Drita — Gjilan, Kosovë. Krenaria e Gjilanit që nga 1947.",aboutEn:"Football Club Drita — Gjilan, Kosovo. The Pride of Gjilan since 1947.",
-  fb:"https://www.facebook.com/dritafcofficial/",ig:"https://www.instagram.com/fc_dritaofficial/",
-  email:"info@fcdrita.com",phone:"+383 (0) 290 000 000",address:"Gjilan, Kosovë",website:"www.fcdrita.com"},
+  fb:"https://www.facebook.com/dritafcofficial/",ig:"https://www.instagram.com/fc_dritaofficial/",yt:"https://www.youtube.com/@FcDritaofficial",
+  email:"info@fcdrita.com",phone:"",address:"",website:"www.fcdrita.com"},
  news:[
   {img:"",tag:"Superliga",date:"2 orë më parë",titleSq:"Drita kampione e Kosovës!",titleEn:"Drita, champions of Kosovo!",textSq:"Krenaria e Gjilanit ngre përsëri trofeun e Superligës para tifozëve të vet.",textEn:"The Pride of Gjilan lifts the Superleague trophy again in front of its fans."},
   {img:"",tag:"Europa",date:"1 ditë më parë",titleSq:"Rrugëtimi europian vazhdon",titleEn:"The European journey continues",textSq:"Drita përgatitet për fazën e ligës së Conference League.",textEn:"Drita prepares for the Conference League phase."},
@@ -863,7 +892,7 @@ const DEFAULT_DATA={
   {img:"",tag:"Ndeshja",date:"3 ditë më parë",titleSq:"Fitore në derbin e Anamoravës",titleEn:"Win in the Anamorava derby",textSq:"Tri pikë të mëdha kundër rivalit.",textEn:"Three big points against the rivals."}
  ],
  leagues:[
-  {id:"superleague",name:"Kosovo Superleague",rows:[
+  {id:"superleague",name:"Superliga e Kosovës",rows:[
   {team:"FC Drita",p:13,w:9,d:3,l:1,gs:25,pts:30},
   {team:"FC Ballkani",p:13,w:8,d:2,l:3,gs:22,pts:26},
   {team:"FC Prishtina",p:13,w:7,d:3,l:3,gs:19,pts:24},
@@ -884,13 +913,7 @@ const DEFAULT_DATA={
   {img:"",name:"A. Manaj",num:"9",pos:"fw",p:13,g:8,a:2,cs:0},
   {img:"",name:"B. Balaj",num:"11",pos:"fw",p:12,g:6,a:3,cs:0}
  ],
- fixtures:[
-  {date:"09.10.2026",time:"19:00",home:"Drita",away:"Ballkani",comp:"Superliga",score:""},
-  {date:"16.10.2026",time:"17:00",home:"SC Gjilani",away:"Drita",comp:"Superliga",score:""},
-  {date:"23.10.2026",time:"19:00",home:"Drita",away:"Prishtina",comp:"Superliga",score:""},
-  {date:"02.10.2026",time:"—",home:"Drita",away:"Dukagjini",comp:"Superliga",score:"3–0",hsc:"Krasniqi 23'\nManaj 54'\nBalaj 88'",asc:"",hyel:"Ovouka 61'",hred:"",ayel:"",ared:"",hsub:"Zulfiu ↔ Abazaj 70'",asub:"",hform:"4-3-3",aform:"4-4-2",hline:"Maloku\nSeji\nB. Krasniqi\nAjzeraj\nOvouka\nBroja\nLimaj\nBalaj\nManaj\nZulfiu\nAbazaj",aline:"",stats:"Posedimi | 58 | 42\nGjuajtje | 14 | 6\nNë portë | 7 | 2\nKëndore | 8 | 3\nFaull | 9 | 12",venue:"Stadiumi i Qytetit, Gjilan",ref:"A. Kabashi",att:"6,400"},
-  {date:"25.09.2026",time:"—",home:"Prishtina",away:"Drita",comp:"Superliga",score:"0–0"}
- ],
+ fixtures:[],
  trophies:[
   {icon:"🏆",titleSq:"Tituj kampioni",titleEn:"League titles",count:"3"},
   {icon:"🥇",titleSq:"Kupa e Kosovës",titleEn:"Kosovo Cup",count:"1"},
@@ -941,8 +964,8 @@ function teamKey(n){return (n||"").toLowerCase().replace(/^\s*(fc|kf|sc|ks|shf)\
 function findTeamLogo(name){
   const k=teamKey(name);
   if(k){const t=(DATA.teams||[]).find(t=>teamKey(t.name)===k&&t.logo);if(t)return t.logo;}
-  if(isDrita(name)&&DATA.club&&DATA.club.logo)return DATA.club.logo;
-  return "";
+  if(isDrita(name))return DATA.club&&DATA.club.logo||"";
+  return k&&ssLogos[k]||"";
 }
 function teamBadge(name,size){
   const logo=findTeamLogo(name);
@@ -980,9 +1003,94 @@ function drResult(f){
   return a>b?"w":a<b?"l":"d";
 }
 const resPill=r=>r?`<span class="res ${r}" title="${esc(T("res_"+r+"_t"))}">${esc(T("res_"+r))}</span>`:"";
-function fixturesIndexed(){return (DATA.fixtures||[]).map((f,i)=>({f,i,t:fixDate(f.date)}))}
+function fixturesIndexed(){return FIX.map((f,i)=>({f,i,t:fixDate(f.date)+(validTime(f.time)?(+f.time.slice(0,2)*60+ +f.time.slice(3,5))*6e4:0)}))}
 const byAsc=(a,b)=>(a.t||Infinity)-(b.t||Infinity);
 const byDesc=(a,b)=>(b.t||0)-(a.t||0);
+
+/* ===== live FC Drita fixtures (SportScore public API; free tier needs the visible "Powered by SportScore" link) ===== */
+const SS_API="https://sportscore.com/api/widget/team/?sport=football&limit=50&slug=fc-drita";
+const SS_MATCH="https://sportscore.com/api/widget/match/?sport=football&slug=";
+const SS_CACHE="drita_ss_v1";
+const KOSOVO_TZ="Europe/Belgrade";
+let liveFix=null,ssLogos={},liveTimer=0,FIX=[];
+/* API times are UTC; show them in Kosovo time so they line up with times typed in the admin */
+function kosovoParts(iso){
+  const d=new Date(iso);if(isNaN(d))return {date:"",time:""};
+  try{const p={};new Intl.DateTimeFormat("en-GB",{timeZone:KOSOVO_TZ,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).formatToParts(d).forEach(x=>p[x.type]=x.value);
+    return {date:`${p.day}.${p.month}.${p.year}`,time:`${p.hour}:${p.minute}`};}
+  catch(e){const z=n=>String(n).padStart(2,"0");return {date:`${z(d.getDate())}.${z(d.getMonth()+1)}.${d.getFullYear()}`,time:`${z(d.getHours())}:${z(d.getMinutes())}`};}
+}
+const COMP_NAMES={"Kosovo Superliga":["Superliga","Superliga"],"UEFA Europa Conference League":["Conference League","Conference League"],"UEFA Conference League":["Conference League","Conference League"],"UEFA Champions League":["Champions League","Champions League"],"UEFA Europa League":["Europa League","Europa League"],"International Club Friendly":["Miqësore","Friendly"],"Club Friendly":["Miqësore","Friendly"],"Kosovo Cup":["Kupa e Kosovës","Kosovo Cup"]};
+const compLabel=c=>{const m=COMP_NAMES[c];return m?m[lang==="en"?1:0]:(c||"")};
+function ssNormalize(m){
+  const k=kosovoParts(m.time),fin=m.status==="finished",live=m.status==="live";
+  const score=(fin||live)&&m.home_score!=null&&m.away_score!=null?`${m.home_score}–${m.away_score}`:"";
+  const stale=!fin&&!live&&Date.parse(m.time)<Date.now()-3*3600e3; /* "not started" long after kick-off: postponed */
+  return {date:k.date,time:k.time,home:m.home,away:m.away,comp:m.competition||"",score,
+    status:live?"live":fin?"finished":stale?"postponed":"upcoming",statusText:m.status_text||"",
+    ssSlug:(m.url||"").split("/").filter(Boolean)[2]||"",ssTime:m.time,ssUrl:m.url?"https://sportscore.com"+m.url:"",src:"api"};
+}
+/* league home games are at the club's stadium; European home games can be elsewhere, so they get no default */
+const DEFAULT_STADIUM="Stadiumi me bari sintetik";
+function homeVenue(f){
+  const c=DATA.club||{},s=c.stadium!==undefined?c.stadium:DEFAULT_STADIUM;
+  return isDrita(f.home)&&/superliga/i.test(f.comp||"")?s:"";
+}
+const DETAIL_KEYS=["hsc","asc","hyel","ayel","hred","ared","hsub","asub","stats","hline","aline","hform","aform"];
+const hasDetails=f=>DETAIL_KEYS.some(k=>f[k]&&String(f[k]).trim());
+const oppKey=f=>teamKey(isDrita(f.home)?f.away:f.home);
+/* API owns schedule, score and status; an admin match on the same day against the same opponent adds its details.
+   Admin matches dated after the API's last match (e.g. friendlies not listed yet) are kept. */
+function buildFixtures(){
+  const admin=DATA.fixtures||[];
+  if(!liveFix||!liveFix.length||DATA.liveFixtures===false)return admin.map(f=>Object.assign({src:"admin"},f));
+  const used=new Set();
+  const out=liveFix.map(api=>{
+    const k=admin.findIndex((a,i)=>!used.has(i)&&fixDate(a.date)&&fixDate(a.date)===fixDate(api.date)&&oppKey(a)===oppKey(api));
+    if(k<0)return api;
+    used.add(k);
+    return Object.assign({},admin[k],api,{score:api.score||admin[k].score,venue:admin[k].venue||homeVenue(api)});
+  }).map(f=>f.venue?f:Object.assign(f,{venue:homeVenue(f)}));
+  const lastApi=Math.max(...liveFix.map(f=>fixDate(f.date)||0));
+  admin.forEach((a,i)=>{if(!used.has(i)&&fixDate(a.date)>lastApi)out.push(Object.assign({src:"admin"},a))});
+  return out;
+}
+function setLive(matches){
+  liveFix=matches.map(ssNormalize);
+  ssLogos={};matches.forEach(m=>{if(m.home_logo)ssLogos[teamKey(m.home)]=m.home_logo;if(m.away_logo)ssLogos[teamKey(m.away)]=m.away_logo});
+  railPositioned=false;
+  renderFixturesAll();
+}
+async function loadLive(force){
+  if(DATA.liveFixtures===false)return;
+  let cached=null;try{cached=JSON.parse(localStorage.getItem(SS_CACHE)||"null")}catch(e){}
+  if(cached&&cached.matches&&!liveFix)setLive(cached.matches);
+  const fresh=cached&&Date.now()-cached.at<5*60e3&&!cached.matches.some(m=>m.status==="live");
+  if(!force&&fresh){scheduleLive();return}
+  try{
+    const ctrl=new AbortController(),to=setTimeout(()=>ctrl.abort(),8000);
+    const r=await fetch(SS_API,{signal:ctrl.signal});clearTimeout(to);
+    if(!r.ok)throw new Error(r.status);
+    const j=await r.json();
+    const ms=(j.matches||[]).filter(m=>isDrita(m.home)||isDrita(m.away)); /* FC Drita games only */
+    try{localStorage.setItem(SS_CACHE,JSON.stringify({at:Date.now(),matches:ms}))}catch(e){}
+    setLive(ms);
+  }catch(e){/* keep the cached or admin fixtures */}
+  scheduleLive();
+}
+/* refresh every minute while Drita is playing, otherwise every 10 minutes; nothing while the tab is hidden */
+function scheduleLive(){
+  clearTimeout(liveTimer);
+  const playing=(liveFix||[]).some(f=>f.status==="live");
+  liveTimer=setTimeout(()=>{if(document.hidden)scheduleLive();else loadLive(true)},playing?60e3:10*60e3);
+}
+document.addEventListener("visibilitychange",()=>{if(!document.hidden&&liveFix)loadLive(false)});
+function renderFixturesAll(){FIX=buildFixtures();renderNext();renderFixtures();renderMatchCards();renderLeague();$("#src-note").hidden=!(liveFix&&liveFix.length&&DATA.liveFixtures!==false);}
+const isLive=f=>f.status==="live";
+const isPostponed=f=>f.status==="postponed";
+const isUpcoming=f=>!hasScore(f)&&!isPostponed(f);
+const liveText=f=>/\d|HT/i.test(f.statusText||"")?f.statusText:T("live");
+const liveChip=f=>`<span class="chip live"><span class="dot" aria-hidden="true"></span>${esc(liveText(f))}</span>`;
 
 /* ===== render ===== */
 function applyI18n(){
@@ -1018,20 +1126,23 @@ function renderClub(){
 function renderNext(){
   const el=$("#nm");
   const all=fixturesIndexed();
-  const up=all.filter(o=>!hasScore(o.f)&&(!o.t||dayDiff(new Date(o.t))>=0)).sort(byAsc)[0];
-  const last=all.filter(o=>hasScore(o.f)).sort(byDesc)[0];
+  const live=all.find(o=>isLive(o.f));
+  const up=live||all.filter(o=>isUpcoming(o.f)&&(!o.t||dayDiff(new Date(o.t))>=0)).sort(byAsc)[0];
+  const last=all.filter(o=>hasScore(o.f)&&!isLive(o.f)).sort(byDesc)[0];
   const main=up||last;
   if(!main){el.hidden=true;el.innerHTML="";return}
   el.hidden=false;
-  const f=main.f,dp=dateParts(f),when=up?whenLabel(dp.d):"";
+  const f=main.f,dp=dateParts(f),when=up&&!live?whenLabel(dp.d):"";
   const side=n=>`<div class="nm-side${isDrita(n)?" me":""}">${teamBadge(n,"xl")}<b>${esc(n)}</b></div>`;
-  const mid=up
+  const mid=live
+    ?`<span class="nm-big">${esc(f.score||"0–0")}</span>${liveChip(f)}`
+    :up
     ?`<span class="nm-big">${esc(validTime(f.time)?f.time:"VS")}</span><span class="meta">${esc([dp.wd,dp.dm].filter(Boolean).join(", "))}</span>`
     :`<span class="nm-big">${esc(f.score)}</span><span class="meta">${esc(T("ft"))}</span>`;
-  const sub=[f.comp,f.venue].filter(Boolean).join(" · ");
+  const sub=[compLabel(f.comp),f.venue].filter(Boolean).join(" · ");
   let lastRow="";
   if(up&&last){const l=last.f;lastRow=`<button class="nm-last" type="button" data-match="${last.i}"><span class="meta">${esc(T("last_result"))}</span><span class="m">${esc(l.home)} <b>${esc(l.score)}</b> ${esc(l.away)}</span>${resPill(drResult(l))}</button>`;}
-  el.innerHTML=`<div class="nm-top"><span class="nm-label">${esc(T(up?"next_match":"last_result"))}</span>${when?`<span class="chip${dayDiff(dp.d)===0?" live":""}">${esc(when)}</span>`:(up?"":resPill(drResult(f)))}</div>
+  el.innerHTML=`<div class="nm-top"><span class="nm-label">${esc(T(live?"live_now":up?"next_match":"last_result"))}</span>${live?"":when?`<span class="chip${dayDiff(dp.d)===0?" live":""}">${esc(when)}</span>`:(up?"":resPill(drResult(f)))}</div>
     <button class="nm-match" type="button" data-match="${main.i}"><div class="nm-teams">${side(f.home)}<div class="nm-mid">${mid}</div>${side(f.away)}</div>
     <div class="nm-foot"><span class="meta">${esc(sub)}</span><span class="nm-more">${esc(T("details"))}${ic("chev-right")}</span></div></button>${lastRow}`;
 }
@@ -1068,14 +1179,16 @@ function setFixTab(t){fixTab=t;fixExpanded=false;$$("#fix-tabs .tab").forEach(b=
 function teamEm(n){return isDrita(n)?`<em>${esc(n)}</em>`:esc(n)}
 function renderFixtures(){
   const all=fixturesIndexed();
-  const up=all.filter(o=>!hasScore(o.f)).sort(byAsc);
-  const res=all.filter(o=>hasScore(o.f)).sort(byDesc);
+  const live=all.filter(o=>isLive(o.f));
+  const up=live.concat(all.filter(o=>isUpcoming(o.f)).sort(byAsc));
+  const res=all.filter(o=>!isUpcoming(o.f)&&!isLive(o.f)).sort(byDesc);
   const arr=fixTab==="up"?up:fixTab==="res"?res:up.concat(res);
   const shown=fixExpanded?arr:arr.slice(0,FIX_LIMIT);
-  const rows=shown.map(o=>{const f=o.f,isUp=!hasScore(f),dp=dateParts(f);
+  const rows=shown.map(o=>{const f=o.f,isUp=isUpcoming(f),dp=dateParts(f),comp=esc(compLabel(f.comp));
     const right=isUp
-      ?`<div class="fc"><span class="meta">${esc(f.comp||"")}</span><b>${esc(validTime(f.time)?f.time:"—")}</b></div>`
-      :`<div class="fc"><span class="meta">${esc(f.comp||"")}</span><b>${esc(f.score)}${resPill(drResult(f))}</b></div>`;
+      ?`<div class="fc"><span class="meta">${comp}</span><b>${esc(validTime(f.time)?f.time:"—")}</b></div>`
+      :isPostponed(f)?`<div class="fc"><span class="meta">${comp}</span><span class="chip muted">${esc(T("postponed"))}</span></div>`
+      :`<div class="fc"><span class="meta">${comp}</span><b>${esc(f.score)}${isLive(f)?liveChip(f):resPill(drResult(f))}</b></div>`;
     return `<button class="frow" type="button" data-match="${o.i}"><div class="fd"><small>${esc(dp.wd)}</small><b>${esc(dp.dm)}</b></div><div class="ft">${teamEm(f.home)}<span class="sep">${isUp?"vs":"–"}</span>${teamEm(f.away)}</div>${right}</button>`;
   }).join("");
   const more=arr.length>FIX_LIMIT?`<div class="list-more"><button type="button" id="fix-more" aria-expanded="${fixExpanded}">${esc(fixExpanded?T("show_less"):`${T("show_all")} (${arr.length})`)}${ic("chev-down")}</button></div>`:"";
@@ -1088,17 +1201,17 @@ function renderMatchCards(){
   const arr=fixturesIndexed().sort(byAsc);
   if(!arr.length){$("#calendar").hidden=true;return}
   $("#calendar").hidden=false;
-  rail.innerHTML=arr.map(o=>{const f=o.f,isUp=!hasScore(f),dp=dateParts(f);
-    const mid=isUp?`<div class="mid vs">VS</div>`:`<div class="mid">${esc(f.score)}</div>`;
-    const status=isUp?`<span class="chip">${esc(T("up"))}</span>`:(resPill(drResult(f))||`<span class="chip muted">${esc(T("ft"))}</span>`);
+  rail.innerHTML=arr.map(o=>{const f=o.f,isUp=isUpcoming(f),dp=dateParts(f);
+    const mid=isUp||isPostponed(f)?`<div class="mid vs">VS</div>`:`<div class="mid">${esc(f.score)}</div>`;
+    const status=isUp?`<span class="chip">${esc(T("up"))}</span>`:isLive(f)?liveChip(f):isPostponed(f)?`<span class="chip muted">${esc(T("postponed"))}</span>`:(resPill(drResult(f))||`<span class="chip muted">${esc(T("ft"))}</span>`);
     const when=[dp.wd&&`${dp.wd}, ${dp.dm}`||dp.dm,isUp&&validTime(f.time)?f.time:""].filter(Boolean).join(" · ");
-    return `<button class="mc lift" type="button" data-match="${o.i}" data-up="${isUp}"><div class="mc-top"><span class="meta">${esc(f.comp||"")}</span>${status}</div>
+    return `<button class="mc lift" type="button" data-match="${o.i}" data-up="${isUp}"><div class="mc-top"><span class="meta">${esc(compLabel(f.comp))}</span>${status}</div>
       <div class="mc-body"><div class="side${isDrita(f.home)?" me":""}">${teamBadge(f.home,"lg")}<span class="tn">${esc(f.home)}</span></div>${mid}<div class="side${isDrita(f.away)?" me":""}">${teamBadge(f.away,"lg")}<span class="tn">${esc(f.away)}</span></div></div>
       <div class="mc-foot"><span class="meta">${esc(when)}</span>${ic("arrow-right")}</div></button>`;
   }).join("");
   if(!railPositioned){
     railPositioned=true;
-    const first=rail.querySelector('[data-up="true"]');
+    const first=rail.querySelector('[data-up="true"]')||rail.lastElementChild;
     if(first)rail.scrollLeft=first.offsetLeft-parseFloat(getComputedStyle(rail).paddingLeft||0);
   }
   railUpdate();
@@ -1142,9 +1255,42 @@ const Overlay=(()=>{
 
 /* ---- match detail ---- */
 function mlines(s){return (s||"").split(/\n+/).map(x=>x.trim()).filter(Boolean)}
-function openMatch(i){
-  const f=(DATA.fixtures||[])[i];if(!f)return;
-  const isUp=!hasScore(f),dp=dateParts(f);
+const DETAIL={};
+/* match detail from the API; the slug is name-based, so reject a different meeting of the same two teams */
+async function ssDetail(f){
+  const key=f.ssSlug+"|"+f.ssTime;
+  if(key in DETAIL&&!isLive(f))return DETAIL[key];
+  try{const r=await fetch(SS_MATCH+encodeURIComponent(f.ssSlug));const m=(await r.json()).match;DETAIL[key]=m&&m.time===f.ssTime?m:null}
+  catch(e){DETAIL[key]=null}
+  return DETAIL[key];
+}
+/* only named events: the feed often lists goals and cards without a player, and those can't be shown meaningfully */
+function detailFields(m){
+  const out={hsc:[],asc:[],hyel:[],ayel:[],hred:[],ared:[]};
+  (m.incidents||[]).forEach(e=>{
+    if(!e.player)return;const s=e.side==="away"?"a":"h",line=`${e.player} ${e.time}'`;
+    if(e.is_goal)out[s+"sc"].push(line);
+    else if(e.is_card)out[s+(/red/i.test(e.type||"")?"red":"yel")].push(line);
+  });
+  const f={};Object.keys(out).forEach(k=>f[k]=out[k].join("\n"));
+  if(Array.isArray(m.stats))f.stats=m.stats.map(x=>x&&(x.name||x.type)!=null&&x.home!=null&&x.away!=null?`${x.name||x.type} | ${x.home} | ${x.away}`:"").filter(Boolean).join("\n");
+  if(m.home_ht_score!=null&&m.away_ht_score!=null)f.ht=`${m.home_ht_score}–${m.away_ht_score}`;
+  return f;
+}
+let openIdx=-1;
+async function openMatch(i){
+  const f=FIX[i];if(!f)return;
+  openIdx=i;
+  const needsApi=f.src==="api"&&f.ssSlug&&!hasDetails(f)&&!isUpcoming(f)&&!isPostponed(f);
+  renderMatch(f,needsApi);
+  Overlay.open($("#matchModal"));
+  if(!needsApi)return;
+  const m=await ssDetail(f);
+  if(openIdx!==i||Overlay.current!==$("#matchModal"))return;
+  renderMatch(m?Object.assign({},f,detailFields(m)):f,false);
+}
+function renderMatch(f,loading){
+  const isUp=isUpcoming(f),dp=dateParts(f);
   const g=(txt,mark)=>`<div class="g">${mark}<span>${esc(txt)}</span></div>`;
   const cols=(h,a)=>`<div class="mm-cols"><div>${h}</div><div class="away">${a}</div></div>`;
   const sec=(title,body)=>`<div class="mm-sec"><h4>${esc(title)}</h4>${body}</div>`;
@@ -1167,16 +1313,20 @@ function openMatch(i){
     const fcol=(team,form,list)=>`<div><b>${esc(team)}</b>${form?`<div class="fm">${esc(form)}</div>`:""}${list.length?`<ol>${list.map(p=>`<li>${esc(p)}</li>`).join("")}</ol>`:""}</div>`;
     out+=sec(T("mm_forms"),`<div class="mm-forms">${fcol(f.home,f.hform,hl)}${fcol(f.away,f.aform,al)}</div>`);
   }
-  const meta=[["pin","venue",f.venue],["user","referee",f.ref],["users","att",f.att]].filter(m=>m[2]);
-  if(meta.length)out+=`<dl class="mm-meta">${meta.map(([icon,k,v])=>`<div>${ic(icon)}<dt class="sr-only">${esc(T(k))}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>`;
+  const meta=[["pin","venue",esc(f.venue||"")]].filter(m=>m[2]);
+  if(f.ssUrl)meta.push(["external","source",`<a href="${esc(f.ssUrl)}" target="_blank" rel="noopener">${esc(T("on_ss"))}</a>`]);
+  if(loading)out+=`<div class="mm-loading" aria-hidden="true"><span class="sk sk-line"></span><span class="sk sk-line"></span><span class="sk sk-line"></span></div>`;
+  if(meta.length)out+=`<dl class="mm-meta">${meta.map(([icon,k,v])=>`<div>${ic(icon)}<dt class="sr-only">${esc(T(k))}</dt><dd>${v}</dd></div>`).join("")}</dl>`;
   const when=[dp.wd&&`${dp.wd}, ${dp.dm}`||dp.dm,validTime(f.time)?f.time:""].filter(Boolean).join(" · ");
   const team=n=>`<div class="mm-team${isDrita(n)?" me":""}">${teamBadge(n,"xl")}<b>${esc(n)}</b></div>`;
-  const score=isUp?`<strong class="vs">VS</strong><span class="chip">${esc(T("up"))}</span>`:`<strong>${esc(f.score)}</strong>${resPill(drResult(f))||`<span class="chip muted">${esc(T("ft"))}</span>`}`;
-  $("#mm-body").innerHTML=`<div class="mm-head"><div class="meta">${esc([f.comp,when].filter(Boolean).join(" · "))}</div>
+  const score=isUp?`<strong class="vs">VS</strong><span class="chip">${esc(T("up"))}</span>`
+    :isPostponed(f)?`<strong class="vs">VS</strong><span class="chip muted">${esc(T("postponed"))}</span>`
+    :`<strong>${esc(f.score)}</strong>${isLive(f)?liveChip(f):resPill(drResult(f))||`<span class="chip muted">${esc(T("ft"))}</span>`}${f.ht?`<span class="mm-ht">${esc(T("ht"))} ${esc(f.ht)}</span>`:""}`;
+  const body=out.replace(/<dl class="mm-meta">[\s\S]*$/,"")?out:`<p class="mm-empty">${esc(T("mm_none"))}</p>`+out;
+  $("#mm-body").innerHTML=`<div class="mm-head"><div class="meta">${esc([compLabel(f.comp),when].filter(Boolean).join(" · "))}</div>
     <h2 class="sr-only" id="mm-title">${esc(f.home)} – ${esc(f.away)}</h2>
     <div class="mm-score">${team(f.home)}<div class="mm-sc">${score}</div>${team(f.away)}</div></div>
-    <div class="mm-body">${out||`<p class="mm-empty">${esc(T("mm_none"))}</p>`}</div>`;
-  Overlay.open($("#matchModal"));
+    <div class="mm-body">${body}</div>`;
 }
 
 /* ---- photo lightbox ---- */
@@ -1228,29 +1378,43 @@ function renderPhotos(){
   }).join("");
 }
 function ytId(u){if(!u)return "";const m=u.match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([A-Za-z0-9_-]{6,})/);return m?m[1]:""}
-function renderVideos(){
-  const arr=DATA.videos||[];
-  $("#videos").hidden=!arr.length;
-  $("#vid-grid").innerHTML=arr.map((v,i)=>{
-    const id=ytId(v.url),hasLink=!!(v.url&&v.url.trim());
-    const thumb=v.thumb||(id?`https://img.youtube.com/vi/${id}/hqdefault.jpg`:"");
-    const title=pick(v.titleSq,v.titleEn);
-    const play=hasLink?`<button type="button" data-video="${i}" aria-label="${esc(T("play"))}: ${esc(title)}"><span class="play">${ic("play")}</span></button>`:"";
-    const watch=hasLink?`<a class="btn btn-ghost btn-sm" href="${esc(v.url)}" target="_blank" rel="noopener">${esc(T("watch_now"))}${ic("external")}</a>`:"";
-    return `<div class="vid${hasLink?" lift":""}"><div class="frame">${media(thumb)}${play}</div><div class="vcap"><span class="vtitle">${esc(title)}</span>${watch}</div></div>`;
-  }).join("");
+
+/* ---- YouTube channel: latest uploads from youtube.json, or the channel's uploads playlist as a fallback ---- */
+const YT_CHANNEL_ID="UCSpQ_D3Tjm46L-r7b3G28Zw";
+const YT_URL="https://www.youtube.com/@FcDritaofficial";
+const YT_LIMIT=6;
+let ytVideos=null,ytExpanded=false;
+async function loadYouTube(){
+  try{const r=await fetch("youtube.json",{cache:"no-cache"});ytVideos=r.ok?((await r.json()).videos||[]):[]}catch(e){ytVideos=[]}
+  renderYouTube();
 }
-function playVideo(btn){
-  const v=(DATA.videos||[])[+btn.dataset.video];if(!v)return;const id=ytId(v.url);
-  if(id){
-    const fr=document.createElement("iframe");
-    fr.src=`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
-    fr.title=pick(v.titleSq,v.titleEn)||"Video";
-    fr.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-    fr.allowFullscreen=true;
-    btn.closest(".vid").classList.remove("lift");
-    btn.replaceWith(fr);
-  }else if(v.url)window.open(v.url,"_blank","noopener");
+/* titles on this channel often end with a run of hashtags; they add noise on a card */
+const ytTitle=t=>(t||"").replace(/(\s*#[\p{L}\p{N}_]+)+\s*$/u,"").trim()||t||"";
+function ytDate(s){const d=new Date(s);return isNaN(d)?"":`${d.getDate()} ${MONTHS[lang][d.getMonth()]} ${d.getFullYear()}`}
+function renderYouTube(){
+  $("#yt-channel").href=(DATA.footer&&DATA.footer.yt)||YT_URL;
+  if(ytVideos===null)return; /* still loading: keep the skeletons */
+  const grid=$("#yt-grid"),wrap=$("#yt-more-wrap");
+  if(!ytVideos.length){
+    grid.innerHTML=`<div class="vid yt-all"><div class="frame"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/videoseries?list=UU${YT_CHANNEL_ID.slice(2)}" title="FC Drita — YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></div>`;
+    wrap.hidden=true;return;
+  }
+  const list=ytExpanded?ytVideos:ytVideos.slice(0,YT_LIMIT);
+  grid.innerHTML=list.map(v=>{const title=ytTitle(v.title);
+    return `<div class="vid lift"><div class="frame">${media(`https://i.ytimg.com/vi/${encodeURIComponent(v.id)}/hqdefault.jpg`)}<button type="button" data-yt="${esc(v.id)}" aria-label="${esc(T("play"))}: ${esc(title)}"><span class="play">${ic("play")}</span></button></div><div class="vcap stack"><span class="vtitle" title="${esc(title)}">${esc(title)}</span><span class="meta">${v.short?`<span class="chip">Shorts</span>`:""}${esc(ytDate(v.published))}</span></div></div>`;
+  }).join("");
+  wrap.hidden=ytVideos.length<=YT_LIMIT;
+  const b=$("#yt-more");b.setAttribute("aria-expanded",String(ytExpanded));
+  b.innerHTML=`${esc(ytExpanded?T("show_less"):`${T("show_more")} (${ytVideos.length})`)}${ic("chev-down")}`;
+}
+function embedYouTube(btn,id,title){
+  const fr=document.createElement("iframe");
+  fr.src=`https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0`;
+  fr.title=title||"Video";
+  fr.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+  fr.allowFullscreen=true;
+  btn.closest(".vid").classList.remove("lift");
+  btn.replaceWith(fr);
 }
 
 function renderSponsors(){
@@ -1258,13 +1422,10 @@ function renderSponsors(){
   const base=DATA.sponsors||[];
   $("#spons").hidden=!base.length;
   if(!base.length){cont.innerHTML="";marqBoundary=0;return;}
-  const manual=REDUCED.matches;
-  cont.classList.toggle("manual",manual);
   let loop=[];while(loop.length<6)loop=loop.concat(base);
-  if(manual)loop=base;
   const cell=(s,dup)=>{const inner=(s.logo?`<img src="${esc(s.logo)}" alt="${esc(s.name)}">`:"")+`<span class="sn fb">${esc(s.name)}</span>`;const a=dup?' aria-hidden="true" tabindex="-1"':'';return s.url?`<a class="spon" href="${esc(s.url)}" target="_blank" rel="noopener"${a}>${inner}</a>`:`<div class="spon"${a}>${inner}</div>`;};
-  cont.innerHTML=`<div class="spon-track" id="spon-track">${loop.map(s=>cell(s,false)).join("")}${manual?"":loop.map(s=>cell(s,true)).join("")}</div>`;
-  marqBoundary=manual?0:loop.length;
+  cont.innerHTML=`<div class="spon-track" id="spon-track">${loop.map(s=>cell(s,false)).join("")}${loop.map(s=>cell(s,true)).join("")}</div>`;
+  marqBoundary=loop.length;
   marqHalf=0;marqOffset=0;
 }
 
@@ -1298,6 +1459,7 @@ function renderFooter(){
   const soc=[];
   if(ft.fb)soc.push(link(ft.fb,"facebook","Facebook",1));
   if(ft.ig)soc.push(link(ft.ig,"instagram","Instagram",1));
+  if(ft.yt)soc.push(link(ft.yt,"youtube","YouTube",1));
   $("#f-social-list").innerHTML=soc.join("")||`<li class="meta">—</li>`;
   const con=[];
   if(ft.email)con.push(link("mailto:"+ft.email.trim(),"mail",ft.email));
@@ -1307,7 +1469,7 @@ function renderFooter(){
   $("#f-contact-list").innerHTML=con.join("")||`<li class="meta">—</li>`;
 }
 
-function applyAll(){applyI18n();renderClub();renderNext();renderFooter();renderNews();renderLeague();renderFixtures();renderMatchCards();renderPlayers();renderTrophies();renderPhotos();renderVideos();renderSponsors();routeNews(true);}
+function applyAll(){applyI18n();renderClub();renderFooter();renderNews();renderFixturesAll();renderPlayers();renderTrophies();renderPhotos();renderYouTube();renderSponsors();routeNews(true);}
 
 /* ---- in-page views: #all-news, #all-news/aN, #all-players ---- */
 function showNewsList(){
@@ -1363,7 +1525,8 @@ document.addEventListener("click",e=>{
   const t=e.target;
   const m=t.closest("[data-match]");if(m){openMatch(+m.dataset.match);return}
   const p=t.closest("[data-photo]");if(p){openPhoto(+p.dataset.photo);return}
-  const v=t.closest("[data-video]");if(v){playVideo(v);return}
+  const y=t.closest("[data-yt]");if(y){const vid=(ytVideos||[]).find(x=>x.id===y.dataset.yt);embedYouTube(y,y.dataset.yt,vid?ytTitle(vid.title):"");return}
+  if(t.closest("#yt-more")){ytExpanded=!ytExpanded;renderYouTube();const b=$("#yt-more");if(b)b.focus({preventScroll:true});return}
   const x=t.closest("[data-close]");if(x){Overlay.close();return}
   const fx=t.closest("[data-fix]");if(fx){setFixTab(fx.dataset.fix);return}
   const lg=t.closest("[data-lg]");if(lg){lgActive=+lg.dataset.lg;renderLeague();return}
@@ -1413,8 +1576,8 @@ $$("#nav a").forEach(a=>a.addEventListener("click",()=>setMenu(false)));
 addEventListener("keydown",e=>{if(e.key==="Escape"&&document.body.classList.contains("menu-open")){setMenu(false);$("#burger").focus()}});
 
 /* ---- active nav item ---- */
-const SPY=["top","news","table","fixtures","trophies","calendar","gallery","contact"];
-const SPY_NAV={calendar:"fixtures",videos:"gallery"};
+const SPY=["top","news","table","fixtures","trophies","calendar","gallery","youtube","contact"];
+const SPY_NAV={calendar:"fixtures",videos:"gallery",youtube:"gallery"};
 function spy(){
   let cur="top";
   if(curView==="news")cur="all-news";
@@ -1437,7 +1600,7 @@ function migrate(d){
   if(d&&!d.leagues)d.leagues=[{id:"table1",name:"Tabela",rows:[]}];
   if(d&&!d.teams)d.teams=[];
   if(d&&!d.players)d.players=[];
-  if(d&&!d.footer)d.footer={aboutSq:"",aboutEn:"",fb:"",ig:"",email:"",phone:"",address:"",website:""};
+  if(d&&!d.footer)d.footer={aboutSq:"",aboutEn:"",fb:"",ig:"",yt:"",email:"",phone:"",address:"",website:""};
   return d;
 }
 
@@ -1457,6 +1620,8 @@ syncThemeColor();
   $("#sq").classList.toggle("on",lang==="sq");$("#en").classList.toggle("on",lang==="en");
   $("#sq").setAttribute("aria-pressed",String(lang==="sq"));$("#en").setAttribute("aria-pressed",String(lang==="en"));
   applyAll();
+  loadYouTube();
+  loadLive(false);
   if(location.hash&&curView==="home"){const el=document.getElementById(location.hash.slice(1));if(el)el.scrollIntoView({behavior:"instant"});}
 })();
 </script>

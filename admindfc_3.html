@@ -165,6 +165,11 @@
   .sub-h .en{display:block;margin-top:2px;font:400 .8125rem/1.4 var(--f-body);letter-spacing:0;text-transform:none}
   .sub-h .en::before{display:none}
 
+  .live-row{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;padding:14px 16px;border-radius:var(--r-md);background:var(--card);border:1px solid var(--line);cursor:pointer}
+  .live-row input{width:20px;height:20px;flex:0 0 auto;margin-top:2px;accent-color:var(--blue)}
+  .live-row b{display:block;font:600 .875rem/1.3 var(--f-body);color:var(--ink)}
+  .live-row .en{display:block;margin-top:4px;font-size:.8125rem;line-height:1.45}
+  .live-row .en::before{display:none}
   .lg-bar{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:16px;margin-bottom:12px;border-radius:var(--r-md);background:var(--card);border:1px solid var(--line)}
   .lg-bar .facts{grid-column:1/-1;padding-top:0}
 
@@ -317,7 +322,6 @@
       </div>
       <div class="nav-group"><h2>Media</h2>
         <button class="atab" type="button" data-pane="pa-photo" data-count="photos"><svg class="ic" aria-hidden="true"><use href="#i-image"/></svg><span class="lbl">Foto</span><span class="cnt"></span></button>
-        <button class="atab" type="button" data-pane="pa-video" data-count="videos"><svg class="ic" aria-hidden="true"><use href="#i-video"/></svg><span class="lbl">Video</span><span class="cnt"></span></button>
       </div>
       <div class="nav-group"><h2>Klubi</h2>
         <button class="atab on" type="button" data-pane="pa-club"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg><span class="lbl">Klubi</span></button>
@@ -340,13 +344,14 @@
           <div class="pf"><label for="logo-file">Stema <span class="en">Logo (PNG)</span></label><input type="file" id="logo-file" accept="image/*" onchange="handleLogo(this.files[0])"><br><button class="abtn sm" type="button" onclick="removeLogo()"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg>Hiq<span class="en">Remove</span></button></div>
         </div>
         <div class="g2">
-          <div><label for="c-hero-sq">Titulli hero <span class="lng">SQ</span><span class="en">rresht i ri me /</span></label><input id="c-hero-sq" placeholder="Krenaria/e Gjilanit"></div>
+          <div><label for="c-hero-sq">Titulli hero <span class="lng">SQ</span><span class="en">rresht i ri me /</span></label><input id="c-hero-sq" placeholder="Krenaria/e qytetit"></div>
           <div><label for="c-hero-en">Hero title <span class="lng">EN</span></label><input id="c-hero-en"></div>
         </div>
         <div class="g2">
           <div><label for="c-sub-sq">Nëntitulli <span class="lng">SQ</span></label><input id="c-sub-sq"></div>
           <div><label for="c-sub-en">Subtitle <span class="lng">EN</span></label><input id="c-sub-en"></div>
         </div>
+        <div><label for="c-stadium">Stadiumi i klubit <span class="en">Home stadium — shown on Drita's home league games</span></label><input id="c-stadium" placeholder="Stadiumi me bari sintetik"></div>
         <div class="photo-row">
           <div class="img-prev" id="hero-prev">Sfondi</div>
           <div class="pf"><label for="hero-file">Foto e sfondit <span class="en">Hero background</span></label><input type="file" id="hero-file" accept="image/*" onchange="handleHero(this.files[0])"><br><button class="abtn sm" type="button" onclick="removeHero()"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg>Hiq<span class="en">Remove</span></button></div>
@@ -425,6 +430,7 @@
     <section class="apane" id="pa-fix">
       <div class="phead"><h1>Ndeshjet <span class="en">Matches</span></h1></div>
       <p class="hint">Ndeshjet shfaqen te lista DHE te kartelat. Bosh rezultati = e ardhshme. / Matches feed both the list and the cards.</p>
+      <label class="live-row"><input type="checkbox" id="f-live" onchange="saveLiveToggle()"><span><b>Ndeshjet automatike nga SportScore</b><span class="en">Orari, rezultatet dhe ndeshjet live të FC Dritës ngarkohen vetë. Një ndeshje këtu me të njëjtën datë dhe kundërshtar i shton detajet (golashënues, formacione, statistika). / FC Drita's schedule, scores and live games load automatically; a match below with the same date and opponent adds its details.</span></span></label>
       <div class="alist" id="fix-list-a"></div>
       <button class="abtn add" type="button" data-add="fix-form" onclick="fixForm()"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Ndeshje<span class="en">Match</span></button>
       <div class="aform hide" id="fix-form" data-t-new="Ndeshje e re / New match" data-t-edit="Edito ndeshjen / Edit match">
@@ -459,7 +465,7 @@
           <div><label for="f-aline">Away lineup <span class="en">one per line</span></label><textarea id="f-aline" rows="6"></textarea></div>
         </div>
         <div><label for="f-stats">Statistikat <span class="en">një për rresht: Etiketa | vendasi | mysafiri — Label | home | away</span></label><textarea id="f-stats" rows="5" placeholder="Posedimi | 55 | 45&#10;Gjuajtje | 12 | 7&#10;Këndore | 6 | 3"></textarea></div>
-        <div class="g3"><div><label for="f-venue">Stadiumi <span class="en">Venue</span></label><input id="f-venue"></div><div><label for="f-ref">Gjyqtari <span class="en">Referee</span></label><input id="f-ref"></div><div><label for="f-att">Spektatorë <span class="en">Attendance</span></label><input id="f-att"></div></div>
+        <div><label for="f-venue">Stadiumi <span class="en">Venue</span></label><input id="f-venue"></div>
         <div class="facts"><button class="abtn go" type="button" onclick="saveFix()"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Ruaj<span class="en">Save</span></button><button class="abtn" type="button" onclick="hideForm('fix-form')">Anulo<span class="en">Cancel</span></button></div>
       </div>
     </section>
@@ -527,21 +533,6 @@
       </div>
     </section>
 
-    <!-- VIDEOS -->
-    <section class="apane" id="pa-video">
-      <div class="phead"><h1>Video <span class="en">Videos</span></h1></div>
-      <p class="hint">Ngjitni lidhjen e videos — nga YouTube, TikTok, Instagram apo Facebook — dhe (opsionale) ngarkoni miniaturën tuaj. Videot e YouTube luhen drejtpërdrejt në faqe; për platformat e tjera, butoni "Shiko tani" e çon tifozin te posti origjinal. / Paste the video link — from YouTube, TikTok, Instagram, or Facebook — and optionally upload your own thumbnail. YouTube videos play right on the page; for other platforms, the "Watch now" button takes fans to the original post.</p>
-      <div class="alist" id="video-list"></div>
-      <button class="abtn add" type="button" data-add="video-form" onclick="videoForm()"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Video<span class="en">Video</span></button>
-      <div class="aform hide" id="video-form" data-t-new="Video e re / New video" data-t-edit="Edito videon / Edit video">
-        <div class="aform-h"></div>
-        <input type="hidden" id="v-idx">
-        <div><label for="v-url">Lidhja e videos <span class="en">Video link — YouTube, TikTok, Instagram, Facebook</span></label><input id="v-url" type="url" inputmode="url" autocapitalize="none" autocorrect="off" placeholder="https://..."></div>
-        <div class="photo-row"><div class="img-prev" id="v-prev">Miniatura</div><div class="pf"><label for="v-file">Miniatura <span class="en">Thumbnail — opsionale</span></label><input type="file" id="v-file" accept="image/*" onchange="handleImg('video',this.files[0])"><br><button class="abtn sm" type="button" onclick="clrImg('video')"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg>Hiq<span class="en">Remove</span></button></div></div>
-        <div class="g2"><div><label for="v-title-sq">Titulli <span class="lng">SQ</span></label><input id="v-title-sq"></div><div><label for="v-title-en">Title <span class="lng">EN</span></label><input id="v-title-en"></div></div>
-        <div class="facts"><button class="abtn go" type="button" onclick="saveVideo()"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Ruaj<span class="en">Save</span></button><button class="abtn" type="button" onclick="hideForm('video-form')">Anulo<span class="en">Cancel</span></button></div>
-      </div>
-    </section>
 
     <!-- SPONSORS -->
     <section class="apane" id="pa-spons">
@@ -564,7 +555,7 @@
       <p class="hint">Përmbajtja e fundfaqes: përshkrimi, rrjetet sociale dhe kontakti. Lëreni bosh fushën për ta fshehur atë rresht. / Footer content: about text, social links, and contact. Leave a field empty to hide that line.</p>
       <div class="aform" style="margin-top:0">
         <div class="g2"><div><label for="ft-about-sq">Rreth klubit <span class="lng">SQ</span></label><textarea id="ft-about-sq"></textarea></div><div><label for="ft-about-en">About <span class="lng">EN</span></label><textarea id="ft-about-en"></textarea></div></div>
-        <div class="g2"><div><label for="ft-fb">Facebook URL</label><input id="ft-fb" type="url" inputmode="url" autocapitalize="none" autocorrect="off" placeholder="https://facebook.com/..."></div><div><label for="ft-ig">Instagram URL</label><input id="ft-ig" type="url" inputmode="url" autocapitalize="none" autocorrect="off" placeholder="https://instagram.com/..."></div></div>
+        <div class="g3"><div><label for="ft-fb">Facebook URL</label><input id="ft-fb" type="url" inputmode="url" autocapitalize="none" autocorrect="off" placeholder="https://facebook.com/..."></div><div><label for="ft-ig">Instagram URL</label><input id="ft-ig" type="url" inputmode="url" autocapitalize="none" autocorrect="off" placeholder="https://instagram.com/..."></div><div><label for="ft-yt">YouTube URL</label><input id="ft-yt" type="url" inputmode="url" autocapitalize="none" autocorrect="off" placeholder="https://www.youtube.com/@FcDritaofficial"></div></div>
         <div class="g2"><div><label for="ft-email">Email</label><input id="ft-email" type="email" inputmode="email" autocapitalize="none" autocorrect="off" placeholder="info@fcdrita.com"></div><div><label for="ft-phone">Telefoni <span class="en">Phone</span></label><input id="ft-phone" type="tel" inputmode="tel" placeholder="+383 ..."></div></div>
         <div class="g2"><div><label for="ft-address">Adresa <span class="en">Address</span></label><input id="ft-address" placeholder="Gjilan, Kosovë"></div><div><label for="ft-website">Website</label><input id="ft-website" inputmode="url" autocapitalize="none" autocorrect="off" placeholder="www.fcdrita.com"></div></div>
         <div class="facts"><button class="abtn go" type="button" onclick="saveFooter()"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Ruaj<span class="en">Save</span></button></div>
@@ -614,10 +605,10 @@
 <script>
 /* ===== default content ===== */
 const DEFAULT_DATA={
- club:{logo:"",heroImg:"",heroSq:"Krenaria/e Gjilanit",heroEn:"The Pride/of Gjilan",subSq:"Krenaria e Gjilanit, Kosovë",subEn:"The Pride of Gjilan, Kosovo"},
+ club:{logo:"",heroImg:"",stadium:"Stadiumi me bari sintetik",heroSq:"Krenaria/e qytetit",heroEn:"The Pride/of the City",subSq:"Krenaria e Gjilanit, Kosovë",subEn:"The Pride of Gjilan, Kosovo"},
  footer:{aboutSq:"Klubi Futbollistik Drita — Gjilan, Kosovë. Krenaria e Gjilanit që nga 1947.",aboutEn:"Football Club Drita — Gjilan, Kosovo. The Pride of Gjilan since 1947.",
-  fb:"https://www.facebook.com/dritafcofficial/",ig:"https://www.instagram.com/fc_dritaofficial/",
-  email:"info@fcdrita.com",phone:"+383 (0) 290 000 000",address:"Gjilan, Kosovë",website:"www.fcdrita.com"},
+  fb:"https://www.facebook.com/dritafcofficial/",ig:"https://www.instagram.com/fc_dritaofficial/",yt:"https://www.youtube.com/@FcDritaofficial",
+  email:"info@fcdrita.com",phone:"",address:"",website:"www.fcdrita.com"},
  news:[
   {img:"",tag:"Superliga",date:"2 orë më parë",titleSq:"Drita kampione e Kosovës!",titleEn:"Drita, champions of Kosovo!",textSq:"Krenaria e Gjilanit ngre përsëri trofeun e Superligës para tifozëve të vet.",textEn:"The Pride of Gjilan lifts the Superleague trophy again in front of its fans."},
   {img:"",tag:"Europa",date:"1 ditë më parë",titleSq:"Rrugëtimi europian vazhdon",titleEn:"The European journey continues",textSq:"Drita përgatitet për fazën e ligës së Conference League.",textEn:"Drita prepares for the Conference League phase."},
@@ -625,7 +616,7 @@ const DEFAULT_DATA={
   {img:"",tag:"Ndeshja",date:"3 ditë më parë",titleSq:"Fitore në derbin e Anamoravës",titleEn:"Win in the Anamorava derby",textSq:"Tri pikë të mëdha kundër rivalit.",textEn:"Three big points against the rivals."}
  ],
  leagues:[
-  {id:"superleague",name:"Kosovo Superleague",rows:[
+  {id:"superleague",name:"Superliga e Kosovës",rows:[
   {team:"FC Drita",p:13,w:9,d:3,l:1,gs:25,pts:30},
   {team:"FC Ballkani",p:13,w:8,d:2,l:3,gs:22,pts:26},
   {team:"FC Prishtina",p:13,w:7,d:3,l:3,gs:19,pts:24},
@@ -646,13 +637,7 @@ const DEFAULT_DATA={
   {img:"",name:"A. Manaj",num:"9",pos:"fw",p:13,g:8,a:2,cs:0},
   {img:"",name:"B. Balaj",num:"11",pos:"fw",p:12,g:6,a:3,cs:0}
  ],
- fixtures:[
-  {date:"09.10.2026",time:"19:00",home:"Drita",away:"Ballkani",comp:"Superliga",score:""},
-  {date:"16.10.2026",time:"17:00",home:"SC Gjilani",away:"Drita",comp:"Superliga",score:""},
-  {date:"23.10.2026",time:"19:00",home:"Drita",away:"Prishtina",comp:"Superliga",score:""},
-  {date:"02.10.2026",time:"—",home:"Drita",away:"Dukagjini",comp:"Superliga",score:"3–0",hsc:"Krasniqi 23'\nManaj 54'\nBalaj 88'",asc:"",hyel:"Ovouka 61'",hred:"",ayel:"",ared:"",hsub:"Zulfiu ↔ Abazaj 70'",asub:"",hform:"4-3-3",aform:"4-4-2",hline:"Maloku\nSeji\nB. Krasniqi\nAjzeraj\nOvouka\nBroja\nLimaj\nBalaj\nManaj\nZulfiu\nAbazaj",aline:"",stats:"Posedimi | 58 | 42\nGjuajtje | 14 | 6\nNë portë | 7 | 2\nKëndore | 8 | 3\nFaull | 9 | 12",venue:"Stadiumi i Qytetit, Gjilan",ref:"A. Kabashi",att:"6,400"},
-  {date:"25.09.2026",time:"—",home:"Prishtina",away:"Drita",comp:"Superliga",score:"0–0"}
- ],
+ fixtures:[],
  trophies:[
   {icon:"🏆",titleSq:"Tituj kampioni",titleEn:"League titles",count:"3"},
   {icon:"🥇",titleSq:"Kupa e Kosovës",titleEn:"Kosovo Cup",count:"1"},
@@ -737,7 +722,7 @@ function migrate(d){
   if(d&&!d.leagues)d.leagues=[{id:"table1",name:"Tabela",rows:[]}];
   if(d&&!d.teams)d.teams=[];
   if(d&&!d.players)d.players=[];
-  if(d&&!d.footer)d.footer={aboutSq:"",aboutEn:"",fb:"",ig:"",email:"",phone:"",address:"",website:""};
+  if(d&&!d.footer)d.footer={aboutSq:"",aboutEn:"",fb:"",ig:"",yt:"",email:"",phone:"",address:"",website:""};
   return d;
 }
 
@@ -745,17 +730,17 @@ function migrate(d){
 function resizeImage(file,max,mime,q,cb){if(!file)return;const r=new FileReader();r.onload=()=>{const img=new Image();img.onload=()=>{let w=img.width,h=img.height;if(w>max||h>max){if(w>=h){h=Math.round(h*max/w);w=max}else{w=Math.round(w*max/h);h=max}}const c=document.createElement("canvas");c.width=w;c.height=h;c.getContext("2d").drawImage(img,0,0,w,h);let o;try{o=c.toDataURL(mime,q)}catch(e){o=r.result}cb(o)};img.onerror=()=>toast("S'u lexua dot imazhi / Could not read image","err");img.src=r.result};r.readAsDataURL(file)}
 
 /* ===== club ===== */
-function fillClub(){const c=DATA.club||{};$("#c-hero-sq").value=c.heroSq||"";$("#c-hero-en").value=c.heroEn||"";$("#c-sub-sq").value=c.subSq||"";$("#c-sub-en").value=c.subEn||"";prev("logo-prev",c.logo);prev("hero-prev",c.heroImg);$("#logo-file").value="";$("#hero-file").value="";}
+function fillClub(){const c=DATA.club||{};$("#c-hero-sq").value=c.heroSq||"";$("#c-hero-en").value=c.heroEn||"";$("#c-sub-sq").value=c.subSq||"";$("#c-sub-en").value=c.subEn||"";$("#c-stadium").value=c.stadium!==undefined?c.stadium:"Stadiumi me bari sintetik";prev("logo-prev",c.logo);prev("hero-prev",c.heroImg);$("#logo-file").value="";$("#hero-file").value="";}
 function prev(id,src){const el=$("#"+id);if(src){el.style.backgroundImage=`url("${src}")`;el.textContent="";}else{el.style.backgroundImage="none";el.textContent=el.id==="logo-prev"?"Logo":(el.id==="hero-prev"?"Sfondi":"Foto");}}
 function handleLogo(f){resizeImage(f,320,"image/png",1,d=>{DATA.club=DATA.club||{};DATA.club.logo=d;prev("logo-prev",d);if(saveLocal())flag()})}
 function removeLogo(){DATA.club.logo="";$("#logo-file").value="";saveLocal();prev("logo-prev","");flag()}
 function handleHero(f){resizeImage(f,1600,"image/jpeg",.82,d=>{DATA.club=DATA.club||{};DATA.club.heroImg=d;prev("hero-prev",d);if(saveLocal())flag()})}
 function removeHero(){DATA.club.heroImg="";$("#hero-file").value="";saveLocal();prev("hero-prev","");flag()}
-function saveClub(){DATA.club=DATA.club||{};DATA.club.heroSq=$("#c-hero-sq").value;DATA.club.heroEn=$("#c-hero-en").value;DATA.club.subSq=$("#c-sub-sq").value;DATA.club.subEn=$("#c-sub-en").value;if(saveLocal())flag()}
+function saveClub(){DATA.club=DATA.club||{};DATA.club.heroSq=$("#c-hero-sq").value;DATA.club.heroEn=$("#c-hero-en").value;DATA.club.subSq=$("#c-sub-sq").value;DATA.club.subEn=$("#c-sub-en").value;DATA.club.stadium=$("#c-stadium").value;if(saveLocal())flag()}
 
 /* ===== footer ===== */
-function fillFooter(){const f=DATA.footer||{};$("#ft-about-sq").value=f.aboutSq||"";$("#ft-about-en").value=f.aboutEn||"";$("#ft-fb").value=f.fb||"";$("#ft-ig").value=f.ig||"";$("#ft-email").value=f.email||"";$("#ft-phone").value=f.phone||"";$("#ft-address").value=f.address||"";$("#ft-website").value=f.website||"";}
-function saveFooter(){DATA.footer=DATA.footer||{};const f=DATA.footer;f.aboutSq=$("#ft-about-sq").value;f.aboutEn=$("#ft-about-en").value;f.fb=$("#ft-fb").value;f.ig=$("#ft-ig").value;f.email=$("#ft-email").value;f.phone=$("#ft-phone").value;f.address=$("#ft-address").value;f.website=$("#ft-website").value;if(saveLocal())flag()}
+function fillFooter(){const f=DATA.footer||{};$("#ft-about-sq").value=f.aboutSq||"";$("#ft-about-en").value=f.aboutEn||"";$("#ft-fb").value=f.fb||"";$("#ft-ig").value=f.ig||"";$("#ft-yt").value=f.yt||"";$("#ft-email").value=f.email||"";$("#ft-phone").value=f.phone||"";$("#ft-address").value=f.address||"";$("#ft-website").value=f.website||"";}
+function saveFooter(){DATA.footer=DATA.footer||{};const f=DATA.footer;f.aboutSq=$("#ft-about-sq").value;f.aboutEn=$("#ft-about-en").value;f.fb=$("#ft-fb").value;f.ig=$("#ft-ig").value;f.yt=$("#ft-yt").value;f.email=$("#ft-email").value;f.phone=$("#ft-phone").value;f.address=$("#ft-address").value;f.website=$("#ft-website").value;if(saveLocal())flag()}
 
 /* ===== generic image-into-form (news/photo/spons) ===== */
 let formImg={news:"",photo:"",spons:"",troph:"",team:"",video:"",player:""};
@@ -804,7 +789,6 @@ function renderAllLists(){
   $("#players-list").innerHTML=(DATA.players||[]).map((p,i)=>row(p.img,p.name||"—",`${POS_LABEL[p.pos]||""} • ${p.p||0} ndeshje • ${p.g||0} gola • ${p.a||0} asiste${p.pos==="gk"?` • ${p.cs||0} portë e pastër`:""}`,'playerForm','players',i,p.num?"#"+esc(p.num):ic("shirt"))).join("")||emptyRow();
   $("#troph-list").innerHTML=DATA.trophies.map((t,i)=>row(t.photo,t.titleSq||"—",`× ${t.count||"—"}`,'trophForm','trophies',i,esc(t.icon||"🏆"))).join("")||emptyRow();
   $("#photo-list").innerHTML=DATA.photos.map((p,i)=>row(p.img,p.capSq||"—","",'photoForm','photos',i)).join("")||emptyRow();
-  $("#video-list").innerHTML=DATA.videos.map((v,i)=>row(v.thumb,v.titleSq||"—",v.url||"Pa lidhje / No link",'videoForm','videos',i,ic("video"))).join("")||emptyRow();
   $("#spons-list").innerHTML=DATA.sponsors.map((s,i)=>row(s.logo,s.name,s.url||"",'sponsForm','sponsors',i,ic("award"))).join("")||emptyRow();
   renderCounts();
 }
@@ -876,14 +860,14 @@ function saveTeam(){if(!$("#tm-name").value.trim())return invalid("tm-name",REQ)
 
 /* ===== fixtures ===== */
 function fixForm(i){
-  const ids=["f-home","f-away","f-date","f-time","f-score","f-hsc","f-asc","f-hyel","f-ayel","f-hred","f-ared","f-hsub","f-asub","f-hform","f-aform","f-hline","f-aline","f-stats","f-venue","f-ref","f-att"];
+  const ids=["f-home","f-away","f-date","f-time","f-score","f-hsc","f-asc","f-hyel","f-ayel","f-hred","f-ared","f-hsub","f-asub","f-hform","f-aform","f-hline","f-aline","f-stats","f-venue"];
   if(i===undefined){$("#f-idx").value="";ids.forEach(id=>$("#"+id).value="");$("#f-comp").value="Superliga"}
   else{const x=DATA.fixtures[i];$("#f-idx").value=i;ids.concat("f-comp").forEach(id=>{const k=id.slice(2);$("#"+id).value=x[k]||""});}
   openForm("fix-form",i)}
 function saveFix(){if(!$("#f-home").value.trim())return invalid("f-home",REQ);if(!$("#f-away").value.trim())return invalid("f-away",REQ);
   const d=$("#f-date").value.trim();if(d&&!/^\d{1,2}[.\/-]\d{1,2}[.\/-]\d{2,4}$/.test(d))return invalid("f-date","Formati: DD.MM.YYYY — p.sh. 08.10.2026");
   const v=id=>$("#"+id).value;
-  const it={home:v("f-home"),away:v("f-away"),date:v("f-date"),time:v("f-time"),comp:v("f-comp"),score:v("f-score"),hsc:v("f-hsc"),asc:v("f-asc"),hyel:v("f-hyel"),ayel:v("f-ayel"),hred:v("f-hred"),ared:v("f-ared"),hsub:v("f-hsub"),asub:v("f-asub"),hform:v("f-hform"),aform:v("f-aform"),hline:v("f-hline"),aline:v("f-aline"),stats:v("f-stats"),venue:v("f-venue"),ref:v("f-ref"),att:v("f-att")};
+  const it={home:v("f-home"),away:v("f-away"),date:v("f-date"),time:v("f-time"),comp:v("f-comp"),score:v("f-score"),hsc:v("f-hsc"),asc:v("f-asc"),hyel:v("f-hyel"),ayel:v("f-ayel"),hred:v("f-hred"),ared:v("f-ared"),hsub:v("f-hsub"),asub:v("f-asub"),hform:v("f-hform"),aform:v("f-aform"),hline:v("f-hline"),aline:v("f-aline"),stats:v("f-stats"),venue:v("f-venue")};
   const x=$("#f-idx").value;if(x===""){DATA.fixtures.push(it)}else DATA.fixtures[+x]=it;saveLocal();renderAllLists();hideForm("fix-form");flag()}
 
 
@@ -919,16 +903,6 @@ function photoForm(i){$("#ph-file").value="";
 function savePhoto(){const it={img:formImg.photo,capSq:$("#ph-cap-sq").value,capEn:$("#ph-cap-en").value};const x=$("#ph-idx").value;if(x===""){DATA.photos.push(it)}else DATA.photos[+x]=it;saveLocal();renderAllLists();hideForm("photo-form");flag()}
 
 
-/* ===== videos ===== */
-function videoForm(i){if($("#v-file"))$("#v-file").value="";
-  if(i===undefined){$("#v-idx").value="";$("#v-url").value="";$("#v-title-sq").value="";$("#v-title-en").value="";formImg.video="";}
-  else{const v=DATA.videos[i];$("#v-idx").value=i;$("#v-url").value=v.url||"";$("#v-title-sq").value=v.titleSq||"";$("#v-title-en").value=v.titleEn||"";formImg.video=v.thumb||"";}
-  prev("v-prev",formImg.video);
-  openForm("video-form",i)}
-function saveVideo(){const u=$("#v-url").value.trim();if(u&&!/^https?:\/\//i.test(u))return invalid("v-url","Lidhja duhet të fillojë me https:// / Link must start with https://");
-  const it={url:$("#v-url").value,thumb:formImg.video,titleSq:$("#v-title-sq").value,titleEn:$("#v-title-en").value};const x=$("#v-idx").value;if(x===""){DATA.videos.push(it)}else DATA.videos[+x]=it;saveLocal();renderAllLists();hideForm("video-form");flag()}
-
-
 /* ===== sponsors ===== */
 function sponsForm(i){$("#sp-file").value="";
   if(i===undefined){$("#sp-idx").value="";$("#sp-name").value="";$("#sp-url").value="";formImg.spons="";}
@@ -953,9 +927,10 @@ async function resetAll(){if(!await ask({title:"Rivendos gjithçka? / Reset ever
 
 /* ===== gate / unlock ===== */
 function lockAdmin(){try{sessionStorage.removeItem("drita_admin_ok")}catch(e){}location.reload()}
+function saveLiveToggle(){DATA.liveFixtures=$("#f-live").checked;if(saveLocal())flag()}
 function unlockAdmin(){
   $("#gate").classList.add("hidden");
-  fillClub();fillFooter();renderAllLists();
+  fillClub();fillFooter();renderAllLists();$("#f-live").checked=DATA.liveFixtures!==false;
   $("#admin").classList.add("open");
   let p="pa-club";try{p=sessionStorage.getItem("drita_admin_pane")||p}catch(e){}
   showPane(p);
