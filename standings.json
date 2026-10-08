@@ -1,0 +1,126 @@
+{
+  "league": "Superliga e Kosovës",
+  "source": "https://ffk-kosova.com/garat/Albi-Mall-superliga",
+  "rows": [
+    {
+      "team": "Prishtina",
+      "p": 6,
+      "w": 6,
+      "d": 0,
+      "l": 0,
+      "gs": 18,
+      "ga": 4,
+      "gd": 14,
+      "pts": 18,
+      "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278192536_PRISHTINA.png"
+    },
+    {
+      "team": "Malisheva",
+      "p": 7,
+      "w": 5,
+      "d": 1,
+      "l": 1,
+      "gs": 19,
+      "ga": 6,
+      "gd": 13,
+      "pts": 16,
+      "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278182260_FC_Malisheva.png"
+    },
+    {
+      "team": "Dukagjini",
+      "p": 7,
+      "w": 3,
+      "d": 3,
+      "l": 1,
+      "gs": 8,
+      "ga": 5,
+      "gd": 3,
+      "pts": 12,
+      "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278044364_Dukagjini.png"
+    },
+    {
+      "team": "Drita",
+      "p": 6,
+      "w": 3,
+      "d": 2,
+      "l": 1,
+      "gs": 8,
+      "ga": 5,
+      "gd": 3,
+      "pts": 11,
+      "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278014805_FC_Drita_Logo.png"
+    },
+    {
+      "team": "Gjilani",
+      "p": 7,
+      "w": 3,
+      "d": 2,
+      "l": 2,
+      "gs": 10,
+      "ga": 8,
+      "gd": 2,
+      "pts": 11,
+      "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278076133_SC_Gjilani_logo.webp"
+    },
+    {
+      "team": "Ballkani",
+      "p": 7,
+      "w": 3,
+      "d": 1,
+      "l": 3,
+      "gs": 9,
+      "ga": 8,
+      "gd": 1,
+      "pts": 10,
+      "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755277999904_FC_Ballkani.png"
+    },
+    {
+      "team": "Drenica",
+      "p": 7,
+      "w": 2,
+      "d": 3,
+      "l": 2,
+      "gs": 9,
+      "ga": 7,
+      "gd": 2,
+      "pts": 9,
+      "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278031322_DRENICA.jpeg"
+    },
+    {
+      "team": "Feronikeli 74",
+      "p": 7,
+      "w": 2,
+      "d": 0,
+      "l": 5,
+      "gs": 5,
+      "ga": 13,
+      "gd": -8,
+      "pts": 6,
+      "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1787042218209_1755279124658_FC_Feronikeli.png"
+    },
+    {
+      "team": "Llapi",
+      "p": 7,
+      "w": 1,
+      "d": 0,
+      "l": 6,
+      "gs": 8,
+      "ga": 21,
+      "gd": -13,
+      "pts": 3,
+      "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278089523_FC_Llapi.png"
+    },
+    {
+      "team": "Vushtrria",
+      "p": 7,
+      "w": 0,
+      "d": 0,
+      "l": 7,
+      "gs": 3,
+      "ga": 20,
+      "gd": -17,
+      "pts": 0,
+      "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755279435480_Vushtrria.png"
+    }
+  ]
+}

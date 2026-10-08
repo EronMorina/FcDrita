@@ -1,0 +1,35 @@
+name: Update league table
+
+on:
+  schedule:
+    - cron: "41 */2 * * *" # every 2 hours
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: data-commits
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node scripts/fetch-standings.mjs
+      - name: Commit if the table changed
+        run: |
+          if git diff --quiet -- standings.json; then
+            echo "Table unchanged."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add standings.json
+          git commit -m "Update league table"
+          git pull --rebase
+          git push

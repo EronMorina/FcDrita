@@ -213,8 +213,8 @@
   .spons-h{font:600 .75rem/1.3 var(--f-head);letter-spacing:.16em;color:var(--mute);max-width:10ch}
   .spon-marquee{position:relative;overflow:hidden;padding:4px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
   .spon-track{display:flex;gap:12px;width:max-content;will-change:transform}
-  .spon{flex:0 0 168px;height:68px;display:flex;align-items:center;justify-content:center;padding:12px 16px;border-radius:var(--r-sm);background:var(--spon-bg);border:1px solid var(--line);scroll-snap-align:start;transition:transform .25s var(--ease-out),box-shadow .25s}
-  .spon img{max-height:44px;max-width:100%;object-fit:contain}
+  .spon{flex:0 0 176px;height:84px;display:flex;align-items:center;justify-content:center;padding:8px 14px;border-radius:var(--r-sm);background:var(--spon-bg);border:1px solid var(--line);scroll-snap-align:start;transition:transform .25s var(--ease-out),box-shadow .25s}
+  .spon img{max-height:64px;max-width:100%;object-fit:contain;border-radius:4px}
   .spon .sn{font:600 .8125rem/1.15 var(--f-head);letter-spacing:.04em;text-transform:uppercase;color:#0a1733;text-align:center;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 
   /* =========================================================
@@ -394,6 +394,15 @@
   .mm-cols .g{display:flex;align-items:center;gap:8px;margin-bottom:7px;font:400 .9rem/1.3 var(--f-head);color:var(--bone);overflow-wrap:anywhere}
   .mm-cols .away .g{flex-direction:row-reverse}
   .mm-cols .g .ic{width:15px;height:15px;color:var(--mute)}
+  .mm-cols .g.sub{flex-direction:column;align-items:flex-start;gap:1px;margin-bottom:10px}
+  .mm-cols .away .g.sub{flex-direction:column;align-items:flex-end}
+  .g.sub span{display:flex;align-items:baseline;gap:6px}
+  .mm-cols .away .g.sub span{flex-direction:row-reverse}
+  .g.sub b{font-weight:600}
+  .g.sub .in b{color:var(--ok)}
+  .g.sub .out{font-size:.8125rem;color:var(--mute)}
+  .g.sub .out b{color:var(--live-text)}
+  .g.sub em{font-style:normal;color:var(--mute)}
   .cardm{flex:0 0 auto;width:10px;height:13px;border-radius:2px}
   .cardm.y{background:#f5c518}.cardm.r{background:#e5334b}
   .mm-stat{margin-bottom:14px}
@@ -409,7 +418,11 @@
   .mm-forms .fm{margin-bottom:10px;font:500 .78rem/1 var(--f-head);letter-spacing:.1em;color:var(--blue2)}
   .mm-forms ol{list-style:none;display:grid;gap:6px;counter-reset:pl}
   .mm-forms li{display:flex;gap:8px;font-size:.875rem;color:var(--bone);overflow-wrap:anywhere}
-  .mm-forms li::before{counter-increment:pl;content:counter(pl);flex:0 0 18px;font:500 .75rem/1.6 var(--f-head);color:var(--mute);font-variant-numeric:tabular-nums}
+  .mm-forms li::before{counter-increment:pl;content:counter(pl);flex:0 0 22px;font:500 .75rem/1.6 var(--f-head);color:var(--mute);font-variant-numeric:tabular-nums}
+  .mm-forms li[data-n]::before{content:attr(data-n)}
+  .mm-forms .cap{display:inline-grid;place-items:center;width:16px;height:16px;margin-left:4px;border-radius:4px;background:var(--gold-soft);color:var(--gold-text);font:700 .625rem/1 var(--f-head);vertical-align:1px}
+  .mm-forms .bench-h{margin:14px 0 8px;font:500 .6875rem/1 var(--f-head);letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+  .mm-forms ol.bench li{color:var(--mute)}
   .mm-meta{display:flex;flex-wrap:wrap;gap:10px 20px;margin-top:22px;padding-top:16px;border-top:1px solid var(--line)}
   .mm-meta div{display:flex;align-items:center;gap:8px;min-width:0;font-size:.875rem;color:var(--bone)}
   .mm-meta .ic{width:16px;height:16px;color:var(--mute)}
@@ -468,6 +481,11 @@
   .pl .num{position:absolute;top:10px;left:12px;z-index:1;font:400 2rem/1 var(--f-display);color:#fff;font-variant-numeric:tabular-nums}
   .pl .body{padding:12px 14px}
   .pl h4{font-size:1rem;line-height:1.15;letter-spacing:.02em;overflow-wrap:anywhere}
+  .pl .body{display:flex;flex-direction:column;gap:4px}
+  .pl-role{font:500 .72rem/1.25 var(--f-head);letter-spacing:.08em;text-transform:uppercase;color:var(--blue2)}
+  .pl-flags{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:4px}
+  .pl-flags img{width:22px;height:16px;border-radius:2px;object-fit:cover;box-shadow:0 0 0 1px var(--line)}
+  .pl-flags span{font-size:.8125rem;color:var(--mute)}
   .pl .pstats{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;margin-top:auto;border-top:1px solid var(--hairline)}
   .pl .st{padding:10px 4px;text-align:center;border-left:1px solid var(--hairline);min-width:0}
   .pl .st:first-child{border-left:0}
@@ -540,7 +558,8 @@
     :root{--gutter:16px;--header-h:60px}
     .spons-inner{grid-template-columns:minmax(0,1fr);gap:10px}
     .spons-h{max-width:none}
-    .spon{flex-basis:144px;height:60px}
+    .spon{flex-basis:148px;height:72px}
+    .spon img{max-height:54px}
     .rail{grid-auto-columns:78%;margin:0 calc(var(--gutter) * -1);padding-inline:var(--gutter);scroll-padding-inline:var(--gutter)}
     .sec-head .rail-nav{display:none}
     /* news cards become list rows: thumbnail + text */
@@ -695,11 +714,11 @@
       <div>
         <div class="sec-head" id="table"><h2 data-i18n="table_h">Tabela</h2></div>
         <div class="card ltable">
-          <div class="lt-top"><span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-trophy"/></svg></span><div style="min-width:0"><b id="lt-name">Superliga e Kosovës</b><span class="meta" data-i18n="table_season">Sezoni 2025–26</span></div></div>
+          <div class="lt-top"><div style="min-width:0"><b id="lt-name">Superliga e Kosovës</b><span class="meta" data-i18n="table_season">Sezoni 2026–27</span></div></div>
           <div class="lt-tabs" id="lt-tabs" role="tablist" hidden></div>
           <div class="lt-scroll">
             <table class="lt">
-              <thead><tr><th class="c-pos" scope="col">#</th><th class="c-team" scope="col" data-i18n="th_club">Klubi</th><th scope="col" title="Played">P</th><th scope="col" title="Won">W</th><th scope="col" title="Drawn">D</th><th scope="col" title="Lost">L</th><th scope="col" title="Goals scored">GS</th><th class="c-pts" scope="col">Pts</th></tr></thead>
+              <thead><tr><th class="c-pos" scope="col">#</th><th class="c-team" scope="col" data-i18n="th_club">Klubi</th><th scope="col" title="Played">P</th><th scope="col" title="Won">W</th><th scope="col" title="Drawn">D</th><th scope="col" title="Lost">L</th><th scope="col" id="th-goals" title="Goal difference">+/-</th><th class="c-pts" scope="col">Pts</th></tr></thead>
               <tbody id="lt-body"><tr><td colspan="8"><span class="sk sk-line"></span><span class="sk sk-line"></span><span class="sk sk-line"></span><span class="sk sk-line"></span></td></tr></tbody>
             </table>
           </div>
@@ -843,7 +862,7 @@
 const I18N={
  sq:{nav_home:"Kreu",nav_news:"Lajme",nav_table:"Tabela",nav_fixtures:"Ndeshjet",nav_players:"Lojtarët",nav_trophies:"Trofetë",nav_gallery:"Galeria",nav_contact:"Kontakt",
   players_h:"Lojtarët",pos_gk:"Portierë",pos_df:"Mbrojtës",pos_mf:"Mesfushorë",pos_fw:"Sulmues",st_p:"Ndeshje",st_g:"Gola",st_a:"Asiste",st_cs:"Portë e pastër",
-  news_h:"Lajmet e fundit",table_h:"Tabela",table_season:"Sezoni 2025–26",th_club:"Klubi",
+  news_h:"Lajmet e fundit",table_h:"Tabela",table_season:"Sezoni 2026–27",th_club:"Klubi",
   fix_h:"Ndeshjet",fix_all:"Të gjitha",fix_up:"Të ardhshme",fix_res:"Të luajtura",troph_h:"Trofetë",
   mm_view:"Shiko detajet",mm_scorers:"Golashënuesit",mm_cards:"Kartonët",mm_subs:"Zëvendësimet",mm_stats:"Statistikat",mm_forms:"Formacionet",mm_none:"S'ka ende detaje për këtë ndeshje.",
   mc_h:"Kalendari",gal_h:"Galeria e fotove",vid_h:"Galeria e videove",spons_h:"Sponsorët",see_all:"Të gjitha",watch_now:"Shiko tani",
@@ -856,12 +875,12 @@ const I18N={
   res_w:"F",res_d:"B",res_l:"H",res_w_t:"Fitore",res_d_t:"Barazim",res_l_t:"Humbje",
   venue:"Stadiumi",play:"Luaj videon",menu:"Menyja",close:"Mbyll",prev:"E mëparshmja",next:"Tjetra",
   skip:"Kalo te përmbajtja",back_top:"Kthehu lart",
-  live:"Live",live_now:"Po luhet tani",postponed:"E shtyrë",ht:"Pjesa e parë",on_ss:"Më shumë në SportScore",source:"Burimi",
+  live:"Live",live_now:"Po luhet tani",pen:"pen.",og:"autogol",bench:"Rezervat",cap:"K",captain:"Kapiteni",postponed:"E shtyrë",ht:"Pjesa e parë",on_ss:"Më shumë në SportScore",source:"Burimi",
   yt_h:"Nga YouTube",yt_channel:"Kanali",show_more:"Shfaq më shumë",
   admin_title:"Paneli i klubit",admin_hint:"Vetëm për stafin e klubit.",admin_pass:"Fjalëkalimi",admin_enter:"Hyr",admin_wrong:"Fjalëkalim i gabuar."},
  en:{nav_home:"Home",nav_news:"News",nav_table:"Table",nav_fixtures:"Fixtures",nav_players:"Players",nav_trophies:"Trophies",nav_gallery:"Gallery",nav_contact:"Contact",
   players_h:"The squad",pos_gk:"Goalkeepers",pos_df:"Defenders",pos_mf:"Midfielders",pos_fw:"Attackers",st_p:"Games",st_g:"Goals",st_a:"Assists",st_cs:"Clean sheets",
-  news_h:"Latest news",table_h:"League table",table_season:"Season 2025–26",th_club:"Club",
+  news_h:"Latest news",table_h:"League table",table_season:"Season 2026–27",th_club:"Club",
   fix_h:"Fixtures",fix_all:"All",fix_up:"Upcoming",fix_res:"Results",troph_h:"Trophy showcase",
   mm_view:"View details",mm_scorers:"Goalscorers",mm_cards:"Cards",mm_subs:"Substitutions",mm_stats:"Match stats",mm_forms:"Formations",mm_none:"No details for this match yet.",
   mc_h:"Match calendar",gal_h:"Photo gallery",vid_h:"Video gallery",spons_h:"Premium sponsors",see_all:"See all",watch_now:"Watch now",
@@ -874,7 +893,7 @@ const I18N={
   res_w:"W",res_d:"D",res_l:"L",res_w_t:"Win",res_d_t:"Draw",res_l_t:"Loss",
   venue:"Venue",play:"Play video",menu:"Menu",close:"Close",prev:"Previous",next:"Next",
   skip:"Skip to content",back_top:"Back to top",
-  live:"Live",live_now:"Live now",postponed:"Postponed",ht:"Half-time",on_ss:"More on SportScore",source:"Source",
+  live:"Live",live_now:"Live now",pen:"pen.",og:"o.g.",bench:"Substitutes",cap:"C",captain:"Captain",postponed:"Postponed",ht:"Half-time",on_ss:"More on SportScore",source:"Source",
   yt_h:"From YouTube",yt_channel:"Channel",show_more:"Show more",
   admin_title:"Club panel",admin_hint:"Club staff only.",admin_pass:"Password",admin_enter:"Enter",admin_wrong:"Wrong password."}
 };
@@ -893,25 +912,44 @@ const DEFAULT_DATA={
  ],
  leagues:[
   {id:"superleague",name:"Superliga e Kosovës",rows:[
-  {team:"FC Drita",p:13,w:9,d:3,l:1,gs:25,pts:30},
-  {team:"FC Ballkani",p:13,w:8,d:2,l:3,gs:22,pts:26},
-  {team:"FC Prishtina",p:13,w:7,d:3,l:3,gs:19,pts:24},
-  {team:"KF Llapi",p:13,w:6,d:4,l:3,gs:17,pts:22},
-  {team:"SC Gjilani",p:13,w:5,d:4,l:4,gs:15,pts:19},
-  {team:"FC Malisheva",p:13,w:4,d:3,l:6,gs:13,pts:15},
-  {team:"FC Dukagjini",p:13,w:3,d:4,l:6,gs:12,pts:13},
-  {team:"KF Dardania",p:13,w:2,d:3,l:8,gs:9,pts:9}
+  {team:"Prishtina",p:6,w:6,d:0,l:0,gs:18,ga:4,gd:14,pts:18},
+  {team:"Malisheva",p:7,w:5,d:1,l:1,gs:19,ga:6,gd:13,pts:16},
+  {team:"Dukagjini",p:7,w:3,d:3,l:1,gs:8,ga:5,gd:3,pts:12},
+  {team:"Drita",p:6,w:3,d:2,l:1,gs:8,ga:5,gd:3,pts:11},
+  {team:"Gjilani",p:7,w:3,d:2,l:2,gs:10,ga:8,gd:2,pts:11},
+  {team:"Ballkani",p:7,w:3,d:1,l:3,gs:9,ga:8,gd:1,pts:10},
+  {team:"Drenica",p:7,w:2,d:3,l:2,gs:9,ga:7,gd:2,pts:9},
+  {team:"Feronikeli 74",p:7,w:2,d:0,l:5,gs:5,ga:13,gd:-8,pts:6},
+  {team:"Llapi",p:7,w:1,d:0,l:6,gs:8,ga:21,gd:-13,pts:3},
+  {team:"Vushtrria",p:7,w:0,d:0,l:7,gs:3,ga:20,gd:-17,pts:0}
  ]}
  ],
  teams:[],
  players:[
-  {img:"",name:"F. Maloku",num:"1",pos:"gk",p:13,g:0,a:0,cs:7},
-  {img:"",name:"A. Seji",num:"4",pos:"df",p:12,g:1,a:0,cs:0},
-  {img:"",name:"B. Krasniqi",num:"5",pos:"df",p:13,g:2,a:1,cs:0},
-  {img:"",name:"E. Broja",num:"8",pos:"mf",p:13,g:3,a:5,cs:0},
-  {img:"",name:"L. Limaj",num:"10",pos:"mf",p:11,g:2,a:4,cs:0},
-  {img:"",name:"A. Manaj",num:"9",pos:"fw",p:13,g:8,a:2,cs:0},
-  {img:"",name:"B. Balaj",num:"11",pos:"fw",p:12,g:6,a:3,cs:0}
+  {"img":"","name":"Faton Maloku","num":"1","pos":"gk","role":"Goalkeeper","nat":"Kosovo"},
+  {"img":"","name":"Laurit Behluli","num":"22","pos":"gk","role":"Goalkeeper","nat":"Kosovo"},
+  {"img":"","name":"Eron Isufi","num":"74","pos":"gk","role":"Goalkeeper","nat":"Kosovo"},
+  {"img":"","name":"Hajdin Salihu","num":"55","pos":"df","role":"Centre-Back","nat":"Kosovo"},
+  {"img":"","name":"Jorgo Pellumbi","num":"32","pos":"df","role":"Centre-Back","nat":"Albania"},
+  {"img":"","name":"Altin Bytyci","num":"25","pos":"df","role":"Centre-Back","nat":"Kosovo, Albania"},
+  {"img":"","name":"Abdoul Karim Danté","num":"21","pos":"df","role":"Centre-Back","nat":"Mali"},
+  {"img":"","name":"Raddy Ovouka","num":"26","pos":"df","role":"Left-Back","nat":"Congo"},
+  {"img":"","name":"Blerton Sheji","num":"3","pos":"df","role":"Left-Back","nat":"North Macedonia, Albania"},
+  {"img":"","name":"Agan Mjaki","num":"28","pos":"df","role":"Right-Back","nat":"Albania, Netherlands"},
+  {"img":"","name":"Besnik Krasniqi","num":"2","pos":"df","role":"Right-Back","nat":"Kosovo"},
+  {"img":"","name":"Albert Dabiqaj","num":"14","pos":"mf","role":"Defensive Midfield","nat":"Kosovo"},
+  {"img":"","name":"Vesel Limaj","num":"8","pos":"mf","role":"Central Midfield","nat":"Germany, Kosovo"},
+  {"img":"","name":"Marsel Ismajlgeci","num":"16","pos":"mf","role":"Central Midfield","nat":"Albania"},
+  {"img":"","name":"Kemehlo Nguena","num":"93","pos":"mf","role":"Central Midfield","nat":"France, Cameroon"},
+  {"img":"","name":"William Baeten","num":"24","pos":"mf","role":"Attacking Midfield","nat":"Belgium"},
+  {"img":"","name":"Besar Halimi","num":"11","pos":"mf","role":"Attacking Midfield","nat":"Kosovo, Germany"},
+  {"img":"","name":"Igball Jashari","num":"7","pos":"fw","role":"Left Winger","nat":"Kosovo"},
+  {"img":"","name":"Oniks Grezda","num":"17","pos":"fw","role":"Left Winger","nat":"Kosovo"},
+  {"img":"","name":"Liridon Balaj","num":"10","pos":"fw","role":"Right Winger","nat":"Kosovo"},
+  {"img":"","name":"Kristal Abazaj","num":"77","pos":"fw","role":"Right Winger","nat":"Albania"},
+  {"img":"","name":"Mike Arthur","num":"99","pos":"fw","role":"Right Winger","nat":"Ghana"},
+  {"img":"","name":"Arb Manaj","num":"9","pos":"fw","role":"Centre-Forward","nat":"Kosovo, Albania"},
+  {"img":"","name":"Blerim Krasniqi","num":"19","pos":"fw","role":"Centre-Forward","nat":"Albania"}
  ],
  fixtures:[],
  trophies:[
@@ -929,10 +967,13 @@ const DEFAULT_DATA={
   {url:"",thumb:"",titleSq:"Golat e javës",titleEn:"Goals of the week"}
  ],
  sponsors:[
-  {name:"Sponsori kryesor",url:"",logo:""},
-  {name:"Partner zyrtar",url:"",logo:""},
-  {name:"Partner zyrtar",url:"",logo:""},
-  {name:"Partner zyrtar",url:"",logo:""}
+  {"name":"IPKO","url":"","logo":"assets/sponsors/ipko.png"},
+  {"name":"Valon AG","url":"","logo":"assets/sponsors/valon-ag.png"},
+  {"name":"Rinora 4","url":"","logo":"assets/sponsors/rinora-4.png"},
+  {"name":"Magic Ice","url":"","logo":"assets/sponsors/magic-ice.png"},
+  {"name":"BPB","url":"","logo":"assets/sponsors/bpb.png"},
+  {"name":"airtiketa.com","url":"","logo":"assets/sponsors/airtiketa.png"},
+  {"name":"Swiss Invest","url":"","logo":"assets/sponsors/swiss-invest.png"}
  ]
 };
 
@@ -967,7 +1008,7 @@ function findTeamLogo(name){
   const k=teamKey(name);
   if(k){const t=(DATA.teams||[]).find(t=>teamKey(t.name)===k&&t.logo);if(t)return t.logo;}
   if(isDrita(name))return clubLogo();
-  return k&&ssLogos[k]||"";
+  return k&&(ffkLogos[k]||ssLogos[k])||"";
 }
 function teamBadge(name,size){
   const logo=findTeamLogo(name);
@@ -1164,9 +1205,24 @@ function renderNews(){
   $("#news-grid").innerHTML=n.slice(1,4).map((f,k)=>newsCard(f,k+1)).join("");
 }
 
-let lgActive=0;
+/* ===== league table: FFK's live Superliga table (standings.json, refreshed by .github/workflows/standings.yml) ===== */
+let lgActive=0,liveTable=null,ffkLogos={};
+async function loadStandings(){
+  if(DATA.liveTable===false)return;
+  try{const r=await fetch("standings.json",{cache:"no-cache"});if(!r.ok)return;const j=await r.json();if(!Array.isArray(j.rows)||!j.rows.length)return;
+    liveTable=j;ffkLogos={};j.rows.forEach(x=>{if(x.logo)ffkLogos[teamKey(x.team)]=x.logo});renderFixturesAll();}catch(e){}
+}
+/* the live table replaces the admin's Superliga table (or goes first); the admin's other tables stay as tabs */
+function leaguesForView(){
+  const arr=(DATA.leagues||[]).slice();
+  if(!liveTable||DATA.liveTable===false)return arr;
+  const live={id:"ffk",name:liveTable.league||"Superliga e Kosovës",rows:liveTable.rows,live:true};
+  const k=arr.findIndex(l=>/superlig/i.test(l.name||""));
+  if(k>=0)arr[k]=live;else arr.unshift(live);
+  return arr;
+}
 function renderLeague(){
-  const arr=DATA.leagues||[];
+  const arr=leaguesForView();
   if(lgActive>=arr.length)lgActive=0;
   const lg=arr[lgActive]||{rows:[]};
   const tabsEl=$("#lt-tabs");
@@ -1174,7 +1230,11 @@ function renderLeague(){
   else{tabsEl.hidden=true;tabsEl.innerHTML="";}
   $("#lt-name").textContent=lg.name||"";
   const num=v=>esc(String(v??0));
-  $("#lt-body").innerHTML=(lg.rows||[]).map((r,i)=>`<tr class="${isDrita(r.team)?"me":""}"><td class="c-pos">${i+1}</td><td class="c-team"><div class="team">${teamBadge(r.team,"sm")}<span title="${esc(r.team)}">${esc(r.team)}</span></div></td><td>${num(r.p)}</td><td>${num(r.w)}</td><td>${num(r.d)}</td><td>${num(r.l)}</td><td>${num(r.gs)}</td><td class="c-pts">${num(r.pts)}</td></tr>`).join("")
+  /* goal difference when goals against are known; tables typed without them fall back to goals scored */
+  const hasGa=(lg.rows||[]).length&&(lg.rows||[]).every(r=>r.ga!=null&&r.ga!=="");
+  const th=$("#th-goals");th.textContent=hasGa?"+/-":"GS";th.title=hasGa?"Goal difference":"Goals scored";
+  const goals=r=>{if(!hasGa)return num(r.gs);const d=r.gd!=null?+r.gd:(+r.gs||0)-(+r.ga||0);return d>0?"+"+d:String(d)};
+  $("#lt-body").innerHTML=(lg.rows||[]).map((r,i)=>`<tr class="${isDrita(r.team)?"me":""}"><td class="c-pos">${i+1}</td><td class="c-team"><div class="team">${teamBadge(r.team,"sm")}<span title="${esc(r.team)}">${esc(r.team)}</span></div></td><td>${num(r.p)}</td><td>${num(r.w)}</td><td>${num(r.d)}</td><td>${num(r.l)}</td><td title="${hasGa?esc(`${r.gs}:${r.ga}`):""}">${goals(r)}</td><td class="c-pts">${num(r.pts)}</td></tr>`).join("")
     ||`<tr><td colspan="8">${empty("trophy",T("empty_table"))}</td></tr>`;
 }
 
@@ -1270,31 +1330,64 @@ async function ssDetail(f){
   return DETAIL[key];
 }
 /* only named events: the feed often lists goals and cards without a player, and those can't be shown meaningfully */
+/* stat labels from the feed, in Albanian */
+const STAT_SQ={"Ball Possession":"Posedimi","Shots on Target":"Gjuajtje në portë","Shots off Target":"Gjuajtje jashtë","Total Shots":"Gjuajtje gjithsej","Blocked Shots":"Gjuajtje të bllokuara","Attacks":"Sulme","Dangerous Attacks":"Sulme të rrezikshme","Corner Kicks":"Këndore","Corners":"Këndore","Fouls":"Faulle","Offsides":"Pozicione jashtëloje","Yellow Cards":"Kartonë të verdhë","Red Cards":"Kartonë të kuq","Free Kicks":"Gjuajtje të lira","Saves":"Pritje","Passes":"Pasime","Throw-ins":"Gjuajtje anësore","Goal Kicks":"Gjuajtje nga porta"};
+const cleanName=n=>String(n||"").replace(/·/g," ").replace(/\s+/g," ").trim();
+/* only named events: the feed often lists goals and cards without a player, and those can't be shown meaningfully */
 function detailFields(m){
-  const out={hsc:[],asc:[],hyel:[],ayel:[],hred:[],ared:[]};
+  const out={hsc:[],asc:[],hyel:[],ayel:[],hred:[],ared:[],hsub:[],asub:[]};
   (m.incidents||[]).forEach(e=>{
-    if(!e.player)return;const s=e.side==="away"?"a":"h",line=`${e.player} ${e.time}'`;
-    if(e.is_goal)out[s+"sc"].push(line);
-    else if(e.is_card)out[s+(/red/i.test(e.type||"")?"red":"yel")].push(line);
+    const s=e.side==="away"?"a":"h",min=e.time!=null?` ${e.time}'`:"";
+    if(e.is_sub||/subst/i.test(e.type||"")){
+      if(e.player_in||e.player_out)out[s+"sub"].push(`↑ ${cleanName(e.player_in)||"?"} · ↓ ${cleanName(e.player_out)||"?"}${min}`);
+      return;
+    }
+    if(!e.player)return;
+    const name=cleanName(e.player);
+    if(e.is_goal){
+      const note=/own/i.test(e.type||"")?T("og"):(e.type_id===8||/penalt/i.test(e.type||""))?T("pen"):"";
+      out[s+"sc"].push(`${name}${min}${note?` (${note})`:""}`);
+    }
+    else if(e.is_card)out[s+(/red/i.test(e.type||"")?"red":"yel")].push(`${name}${min}`);
   });
-  const f={};Object.keys(out).forEach(k=>f[k]=out[k].join("\n"));
-  if(Array.isArray(m.stats))f.stats=m.stats.map(x=>x&&(x.name||x.type)!=null&&x.home!=null&&x.away!=null?`${x.name||x.type} | ${x.home} | ${x.away}`:"").filter(Boolean).join("\n");
+  const f={};Object.keys(out).forEach(k=>{if(out[k].length)f[k]=out[k].join("\n")});
+  if(Array.isArray(m.stats)&&m.stats.length)f.stats=m.stats.map(x=>{
+    if(!x)return "";const lab=x.label||x.name||x.type;if(lab==null||x.home==null||x.away==null)return "";
+    const sfx=x.suffix||"";return `${lang==="en"?lab:(STAT_SQ[lab]||lab)} | ${x.home}${sfx} | ${x.away}${sfx}`;
+  }).filter(Boolean).join("\n");
+  const L=m.lineups;
+  if(L){
+    const xi=a=>Array.isArray(a)?a.map(p=>({n:p.number,name:cleanName(p.name),cap:!!p.captain})).filter(p=>p.name):[];
+    if(L.home_formation)f.hform=L.home_formation;if(L.away_formation)f.aform=L.away_formation;
+    f.hxi=xi(L.home_xi);f.axi=xi(L.away_xi);f.hbench=xi(L.home_subs);f.abench=xi(L.away_subs);
+  }
   if(m.home_ht_score!=null&&m.away_ht_score!=null)f.ht=`${m.home_ht_score}–${m.away_ht_score}`;
   return f;
 }
+/* admin details win; the API fills only what the admin left empty */
+function mergeDetail(f,d){const o=Object.assign({},f);Object.keys(d).forEach(k=>{const v=o[k];if(v==null||v===""||(Array.isArray(v)&&!v.length))o[k]=d[k]});return o}
 let openIdx=-1;
 async function openMatch(i){
   const f=FIX[i];if(!f)return;
   openIdx=i;
-  const needsApi=f.src==="api"&&f.ssSlug&&!hasDetails(f)&&!isUpcoming(f)&&!isPostponed(f);
-  renderMatch(f,needsApi);
+  clearTimeout(matchTimer);
+  const soon=isUpcoming(f)&&f.ssTime&&Date.parse(f.ssTime)-Date.now()<3*3600e3; /* line-ups appear about an hour before kick-off */
+  const needsApi=f.src==="api"&&f.ssSlug&&!isPostponed(f)&&(!isUpcoming(f)||soon);
+  renderMatch(f,needsApi&&!hasDetails(f));
   Overlay.open($("#matchModal"));
   if(!needsApi)return;
-  const m=await ssDetail(f);
-  if(openIdx!==i||Overlay.current!==$("#matchModal"))return;
-  renderMatch(m?Object.assign({},f,detailFields(m)):f,false);
+  const refresh=async()=>{
+    const m=await ssDetail(f);
+    if(openIdx!==i||Overlay.current!==$("#matchModal"))return;
+    const keep=$("#matchModal .sheet-scroll").scrollTop;
+    renderMatch(m?mergeDetail(FIX[i]||f,detailFields(m)):f,false,!!m);
+    $("#matchModal .sheet-scroll").scrollTop=keep;
+    if(isLive(FIX[i]||f))matchTimer=setTimeout(refresh,60e3); /* keep a live match current while the sheet is open */
+  };
+  refresh();
 }
-function renderMatch(f,loading){
+let matchTimer=0;
+function renderMatch(f,loading,refreshed){
   const isUp=isUpcoming(f),dp=dateParts(f);
   const g=(txt,mark)=>`<div class="g">${mark}<span>${esc(txt)}</span></div>`;
   const cols=(h,a)=>`<div class="mm-cols"><div>${h}</div><div class="away">${a}</div></div>`;
@@ -1306,17 +1399,22 @@ function renderMatch(f,loading){
   const hy=mlines(f.hyel),ay=mlines(f.ayel),hr=mlines(f.hred),ar=mlines(f.ared);
   if(hy.length||ay.length||hr.length||ar.length)out+=sec(T("mm_cards"),cols(hy.map(x=>g(x,Y)).join("")+hr.map(x=>g(x,R)).join(""),ay.map(x=>g(x,Y)).join("")+ar.map(x=>g(x,R)).join("")));
   const hsub=mlines(f.hsub),asub=mlines(f.asub);
-  if(hsub.length||asub.length)out+=sec(T("mm_subs"),cols(hsub.map(x=>g(x,ic("swap"))).join(""),asub.map(x=>g(x,ic("swap"))).join("")));
+  const subLine=x=>{const m=x.match(/^↑ (.*) · ↓ (.*?)(?: (\d+(?:\+\d+)?'))?$/);
+    return m?`<div class="g sub"><span class="in"><b aria-hidden="true">↑</b>${esc(m[1])}${m[3]?` <em>${esc(m[3])}</em>`:""}</span><span class="out"><b aria-hidden="true">↓</b>${esc(m[2])}</span></div>`:g(x,ic("swap"))};
+  if(hsub.length||asub.length)out+=sec(T("mm_subs"),cols(hsub.map(subLine).join(""),asub.map(subLine).join("")));
   const srows=mlines(f.stats).map(l=>{const p=l.split("|").map(x=>x.trim());return p.length>=3?{lab:p[0],h:p[1],a:p[2]}:null}).filter(Boolean);
   if(srows.length)out+=sec(T("mm_stats"),srows.map((r,k)=>{
     const hn=parseFloat(r.h),an=parseFloat(r.a),hv=isFinite(hn)?Math.max(0,hn):0,av=isFinite(an)?Math.max(0,an):0,tot=hv+av;
     const hp=tot>0?Math.round(hv/tot*100):50;
     return `<div class="mm-stat"><div class="lab"><span>${esc(r.h)}</span><span class="mid">${esc(r.lab)}</span><span>${esc(r.a)}</span></div><div class="mm-bar"><span class="h" style="flex:${hp} 1 0;--i:${k}"></span><span class="a" style="flex:${100-hp} 1 0;--i:${k}"></span></div></div>`;
   }).join(""));
-  const hl=mlines(f.hline),al=mlines(f.aline);
+  /* line-ups: the API gives numbered players; admin text is one name per line */
+  const asList=(xi,text)=>xi&&xi.length?xi:mlines(text).map(name=>({name}));
+  const hl=asList(f.hxi,f.hline),al=asList(f.axi,f.aline),hb=f.hbench||[],ab=f.abench||[];
   if(f.hform||f.aform||hl.length||al.length){
-    const fcol=(team,form,list)=>`<div><b>${esc(team)}</b>${form?`<div class="fm">${esc(form)}</div>`:""}${list.length?`<ol>${list.map(p=>`<li>${esc(p)}</li>`).join("")}</ol>`:""}</div>`;
-    out+=sec(T("mm_forms"),`<div class="mm-forms">${fcol(f.home,f.hform,hl)}${fcol(f.away,f.aform,al)}</div>`);
+    const li=p=>`<li${p.n!=null&&p.n!==""?` data-n="${esc(String(p.n))}"`:""}>${esc(p.name)}${p.cap?` <span class="cap" title="${esc(T("captain"))}">${esc(T("cap"))}</span>`:""}</li>`;
+    const fcol=(team,form,list,bench)=>`<div><b>${esc(team)}</b>${form?`<div class="fm">${esc(form)}</div>`:""}${list.length?`<ol>${list.map(li).join("")}</ol>`:""}${bench.length?`<div class="bench-h">${esc(T("bench"))}</div><ol class="bench">${bench.map(li).join("")}</ol>`:""}</div>`;
+    out+=sec(T("mm_forms"),`<div class="mm-forms">${fcol(f.home,f.hform,hl,hb)}${fcol(f.away,f.aform,al,ab)}</div>`);
   }
   const meta=[["pin","venue",esc(f.venue||"")]].filter(m=>m[2]);
   if(f.ssUrl)meta.push(["external","source",`<a href="${esc(f.ssUrl)}" target="_blank" rel="noopener">${esc(T("on_ss"))}</a>`]);
@@ -1347,18 +1445,31 @@ addEventListener("keydown",e=>{if(Overlay.current!==$("#lightbox"))return;if(e.k
 
 /* ---- players ---- */
 const POS_ORDER=["gk","df","mf","fw"];
+/* detailed positions: [group, Albanian, English] */
+const ROLES={"Goalkeeper":["gk","Portier","Goalkeeper"],"Centre-Back":["df","Qendërmbrojtës","Centre-back"],"Left-Back":["df","Mbrojtës i majtë","Left-back"],"Right-Back":["df","Mbrojtës i djathtë","Right-back"],
+ "Defensive Midfield":["mf","Mesfushor mbrojtës","Defensive midfielder"],"Central Midfield":["mf","Mesfushor qendror","Central midfielder"],"Attacking Midfield":["mf","Mesfushor sulmues","Attacking midfielder"],"Left Midfield":["mf","Mesfushor i majtë","Left midfielder"],"Right Midfield":["mf","Mesfushor i djathtë","Right midfielder"],
+ "Left Winger":["fw","Krah i majtë","Left winger"],"Right Winger":["fw","Krah i djathtë","Right winger"],"Second Striker":["fw","Sulmues i dytë","Second striker"],"Centre-Forward":["fw","Sulmues qendror","Centre-forward"]};
+const COUNTRY_SQ={"Kosovo":"Kosovë","Albania":"Shqipëri","North Macedonia":"Maqedoni e Veriut","Montenegro":"Mal i Zi","Serbia":"Serbi","Croatia":"Kroaci","Bosnia-Herzegovina":"Bosnjë e Hercegovinë","Slovenia":"Slloveni","Greece":"Greqi","Turkey":"Turqi","Italy":"Itali","Germany":"Gjermani","Austria":"Austri","Switzerland":"Zvicër","France":"Francë","Belgium":"Belgjikë","Netherlands":"Holandë","England":"Angli","Spain":"Spanjë","Portugal":"Portugali","Sweden":"Suedi","Norway":"Norvegji","Denmark":"Danimarkë","Mali":"Mali","Congo":"Kongo","DR Congo":"RD Kongo","Cameroon":"Kamerun","Ghana":"Ganë","Nigeria":"Nigeri","Senegal":"Senegal","Cote d'Ivoire":"Bregu i Fildishtë","Brazil":"Brazil","United States":"SHBA"};
+/* flag files in assets/flags (flag-icons, MIT); a country without one falls back to its name */
+const FLAG={"Kosovo":"xk","Albania":"al","North Macedonia":"mk","Montenegro":"me","Serbia":"rs","Croatia":"hr","Bosnia-Herzegovina":"ba","Slovenia":"si","Greece":"gr","Turkey":"tr","Italy":"it","Germany":"de","Austria":"at","Switzerland":"ch","France":"fr","Belgium":"be","Netherlands":"nl","England":"gb-eng","Spain":"es","Portugal":"pt","Sweden":"se","Norway":"no","Denmark":"dk","Mali":"ml","Congo":"cg","DR Congo":"cd","Cameroon":"cm","Ghana":"gh","Nigeria":"ng","Senegal":"sn","Cote d'Ivoire":"ci","Brazil":"br","United States":"us"};
+const posOf=p=>(ROLES[p.role]||[])[0]||p.pos||"mf";
 const POS_KEY={gk:"pos_gk",df:"pos_df",mf:"pos_mf",fw:"pos_fw"};
 function renderPlayers(){
   const el=$("#pl-wrap");if(!el)return;
   const arr=DATA.players||[];
+  const filled=v=>v!==""&&v!=null;
   el.innerHTML=POS_ORDER.map(pos=>{
-    const grp=arr.filter(p=>(p.pos||"mf")===pos);
+    const grp=arr.filter(p=>posOf(p)===pos).sort((a,b)=>(+a.num||999)-(+b.num||999));
     if(!grp.length)return "";
     const cards=grp.map(p=>{
       const isGk=pos==="gk";
-      const tiles=(isGk?[["p","st_p"],["cs","st_cs"],["g","st_g"],["a","st_a"]]:[["p","st_p"],["g","st_g"],["a","st_a"]])
-        .map(([k,lab])=>`<div class="st"><b>${esc(String(p[k]??0))}</b><span title="${esc(T(lab))}">${esc(T(lab))}</span></div>`).join("");
-      return `<article class="pl"><div class="media">${PH}${p.img?`<img src="${esc(p.img)}" alt="${esc(p.name)}" loading="lazy" decoding="async">`:""}${p.num!==""&&p.num!=null?`<span class="num">${esc(String(p.num))}</span>`:""}</div><div class="body"><h4>${esc(p.name)}</h4></div><div class="pstats">${tiles}</div></article>`;
+      const keys=isGk?[["p","st_p"],["cs","st_cs"],["g","st_g"],["a","st_a"]]:[["p","st_p"],["g","st_g"],["a","st_a"]];
+      /* stats only when the club has entered some: a row of zeros would be wrong, not empty */
+      const tiles=keys.some(([k])=>filled(p[k]))?`<div class="pstats">${keys.map(([k,lab])=>`<div class="st"><b>${esc(filled(p[k])?String(p[k]):"—")}</b><span title="${esc(T(lab))}">${esc(T(lab))}</span></div>`).join("")}</div>`:"";
+      const role=ROLES[p.role]?ROLES[p.role][lang==="en"?2:1]:"";
+      const flags=(p.nat||"").split(",").map(x=>x.trim()).filter(Boolean).map(c=>{const name=lang==="en"?c:(COUNTRY_SQ[c]||c);
+        return FLAG[c]?`<img src="assets/flags/${FLAG[c]}.svg" alt="${esc(name)}" title="${esc(name)}" width="22" height="16" loading="lazy"><span class="fb">${esc(name)}</span>`:`<span>${esc(name)}</span>`}).join("");
+      return `<article class="pl"><div class="media">${PH}${p.img?`<img src="${esc(p.img)}" alt="${esc(p.name)}" loading="lazy" decoding="async">`:""}${filled(p.num)?`<span class="num">${esc(String(p.num))}</span>`:""}</div><div class="body"><h4>${esc(p.name)}</h4>${role?`<p class="pl-role">${esc(role)}</p>`:""}${flags?`<p class="pl-flags">${flags}</p>`:""}</div>${tiles}</article>`;
     }).join("");
     return `<div class="pos-block"><h2 class="pos-h">${esc(T(POS_KEY[pos]))}<span class="chip">${grp.length}</span></h2><div class="pl-grid">${cards}</div></div>`;
   }).join("")||`<div class="card">${empty("users",T("empty_players"))}</div>`;
@@ -1626,6 +1737,7 @@ syncThemeColor();
   $("#sq").setAttribute("aria-pressed",String(lang==="sq"));$("#en").setAttribute("aria-pressed",String(lang==="en"));
   applyAll();
   loadYouTube();
+  loadStandings();
   loadLive(false);
   if(location.hash&&curView==="home"){const el=document.getElementById(location.hash.slice(1));if(el)el.scrollIntoView({behavior:"instant"});}
 })();

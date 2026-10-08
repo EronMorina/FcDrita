@@ -153,6 +153,7 @@
   .g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
   .g6{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+  .g7{grid-template-columns:repeat(7,1fr)}
   .g6 label{justify-content:center;font-family:var(--f-head);letter-spacing:.06em}
   .g6 input{text-align:center;padding-left:6px;padding-right:6px}
   .facts{display:flex;flex-wrap:wrap;gap:10px;padding-top:4px}
@@ -245,6 +246,7 @@
     .atop .acts .abtn{width:40px;padding:0}
     .g2,.g3{grid-template-columns:1fr}
     .g6{grid-template-columns:repeat(3,1fr)}
+    .g7{grid-template-columns:repeat(4,1fr)}
     .lg-bar{grid-template-columns:1fr}
     .aform{padding:16px}
     .photo-row{flex-wrap:wrap;align-items:flex-start}
@@ -385,6 +387,7 @@
     <section class="apane" id="pa-league">
       <div class="phead"><h1>Tabela <span class="en">League</span></h1></div>
       <p class="hint">Krijoni tabela të veçanta — p.sh. Superliga dhe Conference League/UCL sipas kualifikimit. Drita theksohet automatikisht. / Create separate tables — e.g. domestic league and Conference League/UCL depending on qualification. Drita is highlighted automatically.</p>
+      <label class="live-row"><input type="checkbox" id="lg-live" onchange="saveLiveTable()"><span><b>Tabela e Superligës automatikisht nga FFK</b><span class="en">Renditja zyrtare nga ffk-kosova.com, e përditësuar çdo 2 orë; zëvendëson tabelën me emrin "Superliga". Tabelat e tjera mbeten. / The official table from ffk-kosova.com, refreshed every 2 hours; it replaces the table named "Superliga". Other tables stay.</span></span></label>
       <div class="lg-bar">
         <div><label for="lg-select">Tabela aktive <span class="en">Editing table</span></label><select id="lg-select" onchange="lgSwitch(this.value)"></select></div>
         <div><label for="lg-name">Emri i tabelës <span class="en">Table name</span></label><input id="lg-name" onchange="saveLgName()"></div>
@@ -399,12 +402,13 @@
         <div class="aform-h"></div>
         <input type="hidden" id="lg-idx">
         <div><label for="lg-team">Ekipi <span class="en">Team</span></label><input id="lg-team"></div>
-        <div class="g6">
+        <div class="g6 g7">
           <div><label for="lg-p">P</label><input id="lg-p" type="number" inputmode="numeric" min="0"></div>
           <div><label for="lg-w">W</label><input id="lg-w" type="number" inputmode="numeric" min="0"></div>
           <div><label for="lg-d">D</label><input id="lg-d" type="number" inputmode="numeric" min="0"></div>
           <div><label for="lg-l">L</label><input id="lg-l" type="number" inputmode="numeric" min="0"></div>
           <div><label for="lg-gs">GS</label><input id="lg-gs" type="number" inputmode="numeric" min="0"></div>
+          <div><label for="lg-ga">GA</label><input id="lg-ga" type="number" inputmode="numeric" min="0"></div>
           <div><label for="lg-pts">Pts</label><input id="lg-pts" type="number" inputmode="numeric"></div>
         </div>
         <div class="facts"><button class="abtn go" type="button" onclick="saveLg()"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Ruaj<span class="en">Save</span></button><button class="abtn" type="button" onclick="hideForm('lg-form')">Anulo<span class="en">Cancel</span></button></div>
@@ -484,12 +488,14 @@
           <div><label for="pl-name">Emri <span class="en">Name</span></label><input id="pl-name" placeholder="A. Manaj"></div>
           <div><label for="pl-num">Numri <span class="en">Number</span></label><input id="pl-num" type="number" inputmode="numeric" min="0" placeholder="9"></div>
           <div><label for="pl-pos">Pozicioni <span class="en">Position</span></label><select id="pl-pos">
-            <option value="gk">Portier / Goalkeeper</option>
-            <option value="df">Mbrojtës / Defender</option>
-            <option value="mf">Mesfushor / Midfielder</option>
-            <option value="fw">Sulmues / Attacker</option>
+            <optgroup label="Portierë / Goalkeepers"><option value="Goalkeeper">Portier / Goalkeeper</option></optgroup>
+            <optgroup label="Mbrojtës / Defenders"><option value="Centre-Back">Qendërmbrojtës / Centre-back</option><option value="Left-Back">Mbrojtës i majtë / Left-back</option><option value="Right-Back">Mbrojtës i djathtë / Right-back</option><option value="df">Mbrojtës / Defender</option></optgroup>
+            <optgroup label="Mesfushorë / Midfielders"><option value="Defensive Midfield">Mesfushor mbrojtës / Defensive</option><option value="Central Midfield">Mesfushor qendror / Central</option><option value="Attacking Midfield">Mesfushor sulmues / Attacking</option><option value="Left Midfield">Mesfushor i majtë / Left</option><option value="Right Midfield">Mesfushor i djathtë / Right</option><option value="mf">Mesfushor / Midfielder</option></optgroup>
+            <optgroup label="Sulmues / Attackers"><option value="Left Winger">Krah i majtë / Left winger</option><option value="Right Winger">Krah i djathtë / Right winger</option><option value="Second Striker">Sulmues i dytë / Second striker</option><option value="Centre-Forward">Sulmues qendror / Centre-forward</option><option value="fw">Sulmues / Attacker</option></optgroup>
           </select></div>
         </div>
+        <div><label for="pl-nat">Kombësia <span class="en">Nationality — ndani me presje / comma-separated, e.g. Kosovo, Albania</span></label><input id="pl-nat" placeholder="Kosovo, Albania"></div>
+        <p class="sub-h">Statistikat<span class="en">Optional — leave empty to hide them on the site.</span></p>
         <div class="g2">
           <div><label for="pl-p">Ndeshje <span class="en">Games played</span></label><input id="pl-p" type="number" inputmode="numeric" min="0"></div>
           <div><label for="pl-g">Gola <span class="en">Goals</span></label><input id="pl-g" type="number" inputmode="numeric" min="0"></div>
@@ -617,25 +623,44 @@ const DEFAULT_DATA={
  ],
  leagues:[
   {id:"superleague",name:"Superliga e Kosovës",rows:[
-  {team:"FC Drita",p:13,w:9,d:3,l:1,gs:25,pts:30},
-  {team:"FC Ballkani",p:13,w:8,d:2,l:3,gs:22,pts:26},
-  {team:"FC Prishtina",p:13,w:7,d:3,l:3,gs:19,pts:24},
-  {team:"KF Llapi",p:13,w:6,d:4,l:3,gs:17,pts:22},
-  {team:"SC Gjilani",p:13,w:5,d:4,l:4,gs:15,pts:19},
-  {team:"FC Malisheva",p:13,w:4,d:3,l:6,gs:13,pts:15},
-  {team:"FC Dukagjini",p:13,w:3,d:4,l:6,gs:12,pts:13},
-  {team:"KF Dardania",p:13,w:2,d:3,l:8,gs:9,pts:9}
+  {team:"Prishtina",p:6,w:6,d:0,l:0,gs:18,ga:4,gd:14,pts:18},
+  {team:"Malisheva",p:7,w:5,d:1,l:1,gs:19,ga:6,gd:13,pts:16},
+  {team:"Dukagjini",p:7,w:3,d:3,l:1,gs:8,ga:5,gd:3,pts:12},
+  {team:"Drita",p:6,w:3,d:2,l:1,gs:8,ga:5,gd:3,pts:11},
+  {team:"Gjilani",p:7,w:3,d:2,l:2,gs:10,ga:8,gd:2,pts:11},
+  {team:"Ballkani",p:7,w:3,d:1,l:3,gs:9,ga:8,gd:1,pts:10},
+  {team:"Drenica",p:7,w:2,d:3,l:2,gs:9,ga:7,gd:2,pts:9},
+  {team:"Feronikeli 74",p:7,w:2,d:0,l:5,gs:5,ga:13,gd:-8,pts:6},
+  {team:"Llapi",p:7,w:1,d:0,l:6,gs:8,ga:21,gd:-13,pts:3},
+  {team:"Vushtrria",p:7,w:0,d:0,l:7,gs:3,ga:20,gd:-17,pts:0}
  ]}
  ],
  teams:[],
  players:[
-  {img:"",name:"F. Maloku",num:"1",pos:"gk",p:13,g:0,a:0,cs:7},
-  {img:"",name:"A. Seji",num:"4",pos:"df",p:12,g:1,a:0,cs:0},
-  {img:"",name:"B. Krasniqi",num:"5",pos:"df",p:13,g:2,a:1,cs:0},
-  {img:"",name:"E. Broja",num:"8",pos:"mf",p:13,g:3,a:5,cs:0},
-  {img:"",name:"L. Limaj",num:"10",pos:"mf",p:11,g:2,a:4,cs:0},
-  {img:"",name:"A. Manaj",num:"9",pos:"fw",p:13,g:8,a:2,cs:0},
-  {img:"",name:"B. Balaj",num:"11",pos:"fw",p:12,g:6,a:3,cs:0}
+  {"img":"","name":"Faton Maloku","num":"1","pos":"gk","role":"Goalkeeper","nat":"Kosovo"},
+  {"img":"","name":"Laurit Behluli","num":"22","pos":"gk","role":"Goalkeeper","nat":"Kosovo"},
+  {"img":"","name":"Eron Isufi","num":"74","pos":"gk","role":"Goalkeeper","nat":"Kosovo"},
+  {"img":"","name":"Hajdin Salihu","num":"55","pos":"df","role":"Centre-Back","nat":"Kosovo"},
+  {"img":"","name":"Jorgo Pellumbi","num":"32","pos":"df","role":"Centre-Back","nat":"Albania"},
+  {"img":"","name":"Altin Bytyci","num":"25","pos":"df","role":"Centre-Back","nat":"Kosovo, Albania"},
+  {"img":"","name":"Abdoul Karim Danté","num":"21","pos":"df","role":"Centre-Back","nat":"Mali"},
+  {"img":"","name":"Raddy Ovouka","num":"26","pos":"df","role":"Left-Back","nat":"Congo"},
+  {"img":"","name":"Blerton Sheji","num":"3","pos":"df","role":"Left-Back","nat":"North Macedonia, Albania"},
+  {"img":"","name":"Agan Mjaki","num":"28","pos":"df","role":"Right-Back","nat":"Albania, Netherlands"},
+  {"img":"","name":"Besnik Krasniqi","num":"2","pos":"df","role":"Right-Back","nat":"Kosovo"},
+  {"img":"","name":"Albert Dabiqaj","num":"14","pos":"mf","role":"Defensive Midfield","nat":"Kosovo"},
+  {"img":"","name":"Vesel Limaj","num":"8","pos":"mf","role":"Central Midfield","nat":"Germany, Kosovo"},
+  {"img":"","name":"Marsel Ismajlgeci","num":"16","pos":"mf","role":"Central Midfield","nat":"Albania"},
+  {"img":"","name":"Kemehlo Nguena","num":"93","pos":"mf","role":"Central Midfield","nat":"France, Cameroon"},
+  {"img":"","name":"William Baeten","num":"24","pos":"mf","role":"Attacking Midfield","nat":"Belgium"},
+  {"img":"","name":"Besar Halimi","num":"11","pos":"mf","role":"Attacking Midfield","nat":"Kosovo, Germany"},
+  {"img":"","name":"Igball Jashari","num":"7","pos":"fw","role":"Left Winger","nat":"Kosovo"},
+  {"img":"","name":"Oniks Grezda","num":"17","pos":"fw","role":"Left Winger","nat":"Kosovo"},
+  {"img":"","name":"Liridon Balaj","num":"10","pos":"fw","role":"Right Winger","nat":"Kosovo"},
+  {"img":"","name":"Kristal Abazaj","num":"77","pos":"fw","role":"Right Winger","nat":"Albania"},
+  {"img":"","name":"Mike Arthur","num":"99","pos":"fw","role":"Right Winger","nat":"Ghana"},
+  {"img":"","name":"Arb Manaj","num":"9","pos":"fw","role":"Centre-Forward","nat":"Kosovo, Albania"},
+  {"img":"","name":"Blerim Krasniqi","num":"19","pos":"fw","role":"Centre-Forward","nat":"Albania"}
  ],
  fixtures:[],
  trophies:[
@@ -653,10 +678,13 @@ const DEFAULT_DATA={
   {url:"",thumb:"",titleSq:"Golat e javës",titleEn:"Goals of the week"}
  ],
  sponsors:[
-  {name:"Sponsori kryesor",url:"",logo:""},
-  {name:"Partner zyrtar",url:"",logo:""},
-  {name:"Partner zyrtar",url:"",logo:""},
-  {name:"Partner zyrtar",url:"",logo:""}
+  {"name":"IPKO","url":"","logo":"assets/sponsors/ipko.png"},
+  {"name":"Valon AG","url":"","logo":"assets/sponsors/valon-ag.png"},
+  {"name":"Rinora 4","url":"","logo":"assets/sponsors/rinora-4.png"},
+  {"name":"Magic Ice","url":"","logo":"assets/sponsors/magic-ice.png"},
+  {"name":"BPB","url":"","logo":"assets/sponsors/bpb.png"},
+  {"name":"airtiketa.com","url":"","logo":"assets/sponsors/airtiketa.png"},
+  {"name":"Swiss Invest","url":"","logo":"assets/sponsors/swiss-invest.png"}
  ]
 };
 
@@ -786,7 +814,7 @@ function renderAllLists(){
   renderLgAdmin();
   $("#teams-list").innerHTML=(DATA.teams||[]).map((t,i)=>row(t.logo,t.name,"",'teamForm','teams',i,ic("shield"))).join("")||emptyRow();
   $("#fix-list-a").innerHTML=DATA.fixtures.map((f,i)=>row("",`${f.home} ${f.score?f.score:"vs"} ${f.away}`,[[f.date,f.time].filter(x=>x&&x!=="—").join(" "),f.comp].filter(Boolean).join(" • "),'fixForm','fixtures',i,ic("calendar"))).join("")||emptyRow();
-  $("#players-list").innerHTML=(DATA.players||[]).map((p,i)=>row(p.img,p.name||"—",`${POS_LABEL[p.pos]||""} • ${p.p||0} ndeshje • ${p.g||0} gola • ${p.a||0} asiste${p.pos==="gk"?` • ${p.cs||0} portë e pastër`:""}`,'playerForm','players',i,p.num?"#"+esc(p.num):ic("shirt"))).join("")||emptyRow();
+  $("#players-list").innerHTML=(DATA.players||[]).map((p,i)=>row(p.img,p.name||"—",[roleName(p),p.nat].filter(Boolean).join(" • "),'playerForm','players',i,p.num?"#"+esc(p.num):ic("shirt"))).join("")||emptyRow();
   $("#troph-list").innerHTML=DATA.trophies.map((t,i)=>row(t.photo,t.titleSq||"—",`× ${t.count||"—"}`,'trophForm','trophies',i,esc(t.icon||"🏆"))).join("")||emptyRow();
   $("#photo-list").innerHTML=DATA.photos.map((p,i)=>row(p.img,p.capSq||"—","",'photoForm','photos',i)).join("")||emptyRow();
   $("#spons-list").innerHTML=DATA.sponsors.map((s,i)=>row(s.logo,s.name,s.url||"",'sponsForm','sponsors',i,ic("award"))).join("")||emptyRow();
@@ -834,13 +862,13 @@ async function delLgRow(i){const lg=(DATA.leagues||[])[adminLgIdx];if(!lg)return
   if(!await ask({title:"Të fshihet? / Delete?",msg:lg.rows[i]?lg.rows[i].team:"",ok:`${ic("trash")}Fshi<span class="en">Delete</span>`,danger:true}))return;
   lg.rows.splice(i,1);saveLocal();renderAllLists();toast("U fshi / Deleted")}
 function lgForm(i){
-  if(i===undefined){$("#lg-idx").value="";["lg-team","lg-p","lg-w","lg-d","lg-l","lg-gs","lg-pts"].forEach(id=>$("#"+id).value="")}
-  else{const lg=(DATA.leagues||[])[adminLgIdx];const r=lg.rows[i];$("#lg-idx").value=i;$("#lg-team").value=r.team;$("#lg-p").value=r.p;$("#lg-w").value=r.w;$("#lg-d").value=r.d;$("#lg-l").value=r.l;$("#lg-gs").value=r.gs;$("#lg-pts").value=r.pts;}
+  if(i===undefined){$("#lg-idx").value="";["lg-team","lg-p","lg-w","lg-d","lg-l","lg-gs","lg-ga","lg-pts"].forEach(id=>$("#"+id).value="")}
+  else{const lg=(DATA.leagues||[])[adminLgIdx];const r=lg.rows[i];$("#lg-idx").value=i;$("#lg-team").value=r.team;$("#lg-p").value=r.p;$("#lg-w").value=r.w;$("#lg-d").value=r.d;$("#lg-l").value=r.l;$("#lg-gs").value=r.gs;$("#lg-ga").value=r.ga??"";$("#lg-pts").value=r.pts;}
   openForm("lg-form",i)}
 function saveLg(){if(!$("#lg-team").value.trim())return invalid("lg-team",REQ);
   const lg=(DATA.leagues||[])[adminLgIdx];if(!lg)return;
   const n=id=>+($("#"+id).value||0);
-  const it={team:$("#lg-team").value,p:n("lg-p"),w:n("lg-w"),d:n("lg-d"),l:n("lg-l"),gs:n("lg-gs"),pts:n("lg-pts")};
+  const it={team:$("#lg-team").value,p:n("lg-p"),w:n("lg-w"),d:n("lg-d"),l:n("lg-l"),gs:n("lg-gs"),ga:$("#lg-ga").value===""?undefined:n("lg-ga"),pts:n("lg-pts")};
   const x=$("#lg-idx").value;if(x===""){lg.rows.push(it)}else lg.rows[+x]=it;
   lg.rows.sort((a,b)=>b.pts-a.pts);
   saveLocal();renderAllLists();hideForm("lg-form");flag()}
@@ -873,15 +901,18 @@ function saveFix(){if(!$("#f-home").value.trim())return invalid("f-home",REQ);if
 
 /* ===== players ===== */
 const POS_LABEL={gk:"Portier",df:"Mbrojtës",mf:"Mesfushor",fw:"Sulmues"};
+const ROLE_POS={"Goalkeeper":"gk","Centre-Back":"df","Left-Back":"df","Right-Back":"df","Defensive Midfield":"mf","Central Midfield":"mf","Attacking Midfield":"mf","Left Midfield":"mf","Right Midfield":"mf","Left Winger":"fw","Right Winger":"fw","Second Striker":"fw","Centre-Forward":"fw"};
+const roleName=p=>{const o=$(`#pl-pos option[value="${p.role||p.pos}"]`);return o?o.textContent.split(" / ")[0]:(POS_LABEL[p.pos]||"")};
 const POS_ORD={gk:0,df:1,mf:2,fw:3};
 function playerForm(i){if($("#pl-file"))$("#pl-file").value="";
-  if(i===undefined){$("#pl-idx").value="";$("#pl-name").value="";$("#pl-num").value="";$("#pl-pos").value="gk";["pl-p","pl-g","pl-a","pl-cs"].forEach(id=>$("#"+id).value="");formImg.player="";}
-  else{const p=DATA.players[i];$("#pl-idx").value=i;$("#pl-name").value=p.name||"";$("#pl-num").value=p.num||"";$("#pl-pos").value=p.pos||"mf";$("#pl-p").value=p.p??"";$("#pl-g").value=p.g??"";$("#pl-a").value=p.a??"";$("#pl-cs").value=p.cs??"";formImg.player=p.img||"";}
+  if(i===undefined){$("#pl-idx").value="";$("#pl-name").value="";$("#pl-num").value="";$("#pl-pos").value="Goalkeeper";$("#pl-nat").value="";["pl-p","pl-g","pl-a","pl-cs"].forEach(id=>$("#"+id).value="");formImg.player="";}
+  else{const p=DATA.players[i];$("#pl-idx").value=i;$("#pl-name").value=p.name||"";$("#pl-num").value=p.num||"";$("#pl-pos").value=p.role&&ROLE_POS[p.role]?p.role:(p.pos||"mf");$("#pl-nat").value=p.nat||"";$("#pl-p").value=p.p??"";$("#pl-g").value=p.g??"";$("#pl-a").value=p.a??"";$("#pl-cs").value=p.cs??"";formImg.player=p.img||"";}
   prev("pl-prev",formImg.player);openForm("player-form",i)}
 function savePlayer(){if(!$("#pl-name").value.trim())return invalid("pl-name",REQ);
   DATA.players=DATA.players||[];
-  const n=id=>+($("#"+id).value||0);
-  const it={img:formImg.player,name:$("#pl-name").value,num:$("#pl-num").value,pos:$("#pl-pos").value,p:n("pl-p"),g:n("pl-g"),a:n("pl-a"),cs:n("pl-cs")};
+  const n=id=>{const v=$("#"+id).value.trim();return v===""?"":+v}; /* empty stays empty, so the site can hide it */
+  const sel=$("#pl-pos").value;
+  const it={img:formImg.player,name:$("#pl-name").value,num:$("#pl-num").value,pos:ROLE_POS[sel]||sel,role:ROLE_POS[sel]?sel:"",nat:$("#pl-nat").value.trim(),p:n("pl-p"),g:n("pl-g"),a:n("pl-a"),cs:n("pl-cs")};
   const x=$("#pl-idx").value;if(x===""){DATA.players.push(it)}else DATA.players[+x]=it;
   DATA.players.sort((a,b)=>(POS_ORD[a.pos]??9)-(POS_ORD[b.pos]??9)||(+a.num||99)-(+b.num||99));
   saveLocal();renderAllLists();hideForm("player-form");flag()}
@@ -927,10 +958,11 @@ async function resetAll(){if(!await ask({title:"Rivendos gjithçka? / Reset ever
 
 /* ===== gate / unlock ===== */
 function lockAdmin(){try{sessionStorage.removeItem("drita_admin_ok")}catch(e){}location.reload()}
+function saveLiveTable(){DATA.liveTable=$("#lg-live").checked;if(saveLocal())flag()}
 function saveLiveToggle(){DATA.liveFixtures=$("#f-live").checked;if(saveLocal())flag()}
 function unlockAdmin(){
   $("#gate").classList.add("hidden");
-  fillClub();fillFooter();renderAllLists();$("#f-live").checked=DATA.liveFixtures!==false;
+  fillClub();fillFooter();renderAllLists();$("#f-live").checked=DATA.liveFixtures!==false;$("#lg-live").checked=DATA.liveTable!==false;
   $("#admin").classList.add("open");
   let p="pa-club";try{p=sessionStorage.getItem("drita_admin_pane")||p}catch(e){}
   showPane(p);
