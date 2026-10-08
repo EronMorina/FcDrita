@@ -2,267 +2,482 @@
 <html lang="sq">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0a1733">
 <title>Paneli i klubit — FC Drita</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 46'%3E%3Cpath d='M20 1 L38 8 V24 C38 35 30 42 20 45 C10 42 2 35 2 24 V8 Z' fill='%230a1733' stroke='%23fff' stroke-width='2'/%3E%3Cpath d='M20 11 L23 18 L30.5 18 L24.5 22.5 L27 30 L20 25.5 L13 30 L15.5 22.5 L9.5 18 L17 18 Z' fill='%232f6bff'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+  /* =========================================================
+     TOKENS — shared with the public site (dark theme)
+     ========================================================= */
   :root{
-    --navy:#0a1733;--navy2:#0c1d40;--card:#11244e;--card2:#0e1f44;--line:rgba(255,255,255,.10);
-    --white:#fff;--bone:#dde5f4;--mute:#90a2c6;--blue:#2f6bff;--blue2:#5688ff;--blue-soft:rgba(47,107,255,.16);
-    --gold:#efb13c;--live:#ff5470;--ok:#37d399;--maxw:1240px;
+    --navy:#0a1733;--navy2:#0c1d40;--card:#11244e;--card2:#0e1f44;--field:#0b1a3b;
+    --line:rgba(255,255,255,.10);--line-2:rgba(255,255,255,.2);--hairline:rgba(255,255,255,.06);
+    --ink:#ffffff;--bone:#dde5f4;--mute:#90a2c6;
+    --hover-bg:rgba(255,255,255,.04);--press-bg:rgba(255,255,255,.07);
+    --blue:#2f6bff;--blue2:#5688ff;--blue-soft:rgba(47,107,255,.16);--blue-fill:#2860f0;--chip-fg:#8fb0ff;
+    --gold:#efb13c;--live:#ff5470;--live-text:#ff8197;--danger-soft:rgba(255,84,112,.12);--ok:#37d399;
+    --scrim:rgba(3,8,22,.72);
+    --sh-pop:0 32px 80px -24px rgba(0,0,0,.75);
+    --r-xs:6px;--r-sm:10px;--r-md:14px;--r-lg:20px;--r-pill:999px;
+    --f-display:"Anton",sans-serif;--f-head:"Oswald",sans-serif;--f-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --ease-out:cubic-bezier(.23,1,.32,1);
+    --top-h:60px;--side-w:248px;
+    color-scheme:dark;
   }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{background:var(--navy);color:var(--bone);font-family:"Inter",system-ui,sans-serif;line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  [hidden]{display:none!important}
+  html{-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent;scrollbar-color:#24407e var(--navy);scroll-padding-top:calc(var(--top-h) + 64px)}
+  html.locked{overflow:hidden}
+  body{min-height:100vh;background:var(--navy);color:var(--bone);font-family:var(--f-body);font-size:.9375rem;line-height:1.5;-webkit-font-smoothing:antialiased}
+  ::selection{background:var(--blue);color:#fff}
   a{color:inherit;text-decoration:none}
-/* ---------- ADMIN SHELL ---------- */
-  .ashell{max-width:980px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
-  .atop{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;border-bottom:1px solid var(--line)}
-  .atop b{font-family:"Anton";color:#fff;font-size:1.3rem;text-transform:uppercase}
-  .atop .flag{font-family:"Oswald";font-size:.72rem;color:var(--ok);margin-left:8px}
-  .atop .x{background:none;border:1px solid var(--line);border-radius:8px;color:#fff;cursor:pointer;padding:6px 12px}
-  .atabs{display:flex;gap:8px;flex-wrap:wrap;padding:14px 22px;border-bottom:1px solid var(--line)}
-  .atab{font-family:"Oswald";text-transform:uppercase;letter-spacing:.08em;font-size:.72rem;padding:8px 13px;border:1px solid var(--line);border-radius:999px;background:none;color:var(--mute);cursor:pointer;transition:.2s}
-  .atab.on{background:#fff;color:#000}
-  .apane{display:none;padding:22px}
-  .apane.on{display:block}
-  .apane>p.hint{color:var(--mute);font-size:.86rem;margin-bottom:14px}
-  .alist .arow{display:flex;justify-content:space-between;gap:12px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:11px 13px;margin-bottom:9px}
-  .arow .l{display:flex;align-items:center;gap:11px;min-width:0}
-  .arow .l>div{min-width:0}
-  .arow b{font-family:"Oswald";text-transform:uppercase;font-size:.9rem;color:#fff;overflow-wrap:anywhere}
-  .arow small{color:var(--mute);font-size:.76rem;display:block;overflow-wrap:anywhere}
-  .arow-thumb{width:38px;height:38px;border-radius:8px;object-fit:cover;flex:0 0 auto;border:1px solid var(--line);background:var(--navy2)}
-  .aact{display:flex;gap:7px;flex:0 0 auto}
-  .aform{display:grid;gap:11px;border:1px dashed var(--line);border-radius:10px;padding:15px;margin-top:13px}
-  .aform.hide{display:none}
-  .aform label{font-family:"Oswald";text-transform:uppercase;letter-spacing:.06em;font-size:.64rem;color:var(--mute);display:block;margin-bottom:4px}
-  .aform input,.aform textarea,.aform select{width:100%;background:var(--navy2);border:1px solid var(--line);border-radius:8px;color:#fff;padding:9px 11px;font-family:"Inter";font-size:.9rem}
-  .aform textarea{min-height:64px;resize:vertical}
-  .aform input:focus,.aform textarea:focus,.aform select:focus{outline:none;border-color:var(--blue)}
-  .g2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-  .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
-  .g6{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
-  .abtn{font-family:"Oswald";text-transform:uppercase;letter-spacing:.08em;font-size:.72rem;font-weight:600;padding:9px 15px;border-radius:8px;border:1px solid var(--line);background:none;color:#fff;cursor:pointer;transition:.2s}
-  .abtn:hover{border-color:#fff}
-  .abtn.go{background:var(--blue);color:#fff;border-color:var(--blue)}
-  .abtn.del{color:var(--live);border-color:rgba(255,84,112,.4)}
-  .facts{display:flex;gap:9px;margin-top:3px}
-  .photo-row{display:flex;gap:13px;align-items:flex-end}
-  .photo-row .pf{flex:1}
-  .img-prev{width:96px;height:74px;border-radius:9px;border:1px solid var(--line);background:var(--navy2) center/cover no-repeat;display:flex;align-items:center;justify-content:center;color:var(--mute);font-size:.62rem;text-align:center;font-family:"Oswald";text-transform:uppercase;overflow:hidden}
-  .pubbox{border:1px solid var(--blue);border-radius:10px;padding:18px;background:var(--blue-soft)}
-  .pubbox h4{font-family:"Oswald";color:#fff;text-transform:uppercase;margin-bottom:8px}
-  .pubbox p{color:var(--bone);font-size:.88rem;margin-bottom:13px}
-  .pubact{display:flex;gap:10px;flex-wrap:wrap}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;-webkit-user-select:none;user-select:none;touch-action:manipulation}
+  :focus-visible{outline:2px solid var(--blue2);outline-offset:2px;border-radius:6px}
+  .ic{width:1em;height:1em;flex:0 0 auto;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .en{color:var(--mute);font-weight:400}
+  .en::before{content:"·";margin:0 .4em;opacity:.6}
 
-  body{min-height:100vh}
-  #admin{display:none;max-width:1000px;margin:0 auto;padding:40px 20px 70px}
-  #admin.open{display:block}
-  #gate{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+  /* =========================================================
+     BUTTONS
+     ========================================================= */
+  .abtn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:0 16px;border-radius:var(--r-sm);border:1px solid var(--line-2);font:600 .78rem/1 var(--f-head);letter-spacing:.07em;text-transform:uppercase;color:var(--ink);white-space:nowrap;transition:background-color .16s,border-color .16s,color .16s,transform .16s var(--ease-out)}
+  .abtn .ic{width:16px;height:16px}
+  .abtn:active{transform:scale(.97)}
+  .abtn.go{background:var(--blue-fill);border-color:var(--blue-fill);color:#fff}
+  .abtn.del{color:var(--live-text);border-color:rgba(255,84,112,.35)}
+  .abtn.add{border-style:dashed;color:var(--chip-fg);border-color:rgba(86,136,255,.45)}
+  .abtn.sm{min-height:34px;padding:0 12px;font-size:.72rem}
+  .abtn .en::before{content:"/";margin:0 .35em}
+  .abtn.go .en,.abtn.danger .en{color:inherit;font-weight:400}
+  .iconbtn{display:inline-grid;place-items:center;width:38px;height:38px;flex:0 0 auto;border-radius:var(--r-sm);border:1px solid var(--line);color:var(--mute);transition:background-color .16s,border-color .16s,color .16s,transform .16s var(--ease-out)}
+  .iconbtn .ic{width:17px;height:17px}
+  .iconbtn:active{transform:scale(.94)}
+  .iconbtn.del{color:var(--live-text)}
+
+  /* =========================================================
+     GATE
+     ========================================================= */
+  #gate{min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:24px}
   #gate.hidden{display:none}
-  .gate-card{width:100%;max-width:360px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:32px 28px;text-align:center}
-  .gate-card svg{height:52px;width:auto;margin:0 auto 14px;display:block}
-  .gate-card h1{font-family:"Oswald";text-transform:uppercase;color:#fff;font-size:1.3rem;letter-spacing:.04em;margin-bottom:4px}
-  .gate-card p{color:var(--mute);font-size:.85rem;margin-bottom:22px}
-  .gate-card input{width:100%;background:var(--navy2);border:1px solid var(--line);border-radius:9px;color:#fff;padding:12px 14px;font-family:"Inter";font-size:.95rem;margin-bottom:14px;text-align:center}
-  .gate-card input:focus{outline:none;border-color:var(--blue)}
-  .gate-back{display:block;margin-top:18px;color:var(--mute);font-family:"Oswald";text-transform:uppercase;letter-spacing:.08em;font-size:.72rem}
-  .gate-back:hover{color:var(--blue2)}
-  @media(max-width:700px){
-    .g2,.g3,.g6{grid-template-columns:1fr 1fr}
-    .atop{flex-wrap:wrap;gap:10px}
+  .gate-card{width:100%;max-width:380px;padding:36px 28px 28px;border-radius:var(--r-lg);background:var(--card);border:1px solid var(--line);box-shadow:var(--sh-pop);text-align:center}
+  .gate-card svg.crest{display:block;height:56px;width:auto;margin:0 auto 18px;color:#fff}
+  .gate-card h1{font:600 1.35rem/1.1 var(--f-head);text-transform:uppercase;letter-spacing:.04em;color:var(--ink)}
+  .gate-card p{margin:6px 0 24px;color:var(--mute);font-size:.875rem}
+  .gate-card input{width:100%;height:48px;margin-bottom:12px;padding:0 14px;border-radius:var(--r-sm);border:1px solid var(--line);background:var(--field);color:#fff;font:16px var(--f-body);text-align:center;transition:border-color .16s,box-shadow .16s}
+  .gate-card input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft)}
+  .gate-card input[aria-invalid="true"]{border-color:var(--live)}
+  .gate-card .abtn{width:100%;min-height:48px}
+  #gate-err{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;font:500 .875rem/1.3 var(--f-body);color:var(--live-text)}
+  .shake{animation:shake .38s var(--ease-out)}
+  @keyframes shake{20%{transform:translateX(-6px)}40%{transform:translateX(5px)}60%{transform:translateX(-3px)}80%{transform:translateX(2px)}}
+  .gate-back{display:inline-flex;align-items:center;gap:6px;min-height:40px;margin-top:14px;font:500 .75rem/1 var(--f-head);letter-spacing:.08em;text-transform:uppercase;color:var(--mute);transition:color .16s}
+
+  /* =========================================================
+     SHELL
+     ========================================================= */
+  #admin{display:none}
+  #admin.open{display:block}
+  .atop{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:12px;height:calc(var(--top-h) + env(safe-area-inset-top));padding:env(safe-area-inset-top) max(20px,env(safe-area-inset-right)) 0 max(20px,env(safe-area-inset-left));background:rgba(8,18,40,.88);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line)}
+  .atop .brand{display:flex;align-items:center;gap:10px;min-width:0}
+  .atop .brand svg{height:30px;width:auto;flex:0 0 auto;color:#fff}
+  .atop .brand b{font:400 1.1rem/1 var(--f-display);text-transform:uppercase;letter-spacing:.02em;color:var(--ink);white-space:nowrap}
+  .atop .brand span{font:500 .72rem/1 var(--f-head);letter-spacing:.12em;text-transform:uppercase;color:var(--mute);white-space:nowrap}
+  .atop .acts{display:flex;align-items:center;gap:8px}
+  .layout{display:grid;grid-template-columns:var(--side-w) minmax(0,1fr);max-width:1240px;margin:0 auto}
+  .aside{position:sticky;top:var(--top-h);align-self:start;height:calc(100vh - var(--top-h));overflow-y:auto;padding:20px 12px 32px;border-right:1px solid var(--line)}
+  .nav-group+.nav-group{margin-top:22px}
+  .nav-group h2{padding:0 12px 8px;font:500 .6875rem/1 var(--f-head);letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+  .atab{display:flex;align-items:center;gap:12px;width:100%;min-height:42px;padding:0 12px;border-radius:var(--r-sm);font:500 .875rem/1 var(--f-head);letter-spacing:.04em;text-transform:uppercase;color:var(--bone);text-align:left;transition:background-color .16s,color .16s}
+  .atab .ic{width:18px;height:18px;color:var(--mute);transition:color .16s}
+  .atab .lbl{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .atab .cnt{min-width:22px;height:20px;padding:0 6px;border-radius:var(--r-pill);background:var(--hover-bg);font:500 .6875rem/20px var(--f-head);color:var(--mute);text-align:center;font-variant-numeric:tabular-nums}
+  .atab.on{background:var(--blue-soft);color:var(--ink)}
+  .atab.on .ic{color:var(--chip-fg)}
+  .atab.on .cnt{background:rgba(47,107,255,.24);color:var(--chip-fg)}
+  .atab.pub{margin-top:6px}
+  .main{min-width:0;padding:32px clamp(20px,4vw,48px) 96px}
+
+  /* =========================================================
+     PANES
+     ========================================================= */
+  .apane{display:none;max-width:820px}
+  .apane.on{display:block;animation:pane-in .28s var(--ease-out) both}
+  @keyframes pane-in{from{opacity:0;transform:translateY(6px)}}
+  .phead{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:8px}
+  .phead h1{font:600 clamp(1.5rem,1.2rem + 1vw,2rem)/1.05 var(--f-head);text-transform:uppercase;letter-spacing:.01em;color:var(--ink)}
+  .apane>p.hint{max-width:68ch;margin-bottom:22px;color:var(--mute);font-size:.875rem;line-height:1.55}
+  .apane>p.hint .en{display:block;margin-top:2px}
+  .apane>p.hint .en::before{display:none}
+  .alist{display:grid;gap:8px;margin-bottom:12px}
+  .arow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 10px 10px 12px;border-radius:var(--r-md);background:var(--card);border:1px solid var(--line);transition:border-color .2s,background-color .2s}
+  .arow.editing{border-color:var(--blue);background:#132a5a}
+  .arow .l{display:flex;align-items:center;gap:12px;min-width:0}
+  .arow .l>div{min-width:0}
+  .arow b{display:block;font:500 .95rem/1.25 var(--f-head);text-transform:uppercase;letter-spacing:.02em;color:var(--ink);overflow-wrap:anywhere}
+  .arow small{display:block;margin-top:2px;color:var(--mute);font-size:.8rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .arow-thumb{width:44px;height:44px;flex:0 0 auto;border-radius:var(--r-sm);object-fit:cover;background:var(--navy2);border:1px solid var(--line)}
+  .arow-ph{display:grid;place-items:center;width:44px;height:44px;flex:0 0 auto;border-radius:var(--r-sm);background:var(--navy2);border:1px solid var(--line);color:var(--mute);font:600 .85rem/1 var(--f-head);font-variant-numeric:tabular-nums}
+  .arow-ph .ic{width:18px;height:18px}
+  .aact{display:flex;gap:6px;flex:0 0 auto}
+  .aempty{display:flex;flex-direction:column;align-items:center;gap:8px;padding:32px 16px;border-radius:var(--r-md);border:1px dashed var(--line-2);color:var(--mute);text-align:center;font-size:.875rem}
+  .aempty .ic{width:22px;height:22px}
+
+  /* =========================================================
+     FORMS
+     ========================================================= */
+  .aform{display:grid;gap:16px;margin-top:16px;padding:20px;border-radius:var(--r-md);background:var(--card);border:1px solid var(--line)}
+  .aform.hide{display:none}
+  .aform.flash{animation:form-in .3s var(--ease-out) both}
+  @keyframes form-in{from{opacity:0;transform:translateY(8px)}}
+  .aform-h{display:flex;align-items:baseline;flex-wrap:wrap;gap:0;padding-bottom:14px;border-bottom:1px solid var(--line);font:600 1rem/1.2 var(--f-head);text-transform:uppercase;letter-spacing:.04em;color:var(--ink)}
+  .aform label,.lg-bar label{display:flex;align-items:baseline;flex-wrap:wrap;margin-bottom:6px;font:600 .8125rem/1.35 var(--f-body);color:var(--bone)}
+  .aform label .en,.lg-bar label .en{font-weight:400}
+  .aform label .en::before{content:"·"}
+  .lng{display:inline-grid;place-items:center;height:16px;margin-left:6px;padding:0 5px;border-radius:4px;background:var(--hover-bg);box-shadow:inset 0 0 0 1px var(--line);font:600 .6875rem/1 var(--f-head);letter-spacing:.06em;color:var(--mute)}
+  .aform input,.aform textarea,.aform select,.lg-bar input,.lg-bar select{width:100%;min-height:42px;padding:9px 12px;border-radius:var(--r-sm);border:1px solid var(--line);background:var(--field);color:#fff;font:16px/1.4 var(--f-body);transition:border-color .16s,box-shadow .16s}
+  .aform textarea{min-height:88px;resize:vertical}
+  .aform select,.lg-bar select{appearance:none;-webkit-appearance:none;padding-right:36px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2390a2c6' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+  .aform input::placeholder,.aform textarea::placeholder,.gate-card input::placeholder,.dlg-card input::placeholder{color:#8294b9}
+  .aform input:focus,.aform textarea:focus,.aform select:focus,.lg-bar input:focus,.lg-bar select:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft)}
+  .aform [aria-invalid="true"]{border-color:var(--live)}
+  .ferr{display:flex;align-items:center;gap:6px;margin-top:6px;color:var(--live-text);font-size:.8rem}
+  .ferr .ic{width:14px;height:14px}
+  .aform input[type=number]{font-variant-numeric:tabular-nums}
+  .aform input[type=file]{min-height:0;padding:0;border:0;background:none;color:var(--mute);font-size:.8125rem}
+  .aform input[type=file]::file-selector-button{margin-right:12px;min-height:38px;padding:0 14px;border-radius:var(--r-sm);border:1px solid var(--line-2);background:var(--hover-bg);color:var(--ink);font:600 .72rem/1 var(--f-head);letter-spacing:.07em;text-transform:uppercase;cursor:pointer;transition:border-color .16s,background-color .16s}
+  .g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .g6{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+  .g6 label{justify-content:center;font-family:var(--f-head);letter-spacing:.06em}
+  .g6 input{text-align:center;padding-left:6px;padding-right:6px}
+  .facts{display:flex;flex-wrap:wrap;gap:10px;padding-top:4px}
+  .photo-row{display:flex;align-items:center;gap:16px;padding:12px;border-radius:var(--r-sm);background:var(--field);border:1px dashed var(--line-2)}
+  .photo-row .pf{flex:1;min-width:0}
+  .photo-row .pf label{margin-bottom:8px}
+  .photo-row .pf .abtn{margin-top:8px}
+  .img-prev{display:flex;align-items:center;justify-content:center;flex:0 0 auto;width:104px;height:78px;border-radius:var(--r-sm);border:1px solid var(--line);background:var(--navy2) center/cover no-repeat;color:var(--mute);font:500 .6875rem/1.2 var(--f-head);letter-spacing:.06em;text-transform:uppercase;text-align:center;overflow:hidden}
+  .sub-h{margin-top:4px;padding-top:16px;border-top:1px solid var(--line);font:600 .75rem/1.3 var(--f-head);letter-spacing:.12em;text-transform:uppercase;color:var(--chip-fg)}
+  .sub-h .en{display:block;margin-top:2px;font:400 .8125rem/1.4 var(--f-body);letter-spacing:0;text-transform:none}
+  .sub-h .en::before{display:none}
+
+  .lg-bar{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:16px;margin-bottom:12px;border-radius:var(--r-md);background:var(--card);border:1px solid var(--line)}
+  .lg-bar .facts{grid-column:1/-1;padding-top:0}
+
+  .pubgrid{display:grid;gap:12px}
+  .pubcard{display:flex;align-items:center;gap:16px;padding:18px;border-radius:var(--r-md);background:var(--card);border:1px solid var(--line)}
+  .pubcard.primary{border-color:rgba(47,107,255,.55);background:linear-gradient(0deg,var(--blue-soft),var(--blue-soft)),var(--card)}
+  .pubcard.danger{border-color:rgba(255,84,112,.3)}
+  .pubcard .tile{display:grid;place-items:center;width:44px;height:44px;flex:0 0 auto;border-radius:var(--r-sm);background:var(--hover-bg);color:var(--chip-fg)}
+  .pubcard.danger .tile{color:var(--live-text);background:var(--danger-soft)}
+  .pubcard .tile .ic{width:20px;height:20px}
+  .pubcard .txt{flex:1;min-width:0}
+  .pubcard h2{font:600 .95rem/1.2 var(--f-head);text-transform:uppercase;letter-spacing:.04em;color:var(--ink)}
+  .pubcard p{margin-top:4px;color:var(--mute);font-size:.85rem}
+  .pubcard p b{color:var(--bone);font-weight:600}
+  .autosave{display:flex;align-items:center;gap:8px;margin-top:18px;color:var(--mute);font-size:.8125rem}
+  .autosave .ic{color:var(--ok);width:16px;height:16px}
+
+  /* =========================================================
+     TOAST + DIALOG
+     ========================================================= */
+  .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));z-index:150;display:flex;align-items:center;gap:10px;max-width:calc(100vw - 32px);padding:12px 16px;border-radius:var(--r-md);background:#f3f6fc;color:#0a1733;font:500 .875rem/1.35 var(--f-body);box-shadow:0 18px 40px -12px rgba(0,0,0,.6);opacity:0;transform:translate(-50%,12px);pointer-events:none;transition:opacity .2s,transform .3s var(--ease-out)}
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+  .toast .ic{width:18px;height:18px;color:#0f9a67}
+  .toast.err .ic{color:#d0263f}
+  .dlg{position:fixed;inset:0;z-index:140;display:none;align-items:center;justify-content:center;padding:20px;background:var(--scrim);opacity:0;transition:opacity .2s}
+  .dlg.open{display:flex}
+  .dlg.show{opacity:1}
+  .dlg-card{width:100%;max-width:420px;padding:22px;border-radius:var(--r-lg);background:var(--card);border:1px solid var(--line);box-shadow:var(--sh-pop);transform:translateY(10px) scale(.98);transition:transform .28s var(--ease-out)}
+  .dlg.show .dlg-card{transform:none}
+  .dlg-card h3{font:600 1.1rem/1.2 var(--f-head);text-transform:uppercase;letter-spacing:.03em;color:var(--ink)}
+  .dlg-card p{margin-top:8px;color:var(--bone);font-size:.9rem}
+  .dlg-card input{width:100%;min-height:44px;margin-top:14px;padding:0 12px;border-radius:var(--r-sm);border:1px solid var(--line);background:var(--field);color:#fff;font:16px var(--f-body)}
+  .dlg-card input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft)}
+  .dlg-card .facts{justify-content:flex-end;margin-top:20px}
+  .dlg-card .abtn.danger{background:#d63a55;border-color:#d63a55;color:#fff}
+
+  /* =========================================================
+     HOVER — pointer devices only
+     ========================================================= */
+  @media (hover:hover) and (pointer:fine){
+    .abtn:hover{border-color:var(--ink)}
+    .abtn.go:hover{background:#2154d6;border-color:#2154d6}
+    .abtn.del:hover{background:var(--danger-soft);border-color:rgba(255,84,112,.6)}
+    .abtn.add:hover{background:var(--blue-soft);border-color:var(--blue2)}
+    .dlg-card .abtn.danger:hover{background:#e5445f;border-color:#e5445f}
+    .iconbtn:hover{border-color:var(--line-2);color:var(--ink);background:var(--hover-bg)}
+    .iconbtn.del:hover{border-color:rgba(255,84,112,.5);background:var(--danger-soft);color:var(--live-text)}
+    .atab:not(.on):hover{background:var(--hover-bg);color:var(--ink)}
+    .atab:not(.on):hover .ic{color:var(--bone)}
+    .arow:not(.editing):hover{border-color:var(--line-2)}
+    .gate-back:hover{color:var(--chip-fg)}
+    .aform input[type=file]::file-selector-button:hover{border-color:var(--ink);background:var(--press-bg)}
   }
-  @media(max-width:480px){
-    .g2,.g3,.g6{grid-template-columns:1fr}
-    .atabs{gap:6px;padding:12px 16px}
-    .atab{font-size:.66rem;padding:7px 10px}
-    #admin{padding:24px 12px 50px}
-    .atop{padding:14px 16px}
-    .atop b{font-size:1.1rem}
-    .apane{padding:16px}
-    .arow{flex-wrap:wrap}
-    .arow .aact{margin-left:auto}
+
+  /* =========================================================
+     RESPONSIVE
+     ========================================================= */
+  @media (max-width:900px){
+    .layout{grid-template-columns:minmax(0,1fr)}
+    .aside{position:sticky;top:calc(var(--top-h) + env(safe-area-inset-top));z-index:30;height:auto;display:flex;gap:4px;padding:8px 12px;overflow-x:auto;overflow-y:hidden;border-right:0;border-bottom:1px solid var(--line);background:rgba(10,23,51,.94);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);scrollbar-width:none;overscroll-behavior-x:contain}
+    .aside::-webkit-scrollbar{display:none}
+    .nav-group{display:contents}
+    .nav-group h2{display:none}
+    .atab{flex:0 0 auto;width:auto;min-height:38px;gap:8px;padding:0 12px;font-size:.78rem}
+    .atab .ic{width:16px;height:16px}
+    .atab .lbl{overflow:visible}
+    .atab.pub{margin-top:0}
+    .main{padding:24px 16px 96px}
+  }
+  @media (max-width:620px){
+    .atop .brand span{display:none}
+    .atop .acts .abtn .t{display:none}
+    .atop .acts .abtn{width:40px;padding:0}
+    .g2,.g3{grid-template-columns:1fr}
+    .g6{grid-template-columns:repeat(3,1fr)}
+    .lg-bar{grid-template-columns:1fr}
+    .aform{padding:16px}
     .photo-row{flex-wrap:wrap;align-items:flex-start}
     .photo-row .pf{flex:1 1 100%}
-    .facts{flex-wrap:wrap}
-    .gate-card{padding:26px 20px}
+    .arow{align-items:flex-start}
+    .pubcard{flex-wrap:wrap}
+    .pubcard .abtn{width:100%}
+    .gate-card{padding:28px 20px 22px}
   }
-
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  }
 </style>
 </head>
 <body>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-crest" viewBox="0 0 40 46" fill="none"><path d="M20 1 L38 8 V24 C38 35 30 42 20 45 C10 42 2 35 2 24 V8 Z" stroke="currentColor" stroke-width="2.4"/><path d="M20 11 L23 18 L30.5 18 L24.5 22.5 L27 30 L20 25.5 L13 30 L15.5 22.5 L9.5 18 L17 18 Z" fill="#2f6bff" stroke="none"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><path d="M9 22V12h6v10"/></symbol>
+  <symbol id="i-news" viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8Z"/></symbol>
+  <symbol id="i-table" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="17" rx="2"/><path d="M16 2.5v4M8 2.5v4M3 10h18"/></symbol>
+  <symbol id="i-shirt" viewBox="0 0 24 24"><path d="M20.4 3.5 16 2a4 4 0 0 1-8 0L3.6 3.5a2 2 0 0 0-1.3 2.2l.6 3.5a1 1 0 0 0 1 .8H6v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V10h2.1a1 1 0 0 0 1-.8l.6-3.5a2 2 0 0 0-1.3-2.2Z"/></symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.7V17c0 .6-.5 1-1 1.2C7.9 18.8 7 20.2 7 22M14 14.7V17c0 .6.5 1 1 1.2 1.1.6 2 2 2 3.8M18 2H6v7a6 6 0 0 0 12 0Z"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/></symbol>
+  <symbol id="i-video" viewBox="0 0 24 24"><path d="m22 8-6 4 6 4Z"/><rect x="2" y="6" width="14" height="12" rx="2"/></symbol>
+  <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.5 12.9 17 22l-5-3-5 3 1.5-9.1"/></symbol>
+  <symbol id="i-panel" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 15h18"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></symbol>
+  <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M17 3a2.8 2.8 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></symbol>
+  <symbol id="i-reset" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.8 9.8 0 0 0-6.7 2.7L3 8"/><path d="M3 3v5h5"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></symbol>
+</svg>
+
 <div id="gate">
-  <div class="gate-card">
-    <svg viewBox="0 0 40 46" fill="none" aria-hidden="true"><path d="M20 1 L38 8 V24 C38 35 30 42 20 45 C10 42 2 35 2 24 V8 Z" stroke="#fff" stroke-width="2"/><path d="M20 11 L23 18 L30.5 18 L24.5 22.5 L27 30 L20 25.5 L13 30 L15.5 22.5 L9.5 18 L17 18 Z" fill="#2f6bff"/></svg>
+  <div class="gate-card" id="gate-card">
+    <svg class="crest" viewBox="0 0 40 46" aria-hidden="true"><use href="#i-crest"/></svg>
     <h1>Paneli i klubit</h1>
     <p>FC Drita — CMS Admin</p>
-    <input type="password" id="gate-pass" placeholder="Fjalëkalimi / Passcode" autocomplete="current-password">
-    <button class="abtn go" id="gate-btn" style="width:100%;justify-content:center;padding:12px">Hyr / Enter</button>
-    <div id="gate-err" style="display:none;color:var(--live);font-family:'Oswald';font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;margin-top:12px">Fjalëkalim i gabuar / Wrong passcode</div>
-    <a href="index.html" class="gate-back">← Kthehu te faqja / Back to site</a>
+    <label for="gate-pass" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Fjalëkalimi / Passcode</label>
+    <input type="password" id="gate-pass" placeholder="Fjalëkalimi / Passcode" autocomplete="current-password" aria-describedby="gate-err">
+    <button class="abtn go" id="gate-btn" type="button">Hyr / Enter</button>
+    <div id="gate-err" role="alert" hidden><svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg>Fjalëkalim i gabuar / Wrong passcode</div>
+    <a href="index.html" class="gate-back"><svg class="ic" aria-hidden="true"><use href="#i-arrow-left"/></svg>Kthehu te faqja / Back to site</a>
   </div>
 </div>
 
-<div id="admin" role="dialog" aria-modal="true">
-  <div class="ashell">
-    <div class="atop"><b>CMS — FC Drita <span class="flag" id="flag"></span></b><div style="display:flex;gap:8px"><a class="x" href="index.html" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px">↗ Faqja</a><button class="x" onclick="location.reload()">🔒 Kyç</button></div></div>
-    <div class="atabs">
-      <button class="atab on" data-pane="pa-club">Klubi / Club</button>
-      <button class="atab" data-pane="pa-news">Lajme / News</button>
-      <button class="atab" data-pane="pa-league">Tabela / League</button>
-      <button class="atab" data-pane="pa-teams">Ekipet / Team logos</button>
-      <button class="atab" data-pane="pa-fix">Ndeshjet / Matches</button>
-      <button class="atab" data-pane="pa-players">Lojtarët / Players</button>
-      <button class="atab" data-pane="pa-troph">Trofetë / Trophies</button>
-      <button class="atab" data-pane="pa-photo">Foto / Photos</button>
-      <button class="atab" data-pane="pa-video">Video / Videos</button>
-      <button class="atab" data-pane="pa-spons">Sponsorë / Sponsors</button>
-      <button class="atab" data-pane="pa-footer">Fundfaqja / Footer</button>
-      <button class="atab" data-pane="pa-pub">Publiko / Publish</button>
+<div id="admin">
+  <header class="atop">
+    <div class="brand"><svg viewBox="0 0 40 46" aria-hidden="true"><use href="#i-crest"/></svg><b>FC Drita</b><span>CMS</span></div>
+    <div class="acts">
+      <a class="abtn sm" href="index.html" target="_blank" rel="noopener" aria-label="Shiko faqen / View site"><svg class="ic" aria-hidden="true"><use href="#i-external"/></svg><span class="t">Faqja</span></a>
+      <button class="abtn sm" type="button" onclick="lockAdmin()" aria-label="Kyç / Lock"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg><span class="t">Kyç</span></button>
     </div>
+  </header>
+
+  <div class="layout">
+    <nav class="aside" aria-label="Seksionet">
+      <div class="nav-group"><h2>Përmbajtja</h2>
+        <button class="atab" type="button" data-pane="pa-news" data-count="news"><svg class="ic" aria-hidden="true"><use href="#i-news"/></svg><span class="lbl">Lajme</span><span class="cnt"></span></button>
+        <button class="atab" type="button" data-pane="pa-fix" data-count="fixtures"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg><span class="lbl">Ndeshjet</span><span class="cnt"></span></button>
+        <button class="atab" type="button" data-pane="pa-league" data-count="leagues"><svg class="ic" aria-hidden="true"><use href="#i-table"/></svg><span class="lbl">Tabela</span><span class="cnt"></span></button>
+        <button class="atab" type="button" data-pane="pa-players" data-count="players"><svg class="ic" aria-hidden="true"><use href="#i-shirt"/></svg><span class="lbl">Lojtarët</span><span class="cnt"></span></button>
+        <button class="atab" type="button" data-pane="pa-troph" data-count="trophies"><svg class="ic" aria-hidden="true"><use href="#i-trophy"/></svg><span class="lbl">Trofetë</span><span class="cnt"></span></button>
+      </div>
+      <div class="nav-group"><h2>Media</h2>
+        <button class="atab" type="button" data-pane="pa-photo" data-count="photos"><svg class="ic" aria-hidden="true"><use href="#i-image"/></svg><span class="lbl">Foto</span><span class="cnt"></span></button>
+        <button class="atab" type="button" data-pane="pa-video" data-count="videos"><svg class="ic" aria-hidden="true"><use href="#i-video"/></svg><span class="lbl">Video</span><span class="cnt"></span></button>
+      </div>
+      <div class="nav-group"><h2>Klubi</h2>
+        <button class="atab on" type="button" data-pane="pa-club"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg><span class="lbl">Klubi</span></button>
+        <button class="atab" type="button" data-pane="pa-teams" data-count="teams"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg><span class="lbl">Ekipet</span><span class="cnt"></span></button>
+        <button class="atab" type="button" data-pane="pa-spons" data-count="sponsors"><svg class="ic" aria-hidden="true"><use href="#i-award"/></svg><span class="lbl">Sponsorë</span><span class="cnt"></span></button>
+        <button class="atab" type="button" data-pane="pa-footer"><svg class="ic" aria-hidden="true"><use href="#i-panel"/></svg><span class="lbl">Fundfaqja</span></button>
+        <button class="atab pub" type="button" data-pane="pa-pub"><svg class="ic" aria-hidden="true"><use href="#i-send"/></svg><span class="lbl">Publiko</span></button>
+      </div>
+    </nav>
+
+    <main class="main">
 
     <!-- CLUB -->
-    <div class="apane on" id="pa-club">
+    <section class="apane on" id="pa-club">
+      <div class="phead"><h1>Klubi <span class="en">Club</span></h1></div>
       <p class="hint">Stema, titulli i hero-s dhe fotoja e sfondit. / Logo, hero title and background image.</p>
       <div class="aform" style="margin-top:0">
         <div class="photo-row">
           <div class="img-prev" id="logo-prev">Logo</div>
-          <div class="pf"><label>Stema / Logo (PNG)</label><input type="file" id="logo-file" accept="image/*" onchange="handleLogo(this.files[0])"><button class="abtn" style="margin-top:7px" onclick="removeLogo()">Hiq / Remove</button></div>
+          <div class="pf"><label for="logo-file">Stema <span class="en">Logo (PNG)</span></label><input type="file" id="logo-file" accept="image/*" onchange="handleLogo(this.files[0])"><br><button class="abtn sm" type="button" onclick="removeLogo()"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg>Hiq<span class="en">Remove</span></button></div>
         </div>
         <div class="g2">
-          <div><label>Titulli hero (SQ) — rresht i ri me /</label><input id="c-hero-sq" placeholder="Krenaria/e Gjilanit"></div>
-          <div><label>Hero title (EN)</label><input id="c-hero-en"></div>
+          <div><label for="c-hero-sq">Titulli hero <span class="lng">SQ</span><span class="en">rresht i ri me /</span></label><input id="c-hero-sq" placeholder="Krenaria/e Gjilanit"></div>
+          <div><label for="c-hero-en">Hero title <span class="lng">EN</span></label><input id="c-hero-en"></div>
         </div>
         <div class="g2">
-          <div><label>Nëntitulli (SQ)</label><input id="c-sub-sq"></div>
-          <div><label>Subtitle (EN)</label><input id="c-sub-en"></div>
+          <div><label for="c-sub-sq">Nëntitulli <span class="lng">SQ</span></label><input id="c-sub-sq"></div>
+          <div><label for="c-sub-en">Subtitle <span class="lng">EN</span></label><input id="c-sub-en"></div>
         </div>
         <div class="photo-row">
           <div class="img-prev" id="hero-prev">Sfondi</div>
-          <div class="pf"><label>Foto e sfondit / Hero background</label><input type="file" id="hero-file" accept="image/*" onchange="handleHero(this.files[0])"><button class="abtn" style="margin-top:7px" onclick="removeHero()">Hiq / Remove</button></div>
+          <div class="pf"><label for="hero-file">Foto e sfondit <span class="en">Hero background</span></label><input type="file" id="hero-file" accept="image/*" onchange="handleHero(this.files[0])"><br><button class="abtn sm" type="button" onclick="removeHero()"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg>Hiq<span class="en">Remove</span></button></div>
         </div>
-        <div class="facts"><button class="abtn go" onclick="saveClub()">Ruaj / Save</button></div>
+        <div class="facts"><button class="abtn go" type="button" onclick="saveClub()"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Ruaj<span class="en">Save</span></button></div>
       </div>
-    </div>
+    </section>
 
     <!-- NEWS -->
-    <div class="apane" id="pa-news">
+    <section class="apane" id="pa-news">
+      <div class="phead"><h1>Lajme <span class="en">News</span></h1></div>
       <p class="hint">Lajme me foto. EN opsionale. / News with photo. EN optional.</p>
       <div class="alist" id="news-list"></div>
-      <button class="abtn" onclick="newsForm()">+ Lajm / New</button>
-      <div class="aform hide" id="news-form">
+      <button class="abtn add" type="button" data-add="news-form" onclick="newsForm()"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Lajm<span class="en">New</span></button>
+      <div class="aform hide" id="news-form" data-t-new="Lajm i ri / New article" data-t-edit="Edito lajmin / Edit article">
+        <div class="aform-h"></div>
         <input type="hidden" id="n-idx">
-        <div class="photo-row"><div class="img-prev" id="n-prev">Foto</div><div class="pf"><label>Foto / Photo</label><input type="file" id="n-file" accept="image/*" onchange="handleImg('news',this.files[0])"><button class="abtn" style="margin-top:7px" onclick="clrImg('news')">Hiq / Remove</button></div></div>
+        <div class="photo-row"><div class="img-prev" id="n-prev">Foto</div><div class="pf"><label for="n-file">Foto <span class="en">Photo</span></label><input type="file" id="n-file" accept="image/*" onchange="handleImg('news',this.files[0])"><br><button class="abtn sm" type="button" onclick="clrImg('news')"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg>Hiq<span class="en">Remove</span></button></div></div>
         <div class="g2">
-          <div><label>Kategoria / Tag</label><input id="n-tag" placeholder="Superliga"></div>
-          <div><label>Data / Date</label><input id="n-date" placeholder="p.sh. 2 orë më parë"></div>
+          <div><label for="n-tag">Kategoria <span class="en">Tag</span></label><input id="n-tag" placeholder="Superliga"></div>
+          <div><label for="n-date">Data <span class="en">Date</span></label><input id="n-date" placeholder="p.sh. 2 orë më parë"></div>
         </div>
-        <div><label>Titulli (SQ)</label><input id="n-title-sq"></div>
-        <div><label>Teksti (SQ)</label><textarea id="n-text-sq"></textarea></div>
-        <div class="g2"><div><label>Title (EN)</label><input id="n-title-en"></div><div><label>Text (EN)</label><input id="n-text-en"></div></div>
-        <div class="facts"><button class="abtn go" onclick="saveNews()">Ruaj / Save</button><button class="abtn" onclick="hideForm('news-form')">Anulo</button></div>
+        <div><label for="n-title-sq">Titulli <span class="lng">SQ</span></label><input id="n-title-sq"></div>
+        <div><label for="n-text-sq">Teksti <span class="lng">SQ</span></label><textarea id="n-text-sq" rows="6"></textarea></div>
+        <div class="g2"><div><label for="n-title-en">Title <span class="lng">EN</span></label><input id="n-title-en"></div><div><label for="n-text-en">Text <span class="lng">EN</span></label><input id="n-text-en"></div></div>
+        <div class="facts"><button class="abtn go" type="button" onclick="saveNews()"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Ruaj<span class="en">Save</span></button><button class="abtn" type="button" onclick="hideForm('news-form')">Anulo<span class="en">Cancel</span></button></div>
       </div>
-    </div>
+    </section>
 
     <!-- LEAGUE -->
-    <div class="apane" id="pa-league">
+    <section class="apane" id="pa-league">
+      <div class="phead"><h1>Tabela <span class="en">League</span></h1></div>
       <p class="hint">Krijoni tabela të veçanta — p.sh. Superliga dhe Conference League/UCL sipas kualifikimit. Drita theksohet automatikisht. / Create separate tables — e.g. domestic league and Conference League/UCL depending on qualification. Drita is highlighted automatically.</p>
-      <div class="g2" style="margin-bottom:12px">
-        <div><label>Tabela aktive / Editing table</label><select id="lg-select" onchange="lgSwitch(this.value)"></select></div>
-        <div><label>Emri i tabelës / Table name</label><input id="lg-name" onchange="saveLgName()"></div>
-      </div>
-      <div class="facts" style="margin-bottom:14px">
-        <button class="abtn" onclick="lgNewTable()">+ Tabelë e re / New table</button>
-        <button class="abtn del" onclick="lgDeleteTable()">🗑 Fshi tabelën / Delete table</button>
+      <div class="lg-bar">
+        <div><label for="lg-select">Tabela aktive <span class="en">Editing table</span></label><select id="lg-select" onchange="lgSwitch(this.value)"></select></div>
+        <div><label for="lg-name">Emri i tabelës <span class="en">Table name</span></label><input id="lg-name" onchange="saveLgName()"></div>
+        <div class="facts">
+          <button class="abtn sm" type="button" onclick="lgNewTable()"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Tabelë e re<span class="en">New table</span></button>
+          <button class="abtn sm del" type="button" onclick="lgDeleteTable()"><svg class="ic" aria-hidden="true"><use href="#i-trash"/></svg>Fshi tabelën<span class="en">Delete table</span></button>
+        </div>
       </div>
       <div class="alist" id="lg-list"></div>
-      <button class="abtn" onclick="lgForm()">+ Ekip / Team</button>
-      <div class="aform hide" id="lg-form">
+      <button class="abtn add" type="button" data-add="lg-form" onclick="lgForm()"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Ekip<span class="en">Team</span></button>
+      <div class="aform hide" id="lg-form" data-t-new="Ekip i ri / New row" data-t-edit="Edito rreshtin / Edit row">
+        <div class="aform-h"></div>
         <input type="hidden" id="lg-idx">
-        <div><label>Ekipi / Team</label><input id="lg-team"></div>
+        <div><label for="lg-team">Ekipi <span class="en">Team</span></label><input id="lg-team"></div>
         <div class="g6">
-          <div><label>P</label><input id="lg-p" type="number"></div>
-          <div><label>W</label><input id="lg-w" type="number"></div>
-          <div><label>D</label><input id="lg-d" type="number"></div>
-          <div><label>L</label><input id="lg-l" type="number"></div>
-          <div><label>GS</label><input id="lg-gs" type="number"></div>
-          <div><label>Pts</label><input id="lg-pts" type="number"></div>
+          <div><label for="lg-p">P</label><input id="lg-p" type="number" inputmode="numeric" min="0"></div>
+          <div><label for="lg-w">W</label><input id="lg-w" type="number" inputmode="numeric" min="0"></div>
+          <div><label for="lg-d">D</label><input id="lg-d" type="number" inputmode="numeric" min="0"></div>
+          <div><label for="lg-l">L</label><input id="lg-l" type="number" inputmode="numeric" min="0"></div>
+          <div><label for="lg-gs">GS</label><input id="lg-gs" type="number" inputmode="numeric" min="0"></div>
+          <div><label for="lg-pts">Pts</label><input id="lg-pts" type="number" inputmode="numeric"></div>
         </div>
-        <div class="facts"><button class="abtn go" onclick="saveLg()">Ruaj / Save</button><button class="abtn" onclick="hideForm('lg-form')">Anulo</button></div>
+        <div class="facts"><button class="abtn go" type="button" onclick="saveLg()"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Ruaj<span class="en">Save</span></button><button class="abtn" type="button" onclick="hideForm('lg-form')">Anulo<span class="en">Cancel</span></button></div>
       </div>
-    </div>
+    </section>
 
     <!-- TEAM LOGOS -->
-    <div class="apane" id="pa-teams">
+    <section class="apane" id="pa-teams">
+      <div class="phead"><h1>Ekipet <span class="en">Team logos</span></h1></div>
       <p class="hint">Logot e kundërshtarëve. Emri duhet të përputhet me atë të përdorur te Tabela dhe Ndeshjet (p.sh. "Ballkani"). Drita përdor logon e klubit automatikisht. / Opponent crests. Name should match what you use in the League table and Matches (e.g. "Ballkani"). Drita uses the club logo automatically.</p>
       <div class="alist" id="teams-list"></div>
-      <button class="abtn" onclick="teamForm()">+ Ekip / Team</button>
-      <div class="aform hide" id="teams-form">
+      <button class="abtn add" type="button" data-add="teams-form" onclick="teamForm()"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Ekip<span class="en">Team</span></button>
+      <div class="aform hide" id="teams-form" data-t-new="Ekip i ri / New team" data-t-edit="Edito ekipin / Edit team">
+        <div class="aform-h"></div>
         <input type="hidden" id="tm-idx">
-        <div class="photo-row"><div class="img-prev" id="tm-prev">Logo</div><div class="pf"><label>Logo</label><input type="file" id="tm-file" accept="image/*" onchange="handleImg('team',this.files[0])"><button class="abtn" style="margin-top:7px" onclick="clrImg('team')">Hiq / Remove</button></div></div>
-        <div><label>Emri i ekipit / Team name</label><input id="tm-name" placeholder="Ballkani"></div>
-        <div class="facts"><button class="abtn go" onclick="saveTeam()">Ruaj / Save</button><button class="abtn" onclick="hideForm('teams-form')">Anulo</button></div>
+        <div class="photo-row"><div class="img-prev" id="tm-prev">Logo</div><div class="pf"><label for="tm-file">Logo</label><input type="file" id="tm-file" accept="image/*" onchange="handleImg('team',this.files[0])"><br><button class="abtn sm" type="button" onclick="clrImg('team')"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg>Hiq<span class="en">Remove</span></button></div></div>
+        <div><label for="tm-name">Emri i ekipit <span class="en">Team name</span></label><input id="tm-name" placeholder="Ballkani"></div>
+        <div class="facts"><button class="abtn go" type="button" onclick="saveTeam()"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Ruaj<span class="en">Save</span></button><button class="abtn" type="button" onclick="hideForm('teams-form')">Anulo<span class="en">Cancel</span></button></div>
       </div>
-    </div>
+    </section>
 
     <!-- FIXTURES -->
-    <div class="apane" id="pa-fix">
+    <section class="apane" id="pa-fix">
+      <div class="phead"><h1>Ndeshjet <span class="en">Matches</span></h1></div>
       <p class="hint">Ndeshjet shfaqen te lista DHE te kartelat. Bosh rezultati = e ardhshme. / Matches feed both the list and the cards.</p>
       <div class="alist" id="fix-list-a"></div>
-      <button class="abtn" onclick="fixForm()">+ Ndeshje / Match</button>
-      <div class="aform hide" id="fix-form">
+      <button class="abtn add" type="button" data-add="fix-form" onclick="fixForm()"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Ndeshje<span class="en">Match</span></button>
+      <div class="aform hide" id="fix-form" data-t-new="Ndeshje e re / New match" data-t-edit="Edito ndeshjen / Edit match">
+        <div class="aform-h"></div>
         <input type="hidden" id="f-idx">
-        <div class="g2"><div><label>Vendasi / Home</label><input id="f-home"></div><div><label>Mysafiri / Away</label><input id="f-away"></div></div>
-        <div class="g3"><div><label>Data / Date</label><input id="f-date" placeholder="08.10.2026"></div><div><label>Ora / Time</label><input id="f-time" placeholder="19:00"></div><div><label>Gara / Comp</label><input id="f-comp" placeholder="Superliga"></div></div>
-        <div><label>Rezultati / Score (bosh = e ardhshme / empty = upcoming)</label><input id="f-score" placeholder="2–1"></div>
-        <p class="hint" style="margin:4px 0 0">Detajet më poshtë janë opsionale dhe shfaqen në popup-in e ndeshjes. / Details below are optional and show in the match popup.</p>
+        <div class="g2"><div><label for="f-home">Vendasi <span class="en">Home</span></label><input id="f-home"></div><div><label for="f-away">Mysafiri <span class="en">Away</span></label><input id="f-away"></div></div>
+        <div class="g3"><div><label for="f-date">Data <span class="en">Date</span></label><input id="f-date" placeholder="08.10.2026" inputmode="numeric"></div><div><label for="f-time">Ora <span class="en">Time</span></label><input id="f-time" placeholder="19:00" inputmode="numeric"></div><div><label for="f-comp">Gara <span class="en">Comp</span></label><input id="f-comp" placeholder="Superliga"></div></div>
+        <div><label for="f-score">Rezultati <span class="en">Score — bosh = e ardhshme / empty = upcoming</span></label><input id="f-score" placeholder="2–1"></div>
+        <p class="sub-h">Detajet e ndeshjes<span class="en">Optional — these show in the match popup.</span></p>
         <div class="g2">
-          <div><label>Golashënuesit — vendasi (një për rresht: Emri 45')</label><textarea id="f-hsc" placeholder="Krasniqi 23'&#10;Broja 71'"></textarea></div>
-          <div><label>Goalscorers — away (one per line)</label><textarea id="f-asc"></textarea></div>
+          <div><label for="f-hsc">Golashënuesit — vendasi <span class="en">një për rresht: Emri 45'</span></label><textarea id="f-hsc" placeholder="Krasniqi 23'&#10;Broja 71'"></textarea></div>
+          <div><label for="f-asc">Goalscorers — away <span class="en">one per line</span></label><textarea id="f-asc"></textarea></div>
         </div>
         <div class="g2">
-          <div><label>Kartonë verdhë — vendasi (Emri 45')</label><textarea id="f-hyel" placeholder="Ovouka 61'"></textarea></div>
-          <div><label>Yellow cards — away</label><textarea id="f-ayel"></textarea></div>
+          <div><label for="f-hyel">Kartonë verdhë — vendasi <span class="en">Emri 45'</span></label><textarea id="f-hyel" placeholder="Ovouka 61'"></textarea></div>
+          <div><label for="f-ayel">Yellow cards — away</label><textarea id="f-ayel"></textarea></div>
         </div>
         <div class="g2">
-          <div><label>Kartonë të kuq — vendasi</label><textarea id="f-hred"></textarea></div>
-          <div><label>Red cards — away</label><textarea id="f-ared"></textarea></div>
+          <div><label for="f-hred">Kartonë të kuq — vendasi</label><textarea id="f-hred"></textarea></div>
+          <div><label for="f-ared">Red cards — away</label><textarea id="f-ared"></textarea></div>
         </div>
         <div class="g2">
-          <div><label>Zëvendësime — vendasi (Del ↔ Hyn 70')</label><textarea id="f-hsub" placeholder="Zulfiu ↔ Abazaj 70'"></textarea></div>
-          <div><label>Substitutions — away</label><textarea id="f-asub"></textarea></div>
+          <div><label for="f-hsub">Zëvendësime — vendasi <span class="en">Del ↔ Hyn 70'</span></label><textarea id="f-hsub" placeholder="Zulfiu ↔ Abazaj 70'"></textarea></div>
+          <div><label for="f-asub">Substitutions — away</label><textarea id="f-asub"></textarea></div>
         </div>
         <div class="g2">
-          <div><label>Formacioni — vendasi / Home formation</label><input id="f-hform" placeholder="4-3-3"></div>
-          <div><label>Formacioni — mysafiri / Away formation</label><input id="f-aform" placeholder="4-2-3-1"></div>
+          <div><label for="f-hform">Formacioni — vendasi <span class="en">Home formation</span></label><input id="f-hform" placeholder="4-3-3"></div>
+          <div><label for="f-aform">Formacioni — mysafiri <span class="en">Away formation</span></label><input id="f-aform" placeholder="4-2-3-1"></div>
         </div>
         <div class="g2">
-          <div><label>Formacioni vendasi — lojtarët (një për rresht)</label><textarea id="f-hline"></textarea></div>
-          <div><label>Away lineup (one per line)</label><textarea id="f-aline"></textarea></div>
+          <div><label for="f-hline">Formacioni vendasi — lojtarët <span class="en">një për rresht</span></label><textarea id="f-hline" rows="6"></textarea></div>
+          <div><label for="f-aline">Away lineup <span class="en">one per line</span></label><textarea id="f-aline" rows="6"></textarea></div>
         </div>
-        <div><label>Statistikat (një për rresht: Etiketa | vendasi | mysafiri) / Stats (Label | home | away)</label><textarea id="f-stats" placeholder="Posedimi | 55 | 45&#10;Gjuajtje | 12 | 7&#10;Këndore | 6 | 3"></textarea></div>
-        <div class="g3"><div><label>Stadiumi / Venue</label><input id="f-venue"></div><div><label>Gjyqtari / Referee</label><input id="f-ref"></div><div><label>Spektatorë / Attendance</label><input id="f-att"></div></div>
-        <div class="facts"><button class="abtn go" onclick="saveFix()">Ruaj / Save</button><button class="abtn" onclick="hideForm('fix-form')">Anulo</button></div>
+        <div><label for="f-stats">Statistikat <span class="en">një për rresht: Etiketa | vendasi | mysafiri — Label | home | away</span></label><textarea id="f-stats" rows="5" placeholder="Posedimi | 55 | 45&#10;Gjuajtje | 12 | 7&#10;Këndore | 6 | 3"></textarea></div>
+        <div class="g3"><div><label for="f-venue">Stadiumi <span class="en">Venue</span></label><input id="f-venue"></div><div><label for="f-ref">Gjyqtari <span class="en">Referee</span></label><input id="f-ref"></div><div><label for="f-att">Spektatorë <span class="en">Attendance</span></label><input id="f-att"></div></div>
+        <div class="facts"><button class="abtn go" type="button" onclick="saveFix()"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Ruaj<span class="en">Save</span></button><button class="abtn" type="button" onclick="hideForm('fix-form')">Anulo<span class="en">Cancel</span></button></div>
       </div>
-    </div>
+    </section>
 
     <!-- PLAYERS -->
-    <div class="apane" id="pa-players">
+    <section class="apane" id="pa-players">
+      <div class="phead"><h1>Lojtarët <span class="en">Players</span></h1></div>
       <p class="hint">Skuadra sipas pozicioneve — portierë, mbrojtës, mesfushorë, sulmues — me statistika: ndeshje, gola, asiste dhe portë e pastër (për portierët). / The squad by position — goalkeepers, defenders, midfielders, attackers — with stats: games, goals, assists and clean sheets (for goalkeepers).</p>
       <div class="alist" id="players-list"></div>
-      <button class="abtn" onclick="playerForm()">+ Lojtar / Player</button>
-      <div class="aform hide" id="player-form">
+      <button class="abtn add" type="button" data-add="player-form" onclick="playerForm()"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Lojtar<span class="en">Player</span></button>
+      <div class="aform hide" id="player-form" data-t-new="Lojtar i ri / New player" data-t-edit="Edito lojtarin / Edit player">
+        <div class="aform-h"></div>
         <input type="hidden" id="pl-idx">
-        <div class="photo-row"><div class="img-prev" id="pl-prev">Foto</div><div class="pf"><label>Foto / Photo</label><input type="file" id="pl-file" accept="image/*" onchange="handleImg('player',this.files[0])"><button class="abtn" style="margin-top:7px" onclick="clrImg('player')">Hiq / Remove</button></div></div>
+        <div class="photo-row"><div class="img-prev" id="pl-prev">Foto</div><div class="pf"><label for="pl-file">Foto <span class="en">Photo</span></label><input type="file" id="pl-file" accept="image/*" onchange="handleImg('player',this.files[0])"><br><button class="abtn sm" type="button" onclick="clrImg('player')"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg>Hiq<span class="en">Remove</span></button></div></div>
         <div class="g3">
-          <div><label>Emri / Name</label><input id="pl-name" placeholder="A. Manaj"></div>
-          <div><label>Numri / Number</label><input id="pl-num" type="number" placeholder="9"></div>
-          <div><label>Pozicioni / Position</label><select id="pl-pos">
+          <div><label for="pl-name">Emri <span class="en">Name</span></label><input id="pl-name" placeholder="A. Manaj"></div>
+          <div><label for="pl-num">Numri <span class="en">Number</span></label><input id="pl-num" type="number" inputmode="numeric" min="0" placeholder="9"></div>
+          <div><label for="pl-pos">Pozicioni <span class="en">Position</span></label><select id="pl-pos">
             <option value="gk">Portier / Goalkeeper</option>
             <option value="df">Mbrojtës / Defender</option>
             <option value="mf">Mesfushor / Midfielder</option>
@@ -270,98 +485,129 @@
           </select></div>
         </div>
         <div class="g2">
-          <div><label>Ndeshje / Games played</label><input id="pl-p" type="number"></div>
-          <div><label>Gola / Goals</label><input id="pl-g" type="number"></div>
+          <div><label for="pl-p">Ndeshje <span class="en">Games played</span></label><input id="pl-p" type="number" inputmode="numeric" min="0"></div>
+          <div><label for="pl-g">Gola <span class="en">Goals</span></label><input id="pl-g" type="number" inputmode="numeric" min="0"></div>
         </div>
         <div class="g2">
-          <div><label>Asiste / Assists</label><input id="pl-a" type="number"></div>
-          <div><label>Portë e pastër / Clean sheets (portierët)</label><input id="pl-cs" type="number"></div>
+          <div><label for="pl-a">Asiste <span class="en">Assists</span></label><input id="pl-a" type="number" inputmode="numeric" min="0"></div>
+          <div><label for="pl-cs">Portë e pastër <span class="en">Clean sheets — portierët</span></label><input id="pl-cs" type="number" inputmode="numeric" min="0"></div>
         </div>
-        <div class="facts"><button class="abtn go" onclick="savePlayer()">Ruaj / Save</button><button class="abtn" onclick="hideForm('player-form')">Anulo</button></div>
+        <div class="facts"><button class="abtn go" type="button" onclick="savePlayer()"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Ruaj<span class="en">Save</span></button><button class="abtn" type="button" onclick="hideForm('player-form')">Anulo<span class="en">Cancel</span></button></div>
       </div>
-    </div>
+    </section>
 
     <!-- TROPHIES -->
-    <div class="apane" id="pa-troph">
+    <section class="apane" id="pa-troph">
+      <div class="phead"><h1>Trofetë <span class="en">Trophies</span></h1></div>
       <p class="hint">Vitrinat e trofeve. / Trophy showcase cards.</p>
       <div class="alist" id="troph-list"></div>
-      <button class="abtn" onclick="trophForm()">+ Trofe / Trophy</button>
-      <div class="aform hide" id="troph-form">
+      <button class="abtn add" type="button" data-add="troph-form" onclick="trophForm()"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Trofe<span class="en">Trophy</span></button>
+      <div class="aform hide" id="troph-form" data-t-new="Trofe i ri / New trophy" data-t-edit="Edito trofeun / Edit trophy">
+        <div class="aform-h"></div>
         <input type="hidden" id="t-idx">
-        <div class="photo-row"><div class="img-prev" id="t-prev">Foto</div><div class="pf"><label>Foto e trofeut / Trophy photo</label><input type="file" id="t-file" accept="image/*" onchange="handleImg('troph',this.files[0])"><button class="abtn" style="margin-top:7px" onclick="clrImg('troph')">Hiq / Remove</button></div></div>
-        <div class="g3"><div><label>Numri / Count</label><input id="t-count" placeholder="3"></div><div><label>Ikona (rezervë) / Icon (fallback)</label><input id="t-icon" placeholder="🏆"></div><div></div></div>
-        <div class="g2"><div><label>Titulli (SQ)</label><input id="t-title-sq"></div><div><label>Title (EN)</label><input id="t-title-en"></div></div>
-        <div class="facts"><button class="abtn go" onclick="saveTroph()">Ruaj / Save</button><button class="abtn" onclick="hideForm('troph-form')">Anulo</button></div>
+        <div class="photo-row"><div class="img-prev" id="t-prev">Foto</div><div class="pf"><label for="t-file">Foto e trofeut <span class="en">Trophy photo</span></label><input type="file" id="t-file" accept="image/*" onchange="handleImg('troph',this.files[0])"><br><button class="abtn sm" type="button" onclick="clrImg('troph')"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg>Hiq<span class="en">Remove</span></button></div></div>
+        <div class="g2"><div><label for="t-count">Numri <span class="en">Count</span></label><input id="t-count" placeholder="3" inputmode="numeric"></div><div><label for="t-icon">Ikona — rezervë <span class="en">Icon fallback</span></label><input id="t-icon" placeholder="🏆"></div></div>
+        <div class="g2"><div><label for="t-title-sq">Titulli <span class="lng">SQ</span></label><input id="t-title-sq"></div><div><label for="t-title-en">Title <span class="lng">EN</span></label><input id="t-title-en"></div></div>
+        <div class="facts"><button class="abtn go" type="button" onclick="saveTroph()"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Ruaj<span class="en">Save</span></button><button class="abtn" type="button" onclick="hideForm('troph-form')">Anulo<span class="en">Cancel</span></button></div>
       </div>
-    </div>
+    </section>
 
     <!-- PHOTOS -->
-    <div class="apane" id="pa-photo">
+    <section class="apane" id="pa-photo">
+      <div class="phead"><h1>Foto <span class="en">Photos</span></h1></div>
       <p class="hint">Galeria e fotove. / Photo gallery.</p>
       <div class="alist" id="photo-list"></div>
-      <button class="abtn" onclick="photoForm()">+ Foto / Photo</button>
-      <div class="aform hide" id="photo-form">
+      <button class="abtn add" type="button" data-add="photo-form" onclick="photoForm()"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Foto<span class="en">Photo</span></button>
+      <div class="aform hide" id="photo-form" data-t-new="Foto e re / New photo" data-t-edit="Edito foton / Edit photo">
+        <div class="aform-h"></div>
         <input type="hidden" id="ph-idx">
-        <div class="photo-row"><div class="img-prev" id="ph-prev">Foto</div><div class="pf"><label>Foto / Photo</label><input type="file" id="ph-file" accept="image/*" onchange="handleImg('photo',this.files[0])"><button class="abtn" style="margin-top:7px" onclick="clrImg('photo')">Hiq</button></div></div>
-        <div class="g2"><div><label>Përshkrimi (SQ)</label><input id="ph-cap-sq"></div><div><label>Caption (EN)</label><input id="ph-cap-en"></div></div>
-        <div class="facts"><button class="abtn go" onclick="savePhoto()">Ruaj / Save</button><button class="abtn" onclick="hideForm('photo-form')">Anulo</button></div>
+        <div class="photo-row"><div class="img-prev" id="ph-prev">Foto</div><div class="pf"><label for="ph-file">Foto <span class="en">Photo</span></label><input type="file" id="ph-file" accept="image/*" onchange="handleImg('photo',this.files[0])"><br><button class="abtn sm" type="button" onclick="clrImg('photo')"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg>Hiq<span class="en">Remove</span></button></div></div>
+        <div class="g2"><div><label for="ph-cap-sq">Përshkrimi <span class="lng">SQ</span></label><input id="ph-cap-sq"></div><div><label for="ph-cap-en">Caption <span class="lng">EN</span></label><input id="ph-cap-en"></div></div>
+        <div class="facts"><button class="abtn go" type="button" onclick="savePhoto()"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Ruaj<span class="en">Save</span></button><button class="abtn" type="button" onclick="hideForm('photo-form')">Anulo<span class="en">Cancel</span></button></div>
       </div>
-    </div>
+    </section>
 
     <!-- VIDEOS -->
-    <div class="apane" id="pa-video">
+    <section class="apane" id="pa-video">
+      <div class="phead"><h1>Video <span class="en">Videos</span></h1></div>
       <p class="hint">Ngjitni lidhjen e videos — nga YouTube, TikTok, Instagram apo Facebook — dhe (opsionale) ngarkoni miniaturën tuaj. Videot e YouTube luhen drejtpërdrejt në faqe; për platformat e tjera, butoni "Shiko tani" e çon tifozin te posti origjinal. / Paste the video link — from YouTube, TikTok, Instagram, or Facebook — and optionally upload your own thumbnail. YouTube videos play right on the page; for other platforms, the "Watch now" button takes fans to the original post.</p>
       <div class="alist" id="video-list"></div>
-      <button class="abtn" onclick="videoForm()">+ Video / Video</button>
-      <div class="aform hide" id="video-form">
+      <button class="abtn add" type="button" data-add="video-form" onclick="videoForm()"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Video<span class="en">Video</span></button>
+      <div class="aform hide" id="video-form" data-t-new="Video e re / New video" data-t-edit="Edito videon / Edit video">
+        <div class="aform-h"></div>
         <input type="hidden" id="v-idx">
-        <div><label>Lidhja e videos / Video link — YouTube, TikTok, Instagram, Facebook</label><input id="v-url" placeholder="https://..."></div>
-        <div class="photo-row"><div class="img-prev" id="v-prev">Miniatura</div><div class="pf"><label>Miniatura / Thumbnail (opsionale)</label><input type="file" id="v-file" accept="image/*" onchange="handleImg('video',this.files[0])"><button class="abtn" style="margin-top:7px" onclick="clrImg('video')">Hiq / Remove</button></div></div>
-        <div class="g2"><div><label>Titulli (SQ)</label><input id="v-title-sq"></div><div><label>Title (EN)</label><input id="v-title-en"></div></div>
-        <div class="facts"><button class="abtn go" onclick="saveVideo()">Ruaj / Save</button><button class="abtn" onclick="hideForm('video-form')">Anulo</button></div>
+        <div><label for="v-url">Lidhja e videos <span class="en">Video link — YouTube, TikTok, Instagram, Facebook</span></label><input id="v-url" type="url" inputmode="url" autocapitalize="none" autocorrect="off" placeholder="https://..."></div>
+        <div class="photo-row"><div class="img-prev" id="v-prev">Miniatura</div><div class="pf"><label for="v-file">Miniatura <span class="en">Thumbnail — opsionale</span></label><input type="file" id="v-file" accept="image/*" onchange="handleImg('video',this.files[0])"><br><button class="abtn sm" type="button" onclick="clrImg('video')"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg>Hiq<span class="en">Remove</span></button></div></div>
+        <div class="g2"><div><label for="v-title-sq">Titulli <span class="lng">SQ</span></label><input id="v-title-sq"></div><div><label for="v-title-en">Title <span class="lng">EN</span></label><input id="v-title-en"></div></div>
+        <div class="facts"><button class="abtn go" type="button" onclick="saveVideo()"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Ruaj<span class="en">Save</span></button><button class="abtn" type="button" onclick="hideForm('video-form')">Anulo<span class="en">Cancel</span></button></div>
       </div>
-    </div>
+    </section>
 
     <!-- SPONSORS -->
-    <div class="apane" id="pa-spons">
+    <section class="apane" id="pa-spons">
+      <div class="phead"><h1>Sponsorë <span class="en">Sponsors</span></h1></div>
       <p class="hint">Sponsorët. Logo PNG ose vetëm emri. / Sponsors. PNG logo or just the name.</p>
       <div class="alist" id="spons-list"></div>
-      <button class="abtn" onclick="sponsForm()">+ Sponsor / Sponsor</button>
-      <div class="aform hide" id="spons-form">
+      <button class="abtn add" type="button" data-add="spons-form" onclick="sponsForm()"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Sponsor<span class="en">Sponsor</span></button>
+      <div class="aform hide" id="spons-form" data-t-new="Sponsor i ri / New sponsor" data-t-edit="Edito sponsorin / Edit sponsor">
+        <div class="aform-h"></div>
         <input type="hidden" id="sp-idx">
-        <div class="photo-row"><div class="img-prev" id="sp-prev">Logo</div><div class="pf"><label>Logo</label><input type="file" id="sp-file" accept="image/*" onchange="handleImg('spons',this.files[0])"><button class="abtn" style="margin-top:7px" onclick="clrImg('spons')">Hiq</button></div></div>
-        <div class="g2"><div><label>Emri / Name</label><input id="sp-name"></div><div><label>Lidhja / URL</label><input id="sp-url" placeholder="https://"></div></div>
-        <div class="facts"><button class="abtn go" onclick="saveSpons()">Ruaj / Save</button><button class="abtn" onclick="hideForm('spons-form')">Anulo</button></div>
+        <div class="photo-row"><div class="img-prev" id="sp-prev">Logo</div><div class="pf"><label for="sp-file">Logo</label><input type="file" id="sp-file" accept="image/*" onchange="handleImg('spons',this.files[0])"><br><button class="abtn sm" type="button" onclick="clrImg('spons')"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg>Hiq<span class="en">Remove</span></button></div></div>
+        <div class="g2"><div><label for="sp-name">Emri <span class="en">Name</span></label><input id="sp-name"></div><div><label for="sp-url">Lidhja <span class="en">URL</span></label><input id="sp-url" type="url" inputmode="url" autocapitalize="none" autocorrect="off" placeholder="https://"></div></div>
+        <div class="facts"><button class="abtn go" type="button" onclick="saveSpons()"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Ruaj<span class="en">Save</span></button><button class="abtn" type="button" onclick="hideForm('spons-form')">Anulo<span class="en">Cancel</span></button></div>
       </div>
-    </div>
+    </section>
 
     <!-- FOOTER -->
-    <div class="apane" id="pa-footer">
+    <section class="apane" id="pa-footer">
+      <div class="phead"><h1>Fundfaqja <span class="en">Footer</span></h1></div>
       <p class="hint">Përmbajtja e fundfaqes: përshkrimi, rrjetet sociale dhe kontakti. Lëreni bosh fushën për ta fshehur atë rresht. / Footer content: about text, social links, and contact. Leave a field empty to hide that line.</p>
       <div class="aform" style="margin-top:0">
-        <div class="g2"><div><label>Rreth klubit (SQ)</label><textarea id="ft-about-sq"></textarea></div><div><label>About (EN)</label><textarea id="ft-about-en"></textarea></div></div>
-        <div class="g2"><div><label>Facebook URL</label><input id="ft-fb" placeholder="https://facebook.com/..."></div><div><label>Instagram URL</label><input id="ft-ig" placeholder="https://instagram.com/..."></div></div>
-        <div class="g2"><div><label>Email</label><input id="ft-email" placeholder="info@fcdrita.com"></div><div><label>Telefoni / Phone</label><input id="ft-phone" placeholder="+383 ..."></div></div>
-        <div class="g2"><div><label>Adresa / Address</label><input id="ft-address" placeholder="Gjilan, Kosovë"></div><div><label>Website</label><input id="ft-website" placeholder="www.fcdrita.com"></div></div>
-        <div class="facts"><button class="abtn go" onclick="saveFooter()">Ruaj / Save</button></div>
+        <div class="g2"><div><label for="ft-about-sq">Rreth klubit <span class="lng">SQ</span></label><textarea id="ft-about-sq"></textarea></div><div><label for="ft-about-en">About <span class="lng">EN</span></label><textarea id="ft-about-en"></textarea></div></div>
+        <div class="g2"><div><label for="ft-fb">Facebook URL</label><input id="ft-fb" type="url" inputmode="url" autocapitalize="none" autocorrect="off" placeholder="https://facebook.com/..."></div><div><label for="ft-ig">Instagram URL</label><input id="ft-ig" type="url" inputmode="url" autocapitalize="none" autocorrect="off" placeholder="https://instagram.com/..."></div></div>
+        <div class="g2"><div><label for="ft-email">Email</label><input id="ft-email" type="email" inputmode="email" autocapitalize="none" autocorrect="off" placeholder="info@fcdrita.com"></div><div><label for="ft-phone">Telefoni <span class="en">Phone</span></label><input id="ft-phone" type="tel" inputmode="tel" placeholder="+383 ..."></div></div>
+        <div class="g2"><div><label for="ft-address">Adresa <span class="en">Address</span></label><input id="ft-address" placeholder="Gjilan, Kosovë"></div><div><label for="ft-website">Website</label><input id="ft-website" inputmode="url" autocapitalize="none" autocorrect="off" placeholder="www.fcdrita.com"></div></div>
+        <div class="facts"><button class="abtn go" type="button" onclick="saveFooter()"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Ruaj<span class="en">Save</span></button></div>
       </div>
-    </div>
+    </section>
 
     <!-- PUBLISH -->
-    <div class="apane" id="pa-pub">
-      <div class="pubbox">
-        <h4>Publiko / Publish</h4>
-        <p>Shkarko <b>data.json</b> dhe ngarkoje pranë <b>index.html</b> në host. Çdo tifoz e sheh përmbajtjen e re.<br><br>Download <b>data.json</b> and upload it next to <b>index.html</b> on your host.</p>
-        <div class="pubact">
-          <button class="abtn go" onclick="publish()">⬇ data.json</button>
-          <button class="abtn" onclick="document.getElementById('imp').click()">⬆ Importo / Import</button>
+    <section class="apane" id="pa-pub">
+      <div class="phead"><h1>Publiko <span class="en">Publish</span></h1></div>
+      <p class="hint">Shkarko data.json dhe ngarkoje pranë index.html në host. Çdo tifoz e sheh përmbajtjen e re. / Download data.json and upload it next to index.html on your host.</p>
+      <div class="pubgrid">
+        <div class="pubcard primary">
+          <span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-download"/></svg></span>
+          <div class="txt"><h2>Shkarko <span class="en">Download</span></h2><p>Ngarko <b>data.json</b> pranë <b>index.html</b>. / Upload it next to index.html.</p></div>
+          <button class="abtn go" type="button" onclick="publish()"><svg class="ic" aria-hidden="true"><use href="#i-download"/></svg>data.json</button>
+        </div>
+        <div class="pubcard">
+          <span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-upload"/></svg></span>
+          <div class="txt"><h2>Importo <span class="en">Import</span></h2><p>Rikthe një data.json të ruajtur. / Restore a saved data.json.</p></div>
+          <button class="abtn" type="button" onclick="document.getElementById('imp').click()"><svg class="ic" aria-hidden="true"><use href="#i-upload"/></svg>Importo<span class="en">Import</span></button>
           <input type="file" id="imp" accept="application/json" style="display:none" onchange="importData(this.files[0])">
-          <button class="abtn del" onclick="resetAll()">↺ Reset</button>
+        </div>
+        <div class="pubcard danger">
+          <span class="tile"><svg class="ic" aria-hidden="true"><use href="#i-reset"/></svg></span>
+          <div class="txt"><h2>Rivendos <span class="en">Reset</span></h2><p>Fshin të gjitha ndryshimet në këtë shfletues. / Clears every edit in this browser.</p></div>
+          <button class="abtn del" type="button" onclick="resetAll()"><svg class="ic" aria-hidden="true"><use href="#i-reset"/></svg>Reset</button>
         </div>
       </div>
-      <p class="hint" style="margin-top:14px">Ndryshimet ruhen automatikisht në këtë shfletues. / Edits autosave in this browser.</p>
-    </div>
+      <p class="autosave"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Ndryshimet ruhen automatikisht në këtë shfletues. / Edits autosave in this browser.</p>
+    </section>
 
+    </main>
+  </div>
+</div>
+
+<!-- toast + dialog -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="dlg" id="dlg" role="alertdialog" aria-modal="true" aria-labelledby="dlg-t" aria-describedby="dlg-m">
+  <div class="dlg-card">
+    <h3 id="dlg-t"></h3>
+    <p id="dlg-m"></p>
+    <input id="dlg-in" hidden>
+    <div class="facts"><button class="abtn" type="button" id="dlg-no">Anulo<span class="en">Cancel</span></button><button class="abtn go" type="button" id="dlg-ok"></button></div>
   </div>
 </div>
 
@@ -429,17 +675,62 @@ const DEFAULT_DATA={
  ]
 };
 
-const PASSCODE="drita2025";  // <-- ndryshoni / change this
+/* SHA-256 of the admin password. To change it, hash the new password and paste the hex here.
+   This check runs in the browser: it keeps casual visitors out, it is not real security. */
+const PASS_HASH="4172f1438b53a6f138acce47f8ba4e39a7cc44175b651f436a3240cf9803b426";
+async function sha256(t){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(t));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,"0")).join("")}
 const LS="drita_data_v2";
 
 let DATA=JSON.parse(JSON.stringify(DEFAULT_DATA));
 
 const $=s=>document.querySelector(s);
+const $$=s=>Array.from(document.querySelectorAll(s));
 
-const esc=s=>(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
+const ic=n=>`<svg class="ic" aria-hidden="true"><use href="#i-${n}"/></svg>`;
 
-function saveLocal(){try{localStorage.setItem(LS,JSON.stringify(DATA))}catch(e){}}
-function flag(){const f=$("#flag");if(f){f.textContent="✓ ruajtur";setTimeout(()=>f.textContent="",1300)}}
+function saveLocal(){
+  try{localStorage.setItem(LS,JSON.stringify(DATA));return true}
+  catch(e){toast("S'u ruajt — hapësira e shfletuesit është plot (fotot shumë të mëdha?) / Not saved — browser storage is full","err");return false}
+}
+/* ===== feedback: toast + dialog (replace alert/confirm/prompt) ===== */
+function toast(msg,kind){
+  const t=$("#toast");t.className="toast"+(kind==="err"?" err":"");
+  t.innerHTML=`${ic(kind==="err"?"alert":"check")}<span>${esc(msg)}</span>`;
+  void t.offsetWidth;t.classList.add("show");
+  clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove("show"),kind==="err"?4200:2200);
+}
+function flag(){toast("U ruajt / Saved")}
+function ask({title,msg="",ok="OK",danger=false,input=null}){
+  return new Promise(res=>{
+    const d=$("#dlg"),inp=$("#dlg-in"),okB=$("#dlg-ok"),noB=$("#dlg-no"),prevFocus=document.activeElement;
+    $("#dlg-t").textContent=title;$("#dlg-m").textContent=msg;$("#dlg-m").hidden=!msg;
+    okB.innerHTML=ok;okB.className="abtn "+(danger?"danger":"go");
+    inp.hidden=input===null;inp.value=input||"";
+    d.classList.add("open");document.documentElement.classList.add("locked");
+    requestAnimationFrame(()=>requestAnimationFrame(()=>d.classList.add("show")));
+    (input!==null?inp:okB).focus();
+    const done=v=>{d.classList.remove("show");document.documentElement.classList.remove("locked");setTimeout(()=>d.classList.remove("open"),200);
+      okB.onclick=noB.onclick=d.onclick=d.onkeydown=null;if(prevFocus&&prevFocus.focus)prevFocus.focus();res(v)};
+    okB.onclick=()=>done(input!==null?inp.value:true);
+    noB.onclick=()=>done(input!==null?null:false);
+    d.onclick=e=>{if(e.target===d)noB.onclick()};
+    d.onkeydown=e=>{if(e.key==="Escape"){e.preventDefault();noB.onclick()}else if(e.key==="Enter"&&input!==null){e.preventDefault();okB.onclick()}
+      else if(e.key==="Tab"){const f=[input!==null?inp:null,noB,okB].filter(Boolean);const i=f.indexOf(document.activeElement);e.preventDefault();f[(i+(e.shiftKey?-1:1)+f.length)%f.length].focus()}};
+  });
+}
+/* inline field error: marks the field, explains, and clears as soon as the user types */
+function invalid(id,msg){
+  const el=$("#"+id);if(!el)return false;
+  el.setAttribute("aria-invalid","true");
+  let e=el.parentElement.querySelector(".ferr");
+  if(!e){e=document.createElement("div");e.className="ferr";e.id=id+"-err";el.after(e);el.setAttribute("aria-describedby",e.id)}
+  e.innerHTML=`${ic("alert")}<span>${esc(msg)}</span>`;
+  el.focus();el.scrollIntoView({block:"center",behavior:"smooth"});
+  el.addEventListener("input",()=>{el.removeAttribute("aria-invalid");el.removeAttribute("aria-describedby");e.remove()},{once:true});
+  return false;
+}
+const REQ="Fushë e detyrueshme / Required";
 
 function migrate(d){
   if(d&&d.league&&!d.leagues){d.leagues=[{id:"table1",name:d.league.name||"Tabela",rows:d.league.rows||[]}];delete d.league;}
@@ -451,51 +742,79 @@ function migrate(d){
 }
 
 /* ===== image resize (shared) ===== */
-function resizeImage(file,max,mime,q,cb){if(!file)return;const r=new FileReader();r.onload=()=>{const img=new Image();img.onload=()=>{let w=img.width,h=img.height;if(w>max||h>max){if(w>=h){h=Math.round(h*max/w);w=max}else{w=Math.round(w*max/h);h=max}}const c=document.createElement("canvas");c.width=w;c.height=h;c.getContext("2d").drawImage(img,0,0,w,h);let o;try{o=c.toDataURL(mime,q)}catch(e){o=r.result}cb(o)};img.onerror=()=>alert("S'u lexua dot imazhi / Could not read image");img.src=r.result};r.readAsDataURL(file)}
+function resizeImage(file,max,mime,q,cb){if(!file)return;const r=new FileReader();r.onload=()=>{const img=new Image();img.onload=()=>{let w=img.width,h=img.height;if(w>max||h>max){if(w>=h){h=Math.round(h*max/w);w=max}else{w=Math.round(w*max/h);h=max}}const c=document.createElement("canvas");c.width=w;c.height=h;c.getContext("2d").drawImage(img,0,0,w,h);let o;try{o=c.toDataURL(mime,q)}catch(e){o=r.result}cb(o)};img.onerror=()=>toast("S'u lexua dot imazhi / Could not read image","err");img.src=r.result};r.readAsDataURL(file)}
 
 /* ===== club ===== */
 function fillClub(){const c=DATA.club||{};$("#c-hero-sq").value=c.heroSq||"";$("#c-hero-en").value=c.heroEn||"";$("#c-sub-sq").value=c.subSq||"";$("#c-sub-en").value=c.subEn||"";prev("logo-prev",c.logo);prev("hero-prev",c.heroImg);$("#logo-file").value="";$("#hero-file").value="";}
-function prev(id,src){const el=$("#"+id);if(src){el.style.backgroundImage=`url(${src})`;el.textContent="";}else{el.style.backgroundImage="none";el.textContent=el.id==="logo-prev"?"Logo":(el.id==="hero-prev"?"Sfondi":"Foto");}}
-function handleLogo(f){resizeImage(f,320,"image/png",1,d=>{DATA.club=DATA.club||{};DATA.club.logo=d;saveLocal();prev("logo-prev",d);flag()})}
+function prev(id,src){const el=$("#"+id);if(src){el.style.backgroundImage=`url("${src}")`;el.textContent="";}else{el.style.backgroundImage="none";el.textContent=el.id==="logo-prev"?"Logo":(el.id==="hero-prev"?"Sfondi":"Foto");}}
+function handleLogo(f){resizeImage(f,320,"image/png",1,d=>{DATA.club=DATA.club||{};DATA.club.logo=d;prev("logo-prev",d);if(saveLocal())flag()})}
 function removeLogo(){DATA.club.logo="";$("#logo-file").value="";saveLocal();prev("logo-prev","");flag()}
-function handleHero(f){resizeImage(f,1600,"image/jpeg",.82,d=>{DATA.club=DATA.club||{};DATA.club.heroImg=d;saveLocal();prev("hero-prev",d);flag()})}
+function handleHero(f){resizeImage(f,1600,"image/jpeg",.82,d=>{DATA.club=DATA.club||{};DATA.club.heroImg=d;prev("hero-prev",d);if(saveLocal())flag()})}
 function removeHero(){DATA.club.heroImg="";$("#hero-file").value="";saveLocal();prev("hero-prev","");flag()}
-function saveClub(){DATA.club=DATA.club||{};DATA.club.heroSq=$("#c-hero-sq").value;DATA.club.heroEn=$("#c-hero-en").value;DATA.club.subSq=$("#c-sub-sq").value;DATA.club.subEn=$("#c-sub-en").value;saveLocal();flag()}
+function saveClub(){DATA.club=DATA.club||{};DATA.club.heroSq=$("#c-hero-sq").value;DATA.club.heroEn=$("#c-hero-en").value;DATA.club.subSq=$("#c-sub-sq").value;DATA.club.subEn=$("#c-sub-en").value;if(saveLocal())flag()}
 
 /* ===== footer ===== */
 function fillFooter(){const f=DATA.footer||{};$("#ft-about-sq").value=f.aboutSq||"";$("#ft-about-en").value=f.aboutEn||"";$("#ft-fb").value=f.fb||"";$("#ft-ig").value=f.ig||"";$("#ft-email").value=f.email||"";$("#ft-phone").value=f.phone||"";$("#ft-address").value=f.address||"";$("#ft-website").value=f.website||"";}
-function saveFooter(){DATA.footer=DATA.footer||{};const f=DATA.footer;f.aboutSq=$("#ft-about-sq").value;f.aboutEn=$("#ft-about-en").value;f.fb=$("#ft-fb").value;f.ig=$("#ft-ig").value;f.email=$("#ft-email").value;f.phone=$("#ft-phone").value;f.address=$("#ft-address").value;f.website=$("#ft-website").value;saveLocal();flag()}
+function saveFooter(){DATA.footer=DATA.footer||{};const f=DATA.footer;f.aboutSq=$("#ft-about-sq").value;f.aboutEn=$("#ft-about-en").value;f.fb=$("#ft-fb").value;f.ig=$("#ft-ig").value;f.email=$("#ft-email").value;f.phone=$("#ft-phone").value;f.address=$("#ft-address").value;f.website=$("#ft-website").value;if(saveLocal())flag()}
 
 /* ===== generic image-into-form (news/photo/spons) ===== */
 let formImg={news:"",photo:"",spons:"",troph:"",team:"",video:"",player:""};
 function handleImg(kind,f){const png=(kind==="spons"||kind==="troph"||kind==="team");const max=kind==="spons"?320:(kind==="troph"?480:(kind==="team"?240:(kind==="player"?700:900)));resizeImage(f,max,png?"image/png":"image/jpeg",.85,d=>{formImg[kind]=d;prev(({news:"n-prev",photo:"ph-prev",spons:"sp-prev",troph:"t-prev",team:"tm-prev",video:"v-prev",player:"pl-prev"})[kind],d)})}
 function clrImg(kind){formImg[kind]="";const id=({news:"n-prev",photo:"ph-prev",spons:"sp-prev",troph:"t-prev",team:"tm-prev",video:"v-prev",player:"pl-prev"})[kind];prev(id,"");const fl=({news:"n-file",photo:"ph-file",spons:"sp-file",troph:"t-file",team:"tm-file",video:"v-file",player:"pl-file"})[kind];if($("#"+fl))$("#"+fl).value="";}
 
-function hideForm(id){$("#"+id).classList.add("hide")}
+/* ===== inline edit forms ===== */
+function openForm(id,i){
+  const f=$("#"+id);const isNew=i===undefined;
+  f.querySelector(".aform-h").innerHTML=esc((isNew?f.dataset.tNew:f.dataset.tEdit)||"").replace(/ \/ (.*)$/,'<span class="en">$1</span>');
+  f.querySelectorAll("[aria-invalid]").forEach(el=>el.removeAttribute("aria-invalid"));
+  f.querySelectorAll(".ferr").forEach(el=>el.remove());
+  f.classList.remove("hide","flash");void f.offsetWidth;f.classList.add("flash");
+  const add=$(`[data-add="${id}"]`);if(add)add.hidden=true;
+  const list=f.parentElement.querySelector(".alist");
+  if(list)list.querySelectorAll(".arow").forEach((r,k)=>r.classList.toggle("editing",!isNew&&k===i));
+  f.scrollIntoView({behavior:"smooth",block:"start"});
+  const first=f.querySelector("input:not([type=hidden]):not([type=file]),textarea");
+  if(first)setTimeout(()=>first.focus({preventScroll:true}),250);
+}
+function hideForm(id){
+  const f=$("#"+id);f.classList.add("hide");
+  const add=$(`[data-add="${id}"]`);if(add)add.hidden=false;
+  const list=f.parentElement.querySelector(".alist");if(list)list.querySelectorAll(".editing").forEach(r=>r.classList.remove("editing"));
+}
 
-function delItem(coll,i){if(!confirm("Të fshihet? / Delete?"))return;DATA[coll].splice(i,1);saveLocal();renderAllLists();flag()}
+async function delItem(coll,i){
+  const ok=await ask({title:"Të fshihet? / Delete?",msg:"Ky veprim nuk mund të zhbëhet. / This can't be undone.",ok:`${ic("trash")}Fshi<span class="en">Delete</span>`,danger:true});
+  if(!ok)return;DATA[coll].splice(i,1);saveLocal();renderAllLists();toast("U fshi / Deleted");
+}
 
 /* ===== lists ===== */
-function row(thumb,title,sub,editFn,coll,i){return `<div class="arow"><div class="l">${thumb?`<img class="arow-thumb" src="${thumb}" alt="">`:""}<div><b>${esc(title)}</b><small>${esc(sub)}</small></div></div><div class="aact"><button class="abtn" onclick="${editFn}(${i})">✎</button><button class="abtn del" onclick="delItem('${coll}',${i})">🗑</button></div></div>`}
-function renderAllLists(){
-  $("#news-list").innerHTML=DATA.news.map((n,i)=>row(n.img,n.titleSq||"—",n.tag||"",'newsForm','news',i)).join("")||emptyRow();
-  renderLgAdmin();
-  $("#teams-list").innerHTML=(DATA.teams||[]).map((t,i)=>row(t.logo,t.name,"",'teamForm','teams',i)).join("")||emptyRow();
-  $("#fix-list-a").innerHTML=DATA.fixtures.map((f,i)=>row("",`${f.home} ${f.score?"–":"vs"} ${f.away}`,`${f.date||""} ${f.time||""} • ${f.comp||""}`,'fixForm','fixtures',i)).join("")||emptyRow();
-  $("#players-list").innerHTML=(DATA.players||[]).map((p,i)=>row(p.img,`${p.num?"#"+p.num+" ":""}${p.name||"—"}`,`${POS_LABEL[p.pos]||""} • ${p.p||0} ndeshje • ${p.g||0} gola • ${p.a||0} asiste${p.pos==="gk"?` • ${p.cs||0} portë e pastër`:""}`,'playerForm','players',i)).join("")||emptyRow();
-  $("#troph-list").innerHTML=DATA.trophies.map((t,i)=>row(t.photo,`${t.photo?"":(t.icon||"")} ${t.titleSq||""}`,`× ${t.count||""}`,'trophForm','trophies',i)).join("")||emptyRow();
-  $("#photo-list").innerHTML=DATA.photos.map((p,i)=>row(p.img,p.capSq||"—","",'photoForm','photos',i)).join("")||emptyRow();
-  $("#video-list").innerHTML=DATA.videos.map((v,i)=>row(v.thumb,v.titleSq||"—",v.url||"—",'videoForm','videos',i)).join("")||emptyRow();
-  $("#spons-list").innerHTML=DATA.sponsors.map((s,i)=>row(s.logo,s.name,s.url||"—",'sponsForm','sponsors',i)).join("")||emptyRow();
+function row(thumb,title,sub,editFn,coll,i,ph){
+  const lead=thumb?`<img class="arow-thumb" src="${esc(thumb)}" alt="">`:`<span class="arow-ph">${ph||ic("image")}</span>`;
+  return `<div class="arow"><div class="l">${lead}<div><b>${esc(title)}</b>${sub?`<small title="${esc(sub)}">${esc(sub)}</small>`:""}</div></div><div class="aact"><button class="iconbtn" type="button" onclick="${editFn}(${i})" aria-label="Edito / Edit: ${esc(title)}" title="Edito / Edit">${ic("pencil")}</button><button class="iconbtn del" type="button" onclick="delItem('${coll}',${i})" aria-label="Fshi / Delete: ${esc(title)}" title="Fshi / Delete">${ic("trash")}</button></div></div>`;
 }
-function emptyRow(){return `<div class="arow"><small>Bosh / Empty</small></div>`}
+function emptyRow(){return `<div class="aempty">${ic("plus")}<span>Bosh — shtoni të parin. / Empty — add the first one.</span></div>`}
+function renderCounts(){
+  $$(".atab[data-count]").forEach(t=>{const k=t.dataset.count;const v=k==="leagues"?((DATA.leagues||[])[adminLgIdx]||{rows:[]}).rows.length:(DATA[k]||[]).length;t.querySelector(".cnt").textContent=v;});
+}
+function renderAllLists(){
+  $("#news-list").innerHTML=DATA.news.map((n,i)=>row(n.img,n.titleSq||"—",[n.tag,n.date].filter(Boolean).join(" • "),'newsForm','news',i,ic("news"))).join("")||emptyRow();
+  renderLgAdmin();
+  $("#teams-list").innerHTML=(DATA.teams||[]).map((t,i)=>row(t.logo,t.name,"",'teamForm','teams',i,ic("shield"))).join("")||emptyRow();
+  $("#fix-list-a").innerHTML=DATA.fixtures.map((f,i)=>row("",`${f.home} ${f.score?f.score:"vs"} ${f.away}`,[[f.date,f.time].filter(x=>x&&x!=="—").join(" "),f.comp].filter(Boolean).join(" • "),'fixForm','fixtures',i,ic("calendar"))).join("")||emptyRow();
+  $("#players-list").innerHTML=(DATA.players||[]).map((p,i)=>row(p.img,p.name||"—",`${POS_LABEL[p.pos]||""} • ${p.p||0} ndeshje • ${p.g||0} gola • ${p.a||0} asiste${p.pos==="gk"?` • ${p.cs||0} portë e pastër`:""}`,'playerForm','players',i,p.num?"#"+esc(p.num):ic("shirt"))).join("")||emptyRow();
+  $("#troph-list").innerHTML=DATA.trophies.map((t,i)=>row(t.photo,t.titleSq||"—",`× ${t.count||"—"}`,'trophForm','trophies',i,esc(t.icon||"🏆"))).join("")||emptyRow();
+  $("#photo-list").innerHTML=DATA.photos.map((p,i)=>row(p.img,p.capSq||"—","",'photoForm','photos',i)).join("")||emptyRow();
+  $("#video-list").innerHTML=DATA.videos.map((v,i)=>row(v.thumb,v.titleSq||"—",v.url||"Pa lidhje / No link",'videoForm','videos',i,ic("video"))).join("")||emptyRow();
+  $("#spons-list").innerHTML=DATA.sponsors.map((s,i)=>row(s.logo,s.name,s.url||"",'sponsForm','sponsors',i,ic("award"))).join("")||emptyRow();
+  renderCounts();
+}
 
 /* ===== news ===== */
-function newsForm(i){const f=$("#news-form");f.classList.remove("hide");$("#n-file").value="";
+function newsForm(i){$("#n-file").value="";
   if(i===undefined){$("#n-idx").value="";["n-tag","n-date","n-title-sq","n-text-sq","n-title-en","n-text-en"].forEach(id=>$("#"+id).value="");formImg.news="";}
   else{const n=DATA.news[i];$("#n-idx").value=i;$("#n-tag").value=n.tag||"";$("#n-date").value=n.date||"";$("#n-title-sq").value=n.titleSq||"";$("#n-text-sq").value=n.textSq||"";$("#n-title-en").value=n.titleEn||"";$("#n-text-en").value=n.textEn||"";formImg.news=n.img||"";}
-  prev("n-prev",formImg.news);f.scrollIntoView({behavior:"smooth",block:"nearest"})}
-function saveNews(){if(!$("#n-title-sq").value.trim()){alert("Titulli (SQ)?");return}const it={img:formImg.news,tag:$("#n-tag").value,date:$("#n-date").value,titleSq:$("#n-title-sq").value,textSq:$("#n-text-sq").value,titleEn:$("#n-title-en").value,textEn:$("#n-text-en").value};const x=$("#n-idx").value;if(x===""){DATA.news.unshift(it)}else DATA.news[+x]=it;saveLocal();renderAllLists();hideForm("news-form");flag()}
+  prev("n-prev",formImg.news);openForm("news-form",i)}
+function saveNews(){if(!$("#n-title-sq").value.trim())return invalid("n-title-sq",REQ);const it={img:formImg.news,tag:$("#n-tag").value,date:$("#n-date").value,titleSq:$("#n-title-sq").value,textSq:$("#n-text-sq").value,titleEn:$("#n-title-en").value,textEn:$("#n-text-en").value};const x=$("#n-idx").value;if(x===""){DATA.news.unshift(it)}else DATA.news[+x]=it;saveLocal();renderAllLists();hideForm("news-form");flag()}
 
 /* ===== league (multi-table) ===== */
 let adminLgIdx=0;
@@ -508,31 +827,33 @@ function renderLgAdmin(){
   sel.value=adminLgIdx;
   const lg=arr[adminLgIdx];
   $("#lg-name").value=lg.name||"";
-  $("#lg-list").innerHTML=(lg.rows||[]).map((r,i)=>`<div class="arow"><div class="l"><div><b>${esc(r.team)}</b><small>${r.pts||0} pikë • ${r.p||0} ndeshje</small></div></div><div class="aact"><button class="abtn" onclick="lgForm(${i})">✎</button><button class="abtn del" onclick="delLgRow(${i})">🗑</button></div></div>`).join("")||emptyRow();
+  $("#lg-list").innerHTML=(lg.rows||[]).map((r,i)=>`<div class="arow"><div class="l"><span class="arow-ph">${i+1}</span><div><b>${esc(r.team)}</b><small>${r.pts||0} pikë • ${r.p||0} ndeshje</small></div></div><div class="aact"><button class="iconbtn" type="button" onclick="lgForm(${i})" aria-label="Edito / Edit: ${esc(r.team)}" title="Edito / Edit">${ic("pencil")}</button><button class="iconbtn del" type="button" onclick="delLgRow(${i})" aria-label="Fshi / Delete: ${esc(r.team)}" title="Fshi / Delete">${ic("trash")}</button></div></div>`).join("")||emptyRow();
 }
-function lgSwitch(v){adminLgIdx=+v||0;renderLgAdmin();}
-function lgNewTable(){
-  const name=prompt("Emri i tabelës së re (p.sh. UEFA Conference League) / New table name:","");
+function lgSwitch(v){adminLgIdx=+v||0;hideForm("lg-form");renderLgAdmin();renderCounts();}
+async function lgNewTable(){
+  const name=await ask({title:"Tabelë e re / New table",msg:"Emri i tabelës së re (p.sh. UEFA Conference League) / New table name:",ok:`${ic("plus")}Krijo<span class="en">Create</span>`,input:""});
   if(!name||!name.trim())return;
   DATA.leagues=DATA.leagues||[];
   DATA.leagues.push({id:"t"+Date.now(),name:name.trim(),rows:[]});
   adminLgIdx=DATA.leagues.length-1;
   saveLocal();renderAllLists();flag();
 }
-function lgDeleteTable(){
+async function lgDeleteTable(){
   const arr=DATA.leagues||[];
-  if(arr.length<=1){alert("Duhet të mbetet të paktën një tabelë. / At least one table must remain.");return;}
-  if(!confirm("Të fshihet gjithë kjo tabelë? / Delete this whole table?"))return;
+  if(arr.length<=1){toast("Duhet të mbetet të paktën një tabelë. / At least one table must remain.","err");return;}
+  if(!await ask({title:"Të fshihet gjithë kjo tabelë? / Delete this whole table?",msg:`„${arr[adminLgIdx].name||""}" — ${arr[adminLgIdx].rows.length} rreshta / rows`,ok:`${ic("trash")}Fshi<span class="en">Delete</span>`,danger:true}))return;
   arr.splice(adminLgIdx,1);adminLgIdx=0;
-  saveLocal();renderAllLists();flag();
+  saveLocal();renderAllLists();toast("U fshi / Deleted");
 }
-function saveLgName(){const lg=(DATA.leagues||[])[adminLgIdx];if(!lg)return;lg.name=$("#lg-name").value;saveLocal();flag()}
-function delLgRow(i){const lg=(DATA.leagues||[])[adminLgIdx];if(!lg)return;if(!confirm("Të fshihet? / Delete?"))return;lg.rows.splice(i,1);saveLocal();renderAllLists();flag()}
-function lgForm(i){const f=$("#lg-form");f.classList.remove("hide");
+function saveLgName(){const lg=(DATA.leagues||[])[adminLgIdx];if(!lg)return;lg.name=$("#lg-name").value;saveLocal();renderLgAdmin();flag()}
+async function delLgRow(i){const lg=(DATA.leagues||[])[adminLgIdx];if(!lg)return;
+  if(!await ask({title:"Të fshihet? / Delete?",msg:lg.rows[i]?lg.rows[i].team:"",ok:`${ic("trash")}Fshi<span class="en">Delete</span>`,danger:true}))return;
+  lg.rows.splice(i,1);saveLocal();renderAllLists();toast("U fshi / Deleted")}
+function lgForm(i){
   if(i===undefined){$("#lg-idx").value="";["lg-team","lg-p","lg-w","lg-d","lg-l","lg-gs","lg-pts"].forEach(id=>$("#"+id).value="")}
   else{const lg=(DATA.leagues||[])[adminLgIdx];const r=lg.rows[i];$("#lg-idx").value=i;$("#lg-team").value=r.team;$("#lg-p").value=r.p;$("#lg-w").value=r.w;$("#lg-d").value=r.d;$("#lg-l").value=r.l;$("#lg-gs").value=r.gs;$("#lg-pts").value=r.pts;}
-  f.scrollIntoView({behavior:"smooth",block:"nearest"})}
-function saveLg(){if(!$("#lg-team").value.trim()){alert("Ekipi?");return}
+  openForm("lg-form",i)}
+function saveLg(){if(!$("#lg-team").value.trim())return invalid("lg-team",REQ);
   const lg=(DATA.leagues||[])[adminLgIdx];if(!lg)return;
   const n=id=>+($("#"+id).value||0);
   const it={team:$("#lg-team").value,p:n("lg-p"),w:n("lg-w"),d:n("lg-d"),l:n("lg-l"),gs:n("lg-gs"),pts:n("lg-pts")};
@@ -542,11 +863,11 @@ function saveLg(){if(!$("#lg-team").value.trim()){alert("Ekipi?");return}
 
 
 /* ===== team logos (opponents) ===== */
-function teamForm(i){const f=$("#teams-form");f.classList.remove("hide");if($("#tm-file"))$("#tm-file").value="";
+function teamForm(i){if($("#tm-file"))$("#tm-file").value="";
   if(i===undefined){$("#tm-idx").value="";$("#tm-name").value="";formImg.team="";}
   else{const t=DATA.teams[i];$("#tm-idx").value=i;$("#tm-name").value=t.name||"";formImg.team=t.logo||"";}
-  prev("tm-prev",formImg.team);f.scrollIntoView({behavior:"smooth",block:"nearest"})}
-function saveTeam(){if(!$("#tm-name").value.trim()){alert("Emri?");return}
+  prev("tm-prev",formImg.team);openForm("teams-form",i)}
+function saveTeam(){if(!$("#tm-name").value.trim())return invalid("tm-name",REQ);
   DATA.teams=DATA.teams||[];
   const it={name:$("#tm-name").value,logo:formImg.team};
   const x=$("#tm-idx").value;if(x===""){DATA.teams.push(it)}else DATA.teams[+x]=it;
@@ -554,12 +875,13 @@ function saveTeam(){if(!$("#tm-name").value.trim()){alert("Emri?");return}
 
 
 /* ===== fixtures ===== */
-function fixForm(i){const f=$("#fix-form");f.classList.remove("hide");
+function fixForm(i){
   const ids=["f-home","f-away","f-date","f-time","f-score","f-hsc","f-asc","f-hyel","f-ayel","f-hred","f-ared","f-hsub","f-asub","f-hform","f-aform","f-hline","f-aline","f-stats","f-venue","f-ref","f-att"];
   if(i===undefined){$("#f-idx").value="";ids.forEach(id=>$("#"+id).value="");$("#f-comp").value="Superliga"}
-  else{const x=DATA.fixtures[i];$("#f-idx").value=i;ids.forEach(id=>{const k=id.slice(2);$("#"+id).value=x[k]||""});}
-  f.scrollIntoView({behavior:"smooth",block:"nearest"})}
-function saveFix(){if(!$("#f-home").value.trim()||!$("#f-away").value.trim()){alert("Ekipet?");return}
+  else{const x=DATA.fixtures[i];$("#f-idx").value=i;ids.concat("f-comp").forEach(id=>{const k=id.slice(2);$("#"+id).value=x[k]||""});}
+  openForm("fix-form",i)}
+function saveFix(){if(!$("#f-home").value.trim())return invalid("f-home",REQ);if(!$("#f-away").value.trim())return invalid("f-away",REQ);
+  const d=$("#f-date").value.trim();if(d&&!/^\d{1,2}[.\/-]\d{1,2}[.\/-]\d{2,4}$/.test(d))return invalid("f-date","Formati: DD.MM.YYYY — p.sh. 08.10.2026");
   const v=id=>$("#"+id).value;
   const it={home:v("f-home"),away:v("f-away"),date:v("f-date"),time:v("f-time"),comp:v("f-comp"),score:v("f-score"),hsc:v("f-hsc"),asc:v("f-asc"),hyel:v("f-hyel"),ayel:v("f-ayel"),hred:v("f-hred"),ared:v("f-ared"),hsub:v("f-hsub"),asub:v("f-asub"),hform:v("f-hform"),aform:v("f-aform"),hline:v("f-hline"),aline:v("f-aline"),stats:v("f-stats"),venue:v("f-venue"),ref:v("f-ref"),att:v("f-att")};
   const x=$("#f-idx").value;if(x===""){DATA.fixtures.push(it)}else DATA.fixtures[+x]=it;saveLocal();renderAllLists();hideForm("fix-form");flag()}
@@ -568,11 +890,11 @@ function saveFix(){if(!$("#f-home").value.trim()||!$("#f-away").value.trim()){al
 /* ===== players ===== */
 const POS_LABEL={gk:"Portier",df:"Mbrojtës",mf:"Mesfushor",fw:"Sulmues"};
 const POS_ORD={gk:0,df:1,mf:2,fw:3};
-function playerForm(i){const f=$("#player-form");f.classList.remove("hide");if($("#pl-file"))$("#pl-file").value="";
+function playerForm(i){if($("#pl-file"))$("#pl-file").value="";
   if(i===undefined){$("#pl-idx").value="";$("#pl-name").value="";$("#pl-num").value="";$("#pl-pos").value="gk";["pl-p","pl-g","pl-a","pl-cs"].forEach(id=>$("#"+id).value="");formImg.player="";}
   else{const p=DATA.players[i];$("#pl-idx").value=i;$("#pl-name").value=p.name||"";$("#pl-num").value=p.num||"";$("#pl-pos").value=p.pos||"mf";$("#pl-p").value=p.p??"";$("#pl-g").value=p.g??"";$("#pl-a").value=p.a??"";$("#pl-cs").value=p.cs??"";formImg.player=p.img||"";}
-  prev("pl-prev",formImg.player);f.scrollIntoView({behavior:"smooth",block:"nearest"})}
-function savePlayer(){if(!$("#pl-name").value.trim()){alert("Emri?");return}
+  prev("pl-prev",formImg.player);openForm("player-form",i)}
+function savePlayer(){if(!$("#pl-name").value.trim())return invalid("pl-name",REQ);
   DATA.players=DATA.players||[];
   const n=id=>+($("#"+id).value||0);
   const it={img:formImg.player,name:$("#pl-name").value,num:$("#pl-num").value,pos:$("#pl-pos").value,p:n("pl-p"),g:n("pl-g"),a:n("pl-a"),cs:n("pl-cs")};
@@ -582,64 +904,82 @@ function savePlayer(){if(!$("#pl-name").value.trim()){alert("Emri?");return}
 
 
 /* ===== trophies ===== */
-function trophForm(i){const f=$("#troph-form");f.classList.remove("hide");if($("#t-file"))$("#t-file").value="";
+function trophForm(i){if($("#t-file"))$("#t-file").value="";
   if(i===undefined){$("#t-idx").value="";$("#t-icon").value="🏆";$("#t-count").value="";$("#t-title-sq").value="";$("#t-title-en").value="";formImg.troph="";}
   else{const t=DATA.trophies[i];$("#t-idx").value=i;$("#t-icon").value=t.icon||"";$("#t-count").value=t.count||"";$("#t-title-sq").value=t.titleSq||"";$("#t-title-en").value=t.titleEn||"";formImg.troph=t.photo||"";}
-  prev("t-prev",formImg.troph);f.scrollIntoView({behavior:"smooth",block:"nearest"})}
-function saveTroph(){if(!$("#t-title-sq").value.trim()){alert("Titulli?");return}const it={photo:formImg.troph,icon:$("#t-icon").value||"🏆",count:$("#t-count").value,titleSq:$("#t-title-sq").value,titleEn:$("#t-title-en").value};const x=$("#t-idx").value;if(x===""){DATA.trophies.push(it)}else DATA.trophies[+x]=it;saveLocal();renderAllLists();hideForm("troph-form");flag()}
+  prev("t-prev",formImg.troph);openForm("troph-form",i)}
+function saveTroph(){if(!$("#t-title-sq").value.trim())return invalid("t-title-sq",REQ);const it={photo:formImg.troph,icon:$("#t-icon").value||"🏆",count:$("#t-count").value,titleSq:$("#t-title-sq").value,titleEn:$("#t-title-en").value};const x=$("#t-idx").value;if(x===""){DATA.trophies.push(it)}else DATA.trophies[+x]=it;saveLocal();renderAllLists();hideForm("troph-form");flag()}
 
 
 /* ===== photos ===== */
-function photoForm(i){const f=$("#photo-form");f.classList.remove("hide");$("#ph-file").value="";
+function photoForm(i){$("#ph-file").value="";
   if(i===undefined){$("#ph-idx").value="";$("#ph-cap-sq").value="";$("#ph-cap-en").value="";formImg.photo="";}
   else{const p=DATA.photos[i];$("#ph-idx").value=i;$("#ph-cap-sq").value=p.capSq||"";$("#ph-cap-en").value=p.capEn||"";formImg.photo=p.img||"";}
-  prev("ph-prev",formImg.photo);f.scrollIntoView({behavior:"smooth",block:"nearest"})}
+  prev("ph-prev",formImg.photo);openForm("photo-form",i)}
 function savePhoto(){const it={img:formImg.photo,capSq:$("#ph-cap-sq").value,capEn:$("#ph-cap-en").value};const x=$("#ph-idx").value;if(x===""){DATA.photos.push(it)}else DATA.photos[+x]=it;saveLocal();renderAllLists();hideForm("photo-form");flag()}
 
 
 /* ===== videos ===== */
-function videoForm(i){const f=$("#video-form");f.classList.remove("hide");if($("#v-file"))$("#v-file").value="";
+function videoForm(i){if($("#v-file"))$("#v-file").value="";
   if(i===undefined){$("#v-idx").value="";$("#v-url").value="";$("#v-title-sq").value="";$("#v-title-en").value="";formImg.video="";}
   else{const v=DATA.videos[i];$("#v-idx").value=i;$("#v-url").value=v.url||"";$("#v-title-sq").value=v.titleSq||"";$("#v-title-en").value=v.titleEn||"";formImg.video=v.thumb||"";}
   prev("v-prev",formImg.video);
-  f.scrollIntoView({behavior:"smooth",block:"nearest"})}
-function saveVideo(){const it={url:$("#v-url").value,thumb:formImg.video,titleSq:$("#v-title-sq").value,titleEn:$("#v-title-en").value};const x=$("#v-idx").value;if(x===""){DATA.videos.push(it)}else DATA.videos[+x]=it;saveLocal();renderAllLists();hideForm("video-form");flag()}
+  openForm("video-form",i)}
+function saveVideo(){const u=$("#v-url").value.trim();if(u&&!/^https?:\/\//i.test(u))return invalid("v-url","Lidhja duhet të fillojë me https:// / Link must start with https://");
+  const it={url:$("#v-url").value,thumb:formImg.video,titleSq:$("#v-title-sq").value,titleEn:$("#v-title-en").value};const x=$("#v-idx").value;if(x===""){DATA.videos.push(it)}else DATA.videos[+x]=it;saveLocal();renderAllLists();hideForm("video-form");flag()}
 
 
 /* ===== sponsors ===== */
-function sponsForm(i){const f=$("#spons-form");f.classList.remove("hide");$("#sp-file").value="";
+function sponsForm(i){$("#sp-file").value="";
   if(i===undefined){$("#sp-idx").value="";$("#sp-name").value="";$("#sp-url").value="";formImg.spons="";}
   else{const s=DATA.sponsors[i];$("#sp-idx").value=i;$("#sp-name").value=s.name||"";$("#sp-url").value=s.url||"";formImg.spons=s.logo||"";}
-  prev("sp-prev",formImg.spons);f.scrollIntoView({behavior:"smooth",block:"nearest"})}
-function saveSpons(){if(!$("#sp-name").value.trim()){alert("Emri?");return}const it={name:$("#sp-name").value,url:$("#sp-url").value,logo:formImg.spons};const x=$("#sp-idx").value;if(x===""){DATA.sponsors.push(it)}else DATA.sponsors[+x]=it;saveLocal();renderAllLists();hideForm("spons-form");flag()}
+  prev("sp-prev",formImg.spons);openForm("spons-form",i)}
+function saveSpons(){if(!$("#sp-name").value.trim())return invalid("sp-name",REQ);const it={name:$("#sp-name").value,url:$("#sp-url").value,logo:formImg.spons};const x=$("#sp-idx").value;if(x===""){DATA.sponsors.push(it)}else DATA.sponsors[+x]=it;saveLocal();renderAllLists();hideForm("spons-form");flag()}
 
 
-document.querySelectorAll(".atab").forEach(t=>t.addEventListener("click",()=>{document.querySelectorAll(".atab").forEach(x=>x.classList.remove("on"));document.querySelectorAll(".apane").forEach(x=>x.classList.remove("on"));t.classList.add("on");$("#"+t.dataset.pane).classList.add("on")}));
+/* ===== navigation between panes ===== */
+function showPane(id){
+  if(!$("#"+id))id="pa-club";
+  $$(".atab").forEach(x=>{const on=x.dataset.pane===id;x.classList.toggle("on",on);if(on)x.setAttribute("aria-current","page");else x.removeAttribute("aria-current")});
+  $$(".apane").forEach(x=>x.classList.toggle("on",x.id===id));
+  try{sessionStorage.setItem("drita_admin_pane",id)}catch(e){}
+  const t=$(`.atab[data-pane="${id}"]`);if(t&&matchMedia("(max-width:900px)").matches)t.scrollIntoView({block:"nearest",inline:"center"});
+}
+$$(".atab").forEach(t=>t.addEventListener("click",()=>{showPane(t.dataset.pane);scrollTo({top:0})}));
 
-function publish(){const b=new Blob([JSON.stringify(DATA,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="data.json";a.click();saveLocal();setTimeout(()=>alert("U shkarkua data.json — ngarkojeni pranë index.html.\nDownloaded data.json — upload it next to index.html."),200)}
-function importData(f){if(!f)return;const r=new FileReader();r.onload=()=>{try{DATA=migrate(JSON.parse(r.result));saveLocal();fillClub();fillFooter();renderAllLists();flag();alert("U importua / Imported")}catch(e){alert("Skedar i pavlefshëm / Invalid file")}};r.readAsText(f)}
-function resetAll(){if(!confirm("Reset everything?"))return;DATA=JSON.parse(JSON.stringify(DEFAULT_DATA));saveLocal();fillClub();fillFooter();renderAllLists();flag()}
+function publish(){const b=new Blob([JSON.stringify(DATA,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="data.json";a.click();saveLocal();toast("U shkarkua data.json — ngarkojeni pranë index.html. / Downloaded — upload it next to index.html.")}
+function importData(f){if(!f)return;const r=new FileReader();r.onload=()=>{try{DATA=migrate(JSON.parse(r.result));saveLocal();fillClub();fillFooter();renderAllLists();toast("U importua / Imported")}catch(e){toast("Skedar i pavlefshëm / Invalid file","err")}$("#imp").value=""};r.readAsText(f)}
+async function resetAll(){if(!await ask({title:"Rivendos gjithçka? / Reset everything?",msg:"Të gjitha ndryshimet në këtë shfletues do të humbasin. / Every edit in this browser will be lost.",ok:`${ic("reset")}Reset`,danger:true}))return;DATA=JSON.parse(JSON.stringify(DEFAULT_DATA));saveLocal();fillClub();fillFooter();renderAllLists();toast("U rivendos / Reset done")}
 
 /* ===== gate / unlock ===== */
+function lockAdmin(){try{sessionStorage.removeItem("drita_admin_ok")}catch(e){}location.reload()}
 function unlockAdmin(){
   $("#gate").classList.add("hidden");
   fillClub();fillFooter();renderAllLists();
   $("#admin").classList.add("open");
+  let p="pa-club";try{p=sessionStorage.getItem("drita_admin_pane")||p}catch(e){}
+  showPane(p);
 }
-function tryUnlock(){
-  const v=$("#gate-pass").value;
-  if(v===PASSCODE){$("#gate-err").style.display="none";unlockAdmin();}
-  else{$("#gate-err").style.display="block";$("#gate-pass").value="";$("#gate-pass").focus();}
+async function tryUnlock(){
+  let ok=false;try{ok=await sha256($("#gate-pass").value)===PASS_HASH}catch(e){}
+  if(ok){$("#gate-err").hidden=true;try{sessionStorage.setItem("drita_admin_ok","1")}catch(e){}unlockAdmin();}
+  else{
+    $("#gate-err").hidden=false;$("#gate-pass").setAttribute("aria-invalid","true");$("#gate-pass").value="";$("#gate-pass").focus();
+    const c=$("#gate-card");c.classList.remove("shake");void c.offsetWidth;c.classList.add("shake");
+  }
 }
 $("#gate-btn").addEventListener("click",tryUnlock);
 $("#gate-pass").addEventListener("keydown",e=>{if(e.key==="Enter")tryUnlock();});
+$("#gate-pass").addEventListener("input",()=>$("#gate-pass").removeAttribute("aria-invalid"));
 
 
 /* ===== init ===== */
 (async function(){
   try{const res=await fetch("data.json",{cache:"no-store"});if(res.ok)DATA=migrate(await res.json())}catch(e){}
   try{const ls=localStorage.getItem(LS);if(ls)DATA=migrate(JSON.parse(ls))}catch(e){}
-  $("#gate-pass").focus();
+  /* arriving from the site's crest login (or reloading in the same tab session) skips the gate */
+  let ok=false;try{ok=sessionStorage.getItem("drita_admin_ok")==="1"}catch(e){}
+  if(ok)unlockAdmin();else $("#gate-pass").focus();
 })();
 
 </script>

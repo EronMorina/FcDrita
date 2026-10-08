@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/admin", "destination": "/admindfc_3.html" }
+  ]
+}
