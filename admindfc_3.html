@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#0a1733">
 <title>Paneli i klubit — FC Drita</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 46'%3E%3Cpath d='M20 1 L38 8 V24 C38 35 30 42 20 45 C10 42 2 35 2 24 V8 Z' fill='%230a1733' stroke='%23fff' stroke-width='2'/%3E%3Cpath d='M20 11 L23 18 L30.5 18 L24.5 22.5 L27 30 L20 25.5 L13 30 L15.5 22.5 L9.5 18 L17 18 Z' fill='%232f6bff'/%3E%3C/svg%3E">
+<link rel="icon" type="image/png" href="assets/drita-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -65,7 +65,7 @@
   #gate{min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:24px}
   #gate.hidden{display:none}
   .gate-card{width:100%;max-width:380px;padding:36px 28px 28px;border-radius:var(--r-lg);background:var(--card);border:1px solid var(--line);box-shadow:var(--sh-pop);text-align:center}
-  .gate-card svg.crest{display:block;height:56px;width:auto;margin:0 auto 18px;color:#fff}
+  .gate-card .crest{display:block;height:64px;width:auto;margin:0 auto 18px}
   .gate-card h1{font:600 1.35rem/1.1 var(--f-head);text-transform:uppercase;letter-spacing:.04em;color:var(--ink)}
   .gate-card p{margin:6px 0 24px;color:var(--mute);font-size:.875rem}
   .gate-card input{width:100%;height:48px;margin-bottom:12px;padding:0 14px;border-radius:var(--r-sm);border:1px solid var(--line);background:var(--field);color:#fff;font:16px var(--f-body);text-align:center;transition:border-color .16s,box-shadow .16s}
@@ -84,7 +84,7 @@
   #admin.open{display:block}
   .atop{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:12px;height:calc(var(--top-h) + env(safe-area-inset-top));padding:env(safe-area-inset-top) max(20px,env(safe-area-inset-right)) 0 max(20px,env(safe-area-inset-left));background:rgba(8,18,40,.88);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line)}
   .atop .brand{display:flex;align-items:center;gap:10px;min-width:0}
-  .atop .brand svg{height:30px;width:auto;flex:0 0 auto;color:#fff}
+  .atop .brand img{height:32px;width:auto;flex:0 0 auto}
   .atop .brand b{font:400 1.1rem/1 var(--f-display);text-transform:uppercase;letter-spacing:.02em;color:var(--ink);white-space:nowrap}
   .atop .brand span{font:500 .72rem/1 var(--f-head);letter-spacing:.12em;text-transform:uppercase;color:var(--mute);white-space:nowrap}
   .atop .acts{display:flex;align-items:center;gap:8px}
@@ -291,7 +291,7 @@
 
 <div id="gate">
   <div class="gate-card" id="gate-card">
-    <svg class="crest" viewBox="0 0 40 46" aria-hidden="true"><use href="#i-crest"/></svg>
+    <img class="crest" src="assets/drita-logo.png" alt="">
     <h1>Paneli i klubit</h1>
     <p>FC Drita — CMS Admin</p>
     <label for="gate-pass" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Fjalëkalimi / Passcode</label>
@@ -304,7 +304,7 @@
 
 <div id="admin">
   <header class="atop">
-    <div class="brand"><svg viewBox="0 0 40 46" aria-hidden="true"><use href="#i-crest"/></svg><b>FC Drita</b><span>CMS</span></div>
+    <div class="brand"><img src="assets/drita-logo.png" alt=""><b>FC Drita</b><span>CMS</span></div>
     <div class="acts">
       <a class="abtn sm" href="index.html" target="_blank" rel="noopener" aria-label="Shiko faqen / View site"><svg class="ic" aria-hidden="true"><use href="#i-external"/></svg><span class="t">Faqja</span></a>
       <button class="abtn sm" type="button" onclick="lockAdmin()" aria-label="Kyç / Lock"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg><span class="t">Kyç</span></button>

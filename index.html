@@ -7,7 +7,7 @@
 <meta name="theme-color" id="themeColor" content="#0a1733">
 <title>FC Drita — Krenaria e Gjilanit</title>
 <meta name="description" content="Faqja zyrtare e FC Drita, Gjilan — Krenaria e Gjilanit. Lajme, tabela, ndeshje, trofe dhe galeri.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 46'%3E%3Cpath d='M20 1 L38 8 V24 C38 35 30 42 20 45 C10 42 2 35 2 24 V8 Z' fill='%230a1733' stroke='%23fff' stroke-width='2'/%3E%3Cpath d='M20 11 L23 18 L30.5 18 L24.5 22.5 L27 30 L20 25.5 L13 30 L15.5 22.5 L9.5 18 L17 18 Z' fill='%232f6bff'/%3E%3C/svg%3E">
+<link rel="icon" type="image/png" href="assets/drita-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -421,7 +421,7 @@
   .brand{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
   .sheet.sheet-sm{max-width:380px}
   .gate-pop{padding:36px 24px 24px;text-align:center}
-  .gate-pop svg.crest{display:block;height:52px;width:auto;margin:0 auto 14px;color:var(--ink)}
+  .gate-pop svg.crest,.gate-pop img.crestimg{display:block;height:56px;width:auto;margin:0 auto 14px;color:var(--ink)}
   .gate-pop h2{font-size:1.25rem;letter-spacing:.04em}
   .gate-pop p{margin:6px 0 20px;color:var(--mute);font-size:.875rem}
   .gate-pop input{width:100%;height:48px;padding:0 14px;border-radius:var(--r-sm);border:1px solid var(--line);background:var(--navy2);color:var(--ink);font:16px var(--f-body);text-align:center;transition:border-color .16s,box-shadow .16s}
@@ -794,7 +794,7 @@
   <div class="sheet sheet-sm">
     <button class="icon-btn ov-x" type="button" data-close aria-label="Mbyll"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
     <form class="gate-pop" id="ag-form" novalidate>
-      <svg class="crest" viewBox="0 0 40 46" aria-hidden="true"><use href="#i-crest"/></svg>
+      <svg class="crest" id="agCrest" viewBox="0 0 40 46" aria-hidden="true"><use href="#i-crest"/></svg>
       <h2 id="ag-title" data-i18n="admin_title">Paneli i klubit</h2>
       <p data-i18n="admin_hint">Vetëm për stafin e klubit.</p>
       <label class="sr-only" for="ag-pass" data-i18n="admin_pass">Fjalëkalimi</label>
@@ -961,10 +961,12 @@ function ini(n){
 }
 function isDrita(n){return /drita/i.test(n||"")}
 function teamKey(n){return (n||"").toLowerCase().replace(/^\s*(fc|kf|sc|ks|shf)\.?\s+/,"").trim().replace(/[^a-z0-9à-ÿ]+/g,"")}
+const CLUB_LOGO="assets/drita-logo.png"; /* the club's crest; a logo uploaded in the admin replaces it */
+const clubLogo=()=>(DATA.club&&DATA.club.logo)||CLUB_LOGO;
 function findTeamLogo(name){
   const k=teamKey(name);
   if(k){const t=(DATA.teams||[]).find(t=>teamKey(t.name)===k&&t.logo);if(t)return t.logo;}
-  if(isDrita(name))return DATA.club&&DATA.club.logo||"";
+  if(isDrita(name))return clubLogo();
   return k&&ssLogos[k]||"";
 }
 function teamBadge(name,size){
@@ -1107,15 +1109,18 @@ function swapCrest(svg,src){
   let img=svg.nextElementSibling&&svg.nextElementSibling.tagName==="IMG"?svg.nextElementSibling:null;
   if(!img&&!src)return;
   if(!img){img=document.createElement("img");img.alt="";img.className=svg.getAttribute("class").replace("crest","crestimg").replace("crestimgbig","crestbig");svg.after(img);}
-  if(src){img.onerror=()=>{img.hidden=true;svg.hidden=false};img.src=src;img.hidden=false;svg.hidden=true;}
-  else{img.hidden=true;svg.hidden=false;}
+  /* SVG elements have no .hidden property, so toggle the attribute */
+  if(src){img.onerror=()=>{img.hidden=true;svg.removeAttribute("hidden")};img.src=src;img.hidden=false;svg.setAttribute("hidden","");}
+  else{img.hidden=true;svg.removeAttribute("hidden");}
 }
 function renderClub(){
   const c=DATA.club||{};
-  swapCrest($("#crestSvg"),c.logo);
-  swapCrest($("#crestSvgF"),c.logo);
-  swapCrest($("#heroCrestSvg"),c.logo);
-  if(c.logo){const f=document.querySelector("link[rel=icon]");if(f)f.href=c.logo;}
+  const logo=clubLogo();
+  swapCrest($("#crestSvg"),logo);
+  swapCrest($("#crestSvgF"),logo);
+  swapCrest($("#heroCrestSvg"),logo);
+  swapCrest($("#agCrest"),logo);
+  const fav=document.querySelector("link[rel=icon]");if(fav)fav.href=logo;
   $("#heroBg").innerHTML=c.heroImg?`<img src="${esc(c.heroImg)}" alt="">`:"";
   const ht=pick(c.heroSq,c.heroEn);
   $("#hero-title").innerHTML=esc(ht).replace(/\//g,"<br>");
