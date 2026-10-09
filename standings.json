@@ -3,6 +3,18 @@
   "source": "https://ffk-kosova.com/garat/Albi-Mall-superliga",
   "rows": [
     {
+      "team": "Malisheva",
+      "p": 8,
+      "w": 6,
+      "d": 1,
+      "l": 1,
+      "gs": 20,
+      "ga": 6,
+      "gd": 14,
+      "pts": 19,
+      "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278182260_FC_Malisheva.png"
+    },
+    {
       "team": "Prishtina",
       "p": 6,
       "w": 6,
@@ -13,18 +25,6 @@
       "gd": 14,
       "pts": 18,
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278192536_PRISHTINA.png"
-    },
-    {
-      "team": "Malisheva",
-      "p": 7,
-      "w": 5,
-      "d": 1,
-      "l": 1,
-      "gs": 19,
-      "ga": 6,
-      "gd": 13,
-      "pts": 16,
-      "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278182260_FC_Malisheva.png"
     },
     {
       "team": "Ballkani",
@@ -51,18 +51,6 @@
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278044364_Dukagjini.png"
     },
     {
-      "team": "Drita",
-      "p": 6,
-      "w": 3,
-      "d": 2,
-      "l": 1,
-      "gs": 8,
-      "ga": 5,
-      "gd": 3,
-      "pts": 11,
-      "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278014805_FC_Drita_Logo.png"
-    },
-    {
       "team": "Gjilani",
       "p": 7,
       "w": 3,
@@ -73,6 +61,18 @@
       "gd": 2,
       "pts": 11,
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278076133_SC_Gjilani_logo.webp"
+    },
+    {
+      "team": "Drita",
+      "p": 7,
+      "w": 3,
+      "d": 2,
+      "l": 2,
+      "gs": 8,
+      "ga": 6,
+      "gd": 2,
+      "pts": 11,
+      "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278014805_FC_Drita_Logo.png"
     },
     {
       "team": "Drenica",
