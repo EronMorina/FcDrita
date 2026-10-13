@@ -27,6 +27,18 @@
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278192536_PRISHTINA.png"
     },
     {
+      "team": "Gjilani",
+      "p": 9,
+      "w": 4,
+      "d": 2,
+      "l": 3,
+      "gs": 13,
+      "ga": 9,
+      "gd": 4,
+      "pts": 14,
+      "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278076133_SC_Gjilani_logo.webp"
+    },
+    {
       "team": "Drita",
       "p": 8,
       "w": 4,
@@ -63,26 +75,14 @@
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755277999904_FC_Ballkani.png"
     },
     {
-      "team": "Gjilani",
-      "p": 8,
-      "w": 3,
-      "d": 2,
-      "l": 3,
-      "gs": 10,
-      "ga": 9,
-      "gd": 1,
-      "pts": 11,
-      "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278076133_SC_Gjilani_logo.webp"
-    },
-    {
       "team": "Drenica",
-      "p": 8,
+      "p": 9,
       "w": 2,
       "d": 4,
-      "l": 2,
+      "l": 3,
       "gs": 11,
-      "ga": 9,
-      "gd": 2,
+      "ga": 12,
+      "gd": -1,
       "pts": 10,
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278031322_DRENICA.jpeg"
     },
