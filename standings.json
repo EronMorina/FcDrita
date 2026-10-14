@@ -88,26 +88,26 @@
     },
     {
       "team": "Feronikeli 74",
-      "p": 8,
+      "p": 9,
       "w": 2,
-      "d": 1,
+      "d": 2,
       "l": 5,
       "gs": 7,
       "ga": 15,
       "gd": -8,
-      "pts": 7,
+      "pts": 8,
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1787042218209_1755279124658_FC_Feronikeli.png"
     },
     {
       "team": "Llapi",
-      "p": 8,
+      "p": 9,
       "w": 1,
-      "d": 0,
+      "d": 1,
       "l": 7,
       "gs": 8,
       "ga": 22,
       "gd": -14,
-      "pts": 3,
+      "pts": 4,
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278089523_FC_Llapi.png"
     },
     {
