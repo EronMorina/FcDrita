@@ -27,6 +27,18 @@
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278192536_PRISHTINA.png"
     },
     {
+      "team": "Gjilani",
+      "p": 10,
+      "w": 5,
+      "d": 2,
+      "l": 3,
+      "gs": 14,
+      "ga": 9,
+      "gd": 5,
+      "pts": 17,
+      "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278076133_SC_Gjilani_logo.webp"
+    },
+    {
       "team": "Drita",
       "p": 9,
       "w": 5,
@@ -49,18 +61,6 @@
       "gd": 4,
       "pts": 16,
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278044364_Dukagjini.png"
-    },
-    {
-      "team": "Gjilani",
-      "p": 9,
-      "w": 4,
-      "d": 2,
-      "l": 3,
-      "gs": 13,
-      "ga": 9,
-      "gd": 4,
-      "pts": 14,
-      "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278076133_SC_Gjilani_logo.webp"
     },
     {
       "team": "Ballkani",
@@ -88,13 +88,13 @@
     },
     {
       "team": "Feronikeli 74",
-      "p": 9,
+      "p": 10,
       "w": 2,
       "d": 2,
-      "l": 5,
+      "l": 6,
       "gs": 7,
-      "ga": 15,
-      "gd": -8,
+      "ga": 16,
+      "gd": -9,
       "pts": 8,
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1787042218209_1755279124658_FC_Feronikeli.png"
     },
