@@ -4,14 +4,14 @@
   "rows": [
     {
       "team": "Malisheva",
-      "p": 9,
-      "w": 6,
+      "p": 10,
+      "w": 7,
       "d": 2,
       "l": 1,
-      "gs": 21,
-      "ga": 7,
-      "gd": 14,
-      "pts": 20,
+      "gs": 23,
+      "ga": 8,
+      "gd": 15,
+      "pts": 23,
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278182260_FC_Malisheva.png"
     },
     {
@@ -112,13 +112,13 @@
     },
     {
       "team": "Vushtrria",
-      "p": 9,
+      "p": 10,
       "w": 1,
       "d": 0,
-      "l": 8,
-      "gs": 4,
-      "ga": 21,
-      "gd": -17,
+      "l": 9,
+      "gs": 5,
+      "ga": 23,
+      "gd": -18,
       "pts": 3,
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755279435480_Vushtrria.png"
     }
