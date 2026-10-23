@@ -28,14 +28,14 @@
     },
     {
       "team": "Gjilani",
-      "p": 10,
+      "p": 11,
       "w": 5,
-      "d": 2,
+      "d": 3,
       "l": 3,
-      "gs": 14,
-      "ga": 9,
+      "gs": 15,
+      "ga": 10,
       "gd": 5,
-      "pts": 17,
+      "pts": 18,
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278076133_SC_Gjilani_logo.webp"
     },
     {
@@ -100,14 +100,14 @@
     },
     {
       "team": "Llapi",
-      "p": 10,
+      "p": 11,
       "w": 1,
-      "d": 1,
+      "d": 2,
       "l": 8,
-      "gs": 9,
-      "ga": 24,
+      "gs": 10,
+      "ga": 25,
       "gd": -15,
-      "pts": 4,
+      "pts": 5,
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278089523_FC_Llapi.png"
     },
     {
