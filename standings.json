@@ -4,14 +4,14 @@
   "rows": [
     {
       "team": "Malisheva",
-      "p": 10,
-      "w": 7,
+      "p": 11,
+      "w": 8,
       "d": 2,
       "l": 1,
-      "gs": 23,
+      "gs": 25,
       "ga": 8,
-      "gd": 15,
-      "pts": 23,
+      "gd": 17,
+      "pts": 26,
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278182260_FC_Malisheva.png"
     },
     {
@@ -76,13 +76,13 @@
     },
     {
       "team": "Drenica",
-      "p": 10,
+      "p": 11,
       "w": 2,
       "d": 5,
-      "l": 3,
+      "l": 4,
       "gs": 12,
-      "ga": 13,
-      "gd": -1,
+      "ga": 15,
+      "gd": -3,
       "pts": 11,
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278031322_DRENICA.jpeg"
     },
