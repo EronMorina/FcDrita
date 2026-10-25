@@ -16,15 +16,27 @@
     },
     {
       "team": "Prishtina",
-      "p": 9,
+      "p": 10,
       "w": 7,
       "d": 2,
-      "l": 0,
+      "l": 1,
       "gs": 20,
-      "ga": 5,
-      "gd": 15,
+      "ga": 8,
+      "gd": 12,
       "pts": 23,
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278192536_PRISHTINA.png"
+    },
+    {
+      "team": "Drita",
+      "p": 10,
+      "w": 6,
+      "d": 2,
+      "l": 2,
+      "gs": 14,
+      "ga": 7,
+      "gd": 7,
+      "pts": 20,
+      "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278014805_FC_Drita_Logo.png"
     },
     {
       "team": "Gjilani",
@@ -39,26 +51,14 @@
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278076133_SC_Gjilani_logo.webp"
     },
     {
-      "team": "Drita",
-      "p": 9,
-      "w": 5,
-      "d": 2,
-      "l": 2,
-      "gs": 11,
-      "ga": 7,
-      "gd": 4,
-      "pts": 17,
-      "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278014805_FC_Drita_Logo.png"
-    },
-    {
       "team": "Dukagjini",
-      "p": 10,
+      "p": 11,
       "w": 4,
       "d": 5,
-      "l": 1,
+      "l": 2,
       "gs": 10,
-      "ga": 6,
-      "gd": 4,
+      "ga": 9,
+      "gd": 1,
       "pts": 17,
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278044364_Dukagjini.png"
     },
@@ -88,14 +88,14 @@
     },
     {
       "team": "Feronikeli 74",
-      "p": 10,
-      "w": 2,
+      "p": 11,
+      "w": 3,
       "d": 2,
       "l": 6,
-      "gs": 7,
+      "gs": 10,
       "ga": 16,
-      "gd": -9,
-      "pts": 8,
+      "gd": -6,
+      "pts": 11,
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1787042218209_1755279124658_FC_Feronikeli.png"
     },
     {
