@@ -64,14 +64,14 @@
     },
     {
       "team": "Ballkani",
-      "p": 10,
-      "w": 4,
+      "p": 11,
+      "w": 5,
       "d": 1,
       "l": 5,
-      "gs": 10,
+      "gs": 13,
       "ga": 10,
-      "gd": 0,
-      "pts": 13,
+      "gd": 3,
+      "pts": 16,
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755277999904_FC_Ballkani.png"
     },
     {
@@ -112,13 +112,13 @@
     },
     {
       "team": "Vushtrria",
-      "p": 10,
+      "p": 11,
       "w": 1,
       "d": 0,
-      "l": 9,
+      "l": 10,
       "gs": 5,
-      "ga": 23,
-      "gd": -18,
+      "ga": 26,
+      "gd": -21,
       "pts": 3,
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755279435480_Vushtrria.png"
     }
