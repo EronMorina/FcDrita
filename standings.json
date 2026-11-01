@@ -4,14 +4,14 @@
   "rows": [
     {
       "team": "Malisheva",
-      "p": 11,
+      "p": 12,
       "w": 8,
-      "d": 2,
+      "d": 3,
       "l": 1,
       "gs": 25,
       "ga": 8,
       "gd": 17,
-      "pts": 26,
+      "pts": 27,
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278182260_FC_Malisheva.png"
     },
     {
@@ -76,14 +76,14 @@
     },
     {
       "team": "Feronikeli 74",
-      "p": 11,
+      "p": 12,
       "w": 3,
-      "d": 2,
+      "d": 3,
       "l": 6,
       "gs": 10,
       "ga": 16,
       "gd": -6,
-      "pts": 11,
+      "pts": 12,
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1787042218209_1755279124658_FC_Feronikeli.png"
     },
     {
