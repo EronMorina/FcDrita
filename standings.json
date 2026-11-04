@@ -3,6 +3,18 @@
   "source": "https://ffk-kosova.com/garat/Albi-Mall-superliga",
   "rows": [
     {
+      "team": "Prishtina",
+      "p": 12,
+      "w": 9,
+      "d": 2,
+      "l": 1,
+      "gs": 23,
+      "ga": 9,
+      "gd": 14,
+      "pts": 29,
+      "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278192536_PRISHTINA.png"
+    },
+    {
       "team": "Malisheva",
       "p": 12,
       "w": 8,
@@ -15,26 +27,14 @@
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278182260_FC_Malisheva.png"
     },
     {
-      "team": "Prishtina",
-      "p": 11,
-      "w": 8,
-      "d": 2,
-      "l": 1,
-      "gs": 21,
-      "ga": 8,
-      "gd": 13,
-      "pts": 26,
-      "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278192536_PRISHTINA.png"
-    },
-    {
       "team": "Drita",
-      "p": 11,
+      "p": 12,
       "w": 7,
       "d": 2,
-      "l": 2,
-      "gs": 17,
-      "ga": 8,
-      "gd": 9,
+      "l": 3,
+      "gs": 18,
+      "ga": 10,
+      "gd": 8,
       "pts": 23,
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278014805_FC_Drita_Logo.png"
     },
