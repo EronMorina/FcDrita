@@ -4,14 +4,14 @@
   "rows": [
     {
       "team": "Prishtina",
-      "p": 12,
-      "w": 9,
+      "p": 13,
+      "w": 10,
       "d": 2,
       "l": 1,
-      "gs": 23,
-      "ga": 9,
-      "gd": 14,
-      "pts": 29,
+      "gs": 25,
+      "ga": 10,
+      "gd": 15,
+      "pts": 32,
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278192536_PRISHTINA.png"
     },
     {
@@ -28,14 +28,14 @@
     },
     {
       "team": "Drita",
-      "p": 12,
+      "p": 13,
       "w": 7,
-      "d": 2,
+      "d": 3,
       "l": 3,
-      "gs": 18,
-      "ga": 10,
+      "gs": 19,
+      "ga": 11,
       "gd": 8,
-      "pts": 23,
+      "pts": 24,
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278014805_FC_Drita_Logo.png"
     },
     {
@@ -88,14 +88,14 @@
     },
     {
       "team": "Drenica",
-      "p": 12,
+      "p": 13,
       "w": 2,
-      "d": 5,
+      "d": 6,
       "l": 5,
-      "gs": 12,
-      "ga": 19,
+      "gs": 13,
+      "ga": 20,
       "gd": -7,
-      "pts": 11,
+      "pts": 12,
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278031322_DRENICA.jpeg"
     },
     {
@@ -112,13 +112,13 @@
     },
     {
       "team": "Vushtrria",
-      "p": 12,
+      "p": 13,
       "w": 1,
       "d": 0,
-      "l": 11,
-      "gs": 6,
-      "ga": 29,
-      "gd": -23,
+      "l": 12,
+      "gs": 7,
+      "ga": 31,
+      "gd": -24,
       "pts": 3,
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755279435480_Vushtrria.png"
     }
