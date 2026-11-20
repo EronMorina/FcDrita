@@ -4,14 +4,14 @@
   "rows": [
     {
       "team": "Prishtina",
-      "p": 13,
-      "w": 10,
+      "p": 14,
+      "w": 11,
       "d": 2,
       "l": 1,
-      "gs": 25,
+      "gs": 28,
       "ga": 10,
-      "gd": 15,
-      "pts": 32,
+      "gd": 18,
+      "pts": 35,
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278192536_PRISHTINA.png"
     },
     {
@@ -88,13 +88,13 @@
     },
     {
       "team": "Drenica",
-      "p": 13,
+      "p": 14,
       "w": 2,
       "d": 6,
-      "l": 5,
+      "l": 6,
       "gs": 13,
-      "ga": 20,
-      "gd": -7,
+      "ga": 23,
+      "gd": -10,
       "pts": 12,
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278031322_DRENICA.jpeg"
     },
