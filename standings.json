@@ -16,13 +16,13 @@
     },
     {
       "team": "Malisheva",
-      "p": 14,
+      "p": 15,
       "w": 9,
       "d": 3,
-      "l": 2,
-      "gs": 29,
-      "ga": 12,
-      "gd": 17,
+      "l": 3,
+      "gs": 31,
+      "ga": 15,
+      "gd": 16,
       "pts": 30,
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278182260_FC_Malisheva.png"
     },
@@ -87,6 +87,18 @@
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1787042218209_1755279124658_FC_Feronikeli.png"
     },
     {
+      "team": "Llapi",
+      "p": 15,
+      "w": 4,
+      "d": 2,
+      "l": 9,
+      "gs": 18,
+      "ga": 29,
+      "gd": -11,
+      "pts": 14,
+      "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278089523_FC_Llapi.png"
+    },
+    {
       "team": "Drenica",
       "p": 14,
       "w": 2,
@@ -97,18 +109,6 @@
       "gd": -10,
       "pts": 12,
       "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278031322_DRENICA.jpeg"
-    },
-    {
-      "team": "Llapi",
-      "p": 14,
-      "w": 3,
-      "d": 2,
-      "l": 9,
-      "gs": 15,
-      "ga": 27,
-      "gd": -12,
-      "pts": 11,
-      "logo": "https://s3.eu-central-1.amazonaws.com/ffk-prod/Teams/1755278089523_FC_Llapi.png"
     },
     {
       "team": "Vushtrria",
